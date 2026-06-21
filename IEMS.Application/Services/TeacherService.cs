@@ -74,7 +74,15 @@ public class TeacherService
         {
             FirstName = teacherDto.FirstName,
             LastName = teacherDto.LastName,
-            EmployeeId = teacherDto.EmployeeId
+            EmployeeId = teacherDto.EmployeeId,
+            PhoneNumber = teacherDto.PhoneNumber,
+            Address = teacherDto.Address,
+            JoiningDate = teacherDto.JoiningDate,
+            MonthlySalary = teacherDto.MonthlySalary,
+            Email = teacherDto.Email,
+            BankAccountNumber = teacherDto.BankAccountNumber,
+            AadharNumber = teacherDto.AadharNumber,
+            PANNumber = teacherDto.PANNumber
         };
 
         return await _teacherRepository.AddAsync(teacher);
@@ -88,6 +96,14 @@ public class TeacherService
             teacher.FirstName = teacherDto.FirstName;
             teacher.LastName = teacherDto.LastName;
             teacher.EmployeeId = teacherDto.EmployeeId;
+            teacher.PhoneNumber = teacherDto.PhoneNumber;
+            teacher.Address = teacherDto.Address;
+            teacher.JoiningDate = teacherDto.JoiningDate;
+            teacher.MonthlySalary = teacherDto.MonthlySalary;
+            teacher.Email = teacherDto.Email;
+            teacher.BankAccountNumber = teacherDto.BankAccountNumber;
+            teacher.AadharNumber = teacherDto.AadharNumber;
+            teacher.PANNumber = teacherDto.PANNumber;
             teacher.UpdatedAt = DateTime.UtcNow;
 
             await _teacherRepository.UpdateAsync(teacher);

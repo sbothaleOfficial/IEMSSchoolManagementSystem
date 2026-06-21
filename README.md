@@ -149,7 +149,7 @@ IEMS (Inspire English Medium School) Management System is a feature-rich desktop
    dotnet run --project IEMS.WPF/IEMS.WPF.csproj
    ```
 
-4. **Login** with default credentials: `admin` / `Admin@123`
+4. **Login** with default credentials: `admin` / `admin123`
    - Database is created automatically on first run
    - Change the default password immediately
 

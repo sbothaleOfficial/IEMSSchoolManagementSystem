@@ -15,19 +15,19 @@ ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 
 [Files]
-Source: "IEMS_Release_Package\IEMS.WPF.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "IEMS_Release_Package\IEMS.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "IEMS_Release_Package\*.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "IEMS_Release_Package\INSTALLATION_INSTRUCTIONS.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 [Icons]
-Name: "{group}\IEMS School Management"; Filename: "{app}\IEMS.WPF.exe"
-Name: "{commondesktop}\IEMS School Management"; Filename: "{app}\IEMS.WPF.exe"; Tasks: desktopicon
+Name: "{group}\IEMS School Management"; Filename: "{app}\IEMS.exe"
+Name: "{commondesktop}\IEMS School Management"; Filename: "{app}\IEMS.exe"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
 
 [Run]
-Filename: "{app}\IEMS.WPF.exe"; Description: "Launch IEMS School Management System"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\IEMS.exe"; Description: "Launch IEMS School Management System"; Flags: nowait postinstall skipifsilent
 
 [Code]
 procedure CurStepChanged(CurStep: TSetupStep);
@@ -37,7 +37,7 @@ begin
     MsgBox('Installation completed successfully!' + #13#10 + #13#10 +
            'Default Login:' + #13#10 +
            'Username: admin' + #13#10 +
-           'Password: Admin@123' + #13#10 + #13#10 +
+           'Password: admin123' + #13#10 + #13#10 +
            'IMPORTANT: Change the default password after first login!', mbInformation, MB_OK);
   end;
 end;

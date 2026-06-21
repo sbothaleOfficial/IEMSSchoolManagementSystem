@@ -9,7 +9,7 @@ echo.
 cd /d "%~dp0"
 
 echo Stopping any running instances...
-taskkill /F /IM "IEMS.WPF.exe" >nul 2>&1
+taskkill /F /IM "IEMS.exe" >nul 2>&1
 
 echo.
 echo Waiting for processes to close...
@@ -27,7 +27,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo.
 echo Starting application...
-start "" "publish\IEMS.WPF.exe"
+start "" "publish\IEMS.exe"
 
 echo.
 echo Application started! Check for the window.
