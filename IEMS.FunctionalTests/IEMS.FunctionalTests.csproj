@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AssemblyName>IEMS.FunctionalTests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IEMS.Core\IEMS.Core.csproj" />
+    <ProjectReference Include="..\IEMS.Application\IEMS.Application.csproj" />
+    <ProjectReference Include="..\IEMS.Infrastructure\IEMS.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
