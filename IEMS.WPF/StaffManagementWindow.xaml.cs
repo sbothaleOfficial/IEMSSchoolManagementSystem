@@ -756,6 +756,24 @@ public partial class StaffManagementWindow : Window
                 return;
             }
 
+            // Validate the salary maths before producing an official payslip.
+            decimal.TryParse(txtBasicSalary.Text.Replace("₹", "").Replace(",", ""), out var basic);
+            decimal.TryParse(txtAdvanceSalary.Text, out var advanceAmt);
+            decimal.TryParse(txtLoanDeduction.Text, out var loanAmt);
+
+            if (advanceAmt < 0 || loanAmt < 0)
+            {
+                MessageBox.Show("Advance and loan deductions cannot be negative.", "Invalid Deductions", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (advanceAmt + loanAmt > basic)
+            {
+                MessageBox.Show($"Total deductions (₹{advanceAmt + loanAmt:N0}) exceed the basic salary (₹{basic:N0}). " +
+                                "Net salary cannot be negative on a payslip.", "Invalid Deductions", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             GeneratePayslipPreview();
             lblStatus.Text = "Payslip generated successfully";
         }
