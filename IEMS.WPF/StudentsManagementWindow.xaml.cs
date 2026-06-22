@@ -811,44 +811,28 @@ public partial class StudentsManagementWindow : Window
         if (_allStudents == null || !_allStudents.Any() || _allClasses == null || !_allClasses.Any())
             return;
 
+        // Snapshot the in-memory collections so the background thread reads stable lists.
+        var students = _allStudents.ToList();
+        var classes = _allClasses.ToList();
+
         try
         {
-            await Task.Run(() =>
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    // Calculate overall statistics
-                    var totalStudents = _allStudents.Count;
-                    var maleStudents = _allStudents.Count(s => s.Gender.Equals("Male", StringComparison.OrdinalIgnoreCase));
-                    var femaleStudents = _allStudents.Count(s => s.Gender.Equals("Female", StringComparison.OrdinalIgnoreCase));
-                    var totalClasses = _allClasses.Count;
+            // Compute all statistics OFF the UI thread so the dashboard stays responsive even
+            // for large schools (thousands of students). Only the final assignment to controls
+            // runs on the UI thread — the awaited continuation resumes on the captured UI context.
+            var stats = await Task.Run(() => ComputeDashboardStats(students, classes));
 
-                    // Update dashboard cards
-                    lblTotalStudents.Text = totalStudents.ToString();
-                    lblMaleStudents.Text = maleStudents.ToString();
-                    lblFemaleStudents.Text = femaleStudents.ToString();
-                    lblTotalClasses.Text = totalClasses.ToString();
+            lblTotalStudents.Text = stats.Total.ToString();
+            lblMaleStudents.Text = stats.Male.ToString();
+            lblFemaleStudents.Text = stats.Female.ToString();
+            lblTotalClasses.Text = stats.Classes.ToString();
+            lblBPLStudents.Text = stats.Bpl.ToString();
+            lblSemiEnglishStudents.Text = stats.SemiEnglish.ToString();
 
-                    // Calculate additional statistics
-                    var bplStudents = _allStudents.Count(s => s.IsBPL);
-                    var semiEnglishStudents = _allStudents.Count(s => s.IsSemiEnglish);
-
-                    lblBPLStudents.Text = bplStudents.ToString();
-                    lblSemiEnglishStudents.Text = semiEnglishStudents.ToString();
-
-                    // Generate class-wise statistics
-                    LoadClassWiseStatistics();
-
-                    // Generate religion-wise statistics
-                    LoadReligionWiseStatistics();
-
-                    // Generate caste category statistics
-                    LoadCasteWiseStatistics();
-
-                    // Generate city/village statistics
-                    LoadCityVillageWiseStatistics();
-                });
-            });
+            dgClassStats.ItemsSource = stats.ClassStats;
+            dgReligionStats.ItemsSource = stats.ReligionStats;
+            dgCasteStats.ItemsSource = stats.CasteStats;
+            dgCityVillageStats.ItemsSource = stats.CityStats;
         }
         catch (Exception ex)
         {
@@ -856,78 +840,92 @@ public partial class StudentsManagementWindow : Window
         }
     }
 
-    private void LoadClassWiseStatistics()
+    // Pure, UI-free aggregation so it can run on a background thread. Returns plain data;
+    // the caller assigns it to controls on the UI thread. Gender comparisons are null-safe
+    // (string.Equals handles a null left operand instead of throwing).
+    private static DashboardStats ComputeDashboardStats(List<StudentDto> students, List<ClassDto> classes)
     {
-        var classStats = new List<dynamic>();
+        bool IsMale(StudentDto s) => string.Equals(s.Gender, "Male", StringComparison.OrdinalIgnoreCase);
+        bool IsFemale(StudentDto s) => string.Equals(s.Gender, "Female", StringComparison.OrdinalIgnoreCase);
 
-        foreach (var classDto in _allClasses.OrderBy(c => c.Name))
-        {
-            var studentsInClass = _allStudents.Where(s => s.ClassId == classDto.Id).ToList();
-            var totalStudents = studentsInClass.Count;
-            var maleStudents = studentsInClass.Count(s => s.Gender.Equals("Male", StringComparison.OrdinalIgnoreCase));
-            var femaleStudents = studentsInClass.Count(s => s.Gender.Equals("Female", StringComparison.OrdinalIgnoreCase));
-
-            classStats.Add(new
+        var classStats = classes
+            .OrderBy(c => c.Name)
+            .Select(c =>
             {
-                ClassName = classDto.DisplayName,
-                TotalStudents = totalStudents,
-                MaleStudents = maleStudents,
-                FemaleStudents = femaleStudents
-            });
-        }
+                var inClass = students.Where(s => s.ClassId == c.Id).ToList();
+                return new
+                {
+                    ClassName = c.DisplayName,
+                    TotalStudents = inClass.Count,
+                    MaleStudents = inClass.Count(IsMale),
+                    FemaleStudents = inClass.Count(IsFemale)
+                };
+            })
+            .ToList();
 
-        dgClassStats.ItemsSource = classStats;
-    }
-
-    private void LoadReligionWiseStatistics()
-    {
-        var religionStats = _allStudents
+        var religionStats = students
             .GroupBy(s => s.Religion)
             .Select(g => new
             {
                 Religion = string.IsNullOrEmpty(g.Key) ? "Not Specified" : g.Key,
                 Count = g.Count(),
-                MaleCount = g.Count(s => s.Gender.Equals("Male", StringComparison.OrdinalIgnoreCase)),
-                FemaleCount = g.Count(s => s.Gender.Equals("Female", StringComparison.OrdinalIgnoreCase))
+                MaleCount = g.Count(IsMale),
+                FemaleCount = g.Count(IsFemale)
             })
             .OrderByDescending(x => x.Count)
             .ToList();
 
-        dgReligionStats.ItemsSource = religionStats;
-    }
-
-    private void LoadCasteWiseStatistics()
-    {
-        var casteStats = _allStudents
+        var casteStats = students
             .GroupBy(s => s.CasteCategory)
             .Select(g => new
             {
                 Category = string.IsNullOrEmpty(g.Key) ? "Not Specified" : g.Key,
                 Count = g.Count(),
-                MaleCount = g.Count(s => s.Gender.Equals("Male", StringComparison.OrdinalIgnoreCase)),
-                FemaleCount = g.Count(s => s.Gender.Equals("Female", StringComparison.OrdinalIgnoreCase))
+                MaleCount = g.Count(IsMale),
+                FemaleCount = g.Count(IsFemale)
             })
             .OrderByDescending(x => x.Count)
             .ToList();
 
-        dgCasteStats.ItemsSource = casteStats;
-    }
-
-    private void LoadCityVillageWiseStatistics()
-    {
-        var cityVillageStats = _allStudents
+        var cityStats = students
             .GroupBy(s => s.CityVillage)
             .Select(g => new
             {
                 CityVillage = string.IsNullOrEmpty(g.Key) ? "Not Specified" : g.Key,
                 Count = g.Count(),
-                MaleCount = g.Count(s => s.Gender.Equals("Male", StringComparison.OrdinalIgnoreCase)),
-                FemaleCount = g.Count(s => s.Gender.Equals("Female", StringComparison.OrdinalIgnoreCase))
+                MaleCount = g.Count(IsMale),
+                FemaleCount = g.Count(IsFemale)
             })
             .OrderByDescending(x => x.Count)
             .ToList();
 
-        dgCityVillageStats.ItemsSource = cityVillageStats;
+        return new DashboardStats
+        {
+            Total = students.Count,
+            Male = students.Count(IsMale),
+            Female = students.Count(IsFemale),
+            Classes = classes.Count,
+            Bpl = students.Count(s => s.IsBPL),
+            SemiEnglish = students.Count(s => s.IsSemiEnglish),
+            ClassStats = classStats,
+            ReligionStats = religionStats,
+            CasteStats = casteStats,
+            CityStats = cityStats
+        };
+    }
+
+    private sealed class DashboardStats
+    {
+        public int Total { get; set; }
+        public int Male { get; set; }
+        public int Female { get; set; }
+        public int Classes { get; set; }
+        public int Bpl { get; set; }
+        public int SemiEnglish { get; set; }
+        public System.Collections.IEnumerable ClassStats { get; set; } = System.Array.Empty<object>();
+        public System.Collections.IEnumerable ReligionStats { get; set; } = System.Array.Empty<object>();
+        public System.Collections.IEnumerable CasteStats { get; set; } = System.Array.Empty<object>();
+        public System.Collections.IEnumerable CityStats { get; set; } = System.Array.Empty<object>();
     }
 
     // Leaving Certificate Event Handlers

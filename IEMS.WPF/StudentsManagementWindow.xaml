@@ -89,105 +89,107 @@
                             </Border>
                         </UniformGrid>
 
-                        <!-- Class-wise Statistics -->
-                        <TextBlock Grid.Row="2" Text="🏫 Class-wise Breakdown" FontSize="18" FontWeight="Bold"
+                        <!-- Detailed Breakdown -->
+                        <TextBlock Grid.Row="2" Text="📊 Detailed Breakdown" FontSize="18" FontWeight="Bold"
                                    Margin="0,0,0,15" Foreground="{StaticResource TextPrimaryBrush}"/>
 
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <!-- Class-wise Total Count -->
-                            <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}" CornerRadius="10"
-                                    Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                                <StackPanel Margin="15">
-                                    <TextBlock Text="📈 Students per Class" FontSize="14" FontWeight="Bold"
-                                               Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                    <DataGrid x:Name="dgClassStats" AutoGenerateColumns="False" HeadersVisibility="Column"
-                                              CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
-                                              GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
-                                              RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Class" Binding="{Binding ClassName}" Width="80"/>
-                                            <DataGridTextColumn Header="Total" Binding="{Binding TotalStudents}" Width="60"/>
-                                            <DataGridTextColumn Header="Male" Binding="{Binding MaleStudents}" Width="60"/>
-                                            <DataGridTextColumn Header="Female" Binding="{Binding FemaleStudents}" Width="60"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
+                        <StackPanel Grid.Row="3">
+                            <!-- BPL / Semi-English quick-stats strip -->
+                            <Border Background="{StaticResource SurfaceBrush}" CornerRadius="10" Margin="5,0,5,10"
+                                    BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                <StackPanel Orientation="Horizontal" Margin="15,10">
+                                    <TextBlock Text="🏠 BPL Students:" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <TextBlock x:Name="lblBPLStudents" Text="0" FontWeight="Bold" Margin="6,0,30,0"
+                                               Foreground="{StaticResource SuccessBrush}"/>
+                                    <TextBlock Text="🌐 Semi-English:" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <TextBlock x:Name="lblSemiEnglishStudents" Text="0" FontWeight="Bold" Margin="6,0,0,0"
+                                               Foreground="{StaticResource PrimaryBrush}"/>
                                 </StackPanel>
                             </Border>
 
-                            <!-- Additional Statistics -->
-                            <Border Grid.Column="1" Background="{StaticResource SurfaceBrush}" CornerRadius="10"
-                                    Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                                <StackPanel Margin="15">
-                                    <TextBlock Text="📋 Additional Statistics" FontSize="14" FontWeight="Bold"
-                                               Margin="0,0,0,15" Foreground="{StaticResource TextPrimaryBrush}"/>
-
-                                    <!-- BPL Students -->
-                                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                                        <TextBlock Text="🏠 BPL Students:" Width="120" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <TextBlock x:Name="lblBPLStudents" Text="0" FontWeight="Bold" Foreground="{StaticResource SuccessBrush}"/>
+                            <!-- Balanced 2x2 grid of breakdown tables -->
+                            <UniformGrid Columns="2">
+                                <!-- Students per Class -->
+                                <Border Background="{StaticResource SurfaceBrush}" CornerRadius="10"
+                                        Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                    <StackPanel Margin="15">
+                                        <TextBlock Text="📈 Students per Class" FontSize="14" FontWeight="Bold"
+                                                   Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <DataGrid x:Name="dgClassStats" AutoGenerateColumns="False" HeadersVisibility="Column"
+                                                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" MaxHeight="260"
+                                                  GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
+                                                  RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Class" Binding="{Binding ClassName}" Width="*"/>
+                                                <DataGridTextColumn Header="Total" Binding="{Binding TotalStudents}" Width="60"/>
+                                                <DataGridTextColumn Header="Male" Binding="{Binding MaleStudents}" Width="60"/>
+                                                <DataGridTextColumn Header="Female" Binding="{Binding FemaleStudents}" Width="60"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </StackPanel>
+                                </Border>
 
-                                    <!-- Semi-English Students -->
-                                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                                        <TextBlock Text="🌐 Semi-English:" Width="120" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <TextBlock x:Name="lblSemiEnglishStudents" Text="0" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                                <!-- Religion-wise -->
+                                <Border Background="{StaticResource SurfaceBrush}" CornerRadius="10"
+                                        Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                    <StackPanel Margin="15">
+                                        <TextBlock Text="🕉️ Religion-wise Breakdown" FontSize="14" FontWeight="Bold"
+                                                   Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <DataGrid x:Name="dgReligionStats" AutoGenerateColumns="False" HeadersVisibility="Column"
+                                                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" MaxHeight="260"
+                                                  GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
+                                                  RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Religion" Binding="{Binding Religion}" Width="*"/>
+                                                <DataGridTextColumn Header="Count" Binding="{Binding Count}" Width="60"/>
+                                                <DataGridTextColumn Header="Male" Binding="{Binding MaleCount}" Width="50"/>
+                                                <DataGridTextColumn Header="Female" Binding="{Binding FemaleCount}" Width="50"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </StackPanel>
+                                </Border>
 
-                                    <!-- Religion wise breakdown -->
-                                    <Separator Margin="0,15"/>
-                                    <TextBlock Text="🕉️ Religion-wise Breakdown" FontSize="12" FontWeight="Bold"
-                                               Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                    <DataGrid x:Name="dgReligionStats" AutoGenerateColumns="False" HeadersVisibility="Column"
-                                              CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
-                                              GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
-                                              RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Religion" Binding="{Binding Religion}" Width="100"/>
-                                            <DataGridTextColumn Header="Count" Binding="{Binding Count}" Width="60"/>
-                                            <DataGridTextColumn Header="Male" Binding="{Binding MaleCount}" Width="50"/>
-                                            <DataGridTextColumn Header="Female" Binding="{Binding FemaleCount}" Width="50"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
+                                <!-- Caste Category -->
+                                <Border Background="{StaticResource SurfaceBrush}" CornerRadius="10"
+                                        Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                    <StackPanel Margin="15">
+                                        <TextBlock Text="📊 Caste Category Breakdown" FontSize="14" FontWeight="Bold"
+                                                   Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <DataGrid x:Name="dgCasteStats" AutoGenerateColumns="False" HeadersVisibility="Column"
+                                                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" MaxHeight="260"
+                                                  GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
+                                                  RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
+                                                <DataGridTextColumn Header="Count" Binding="{Binding Count}" Width="60"/>
+                                                <DataGridTextColumn Header="Male" Binding="{Binding MaleCount}" Width="50"/>
+                                                <DataGridTextColumn Header="Female" Binding="{Binding FemaleCount}" Width="50"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </Border>
 
-                                    <!-- Caste Category breakdown -->
-                                    <Separator Margin="0,15"/>
-                                    <TextBlock Text="📊 Caste Category Breakdown" FontSize="12" FontWeight="Bold"
-                                               Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                    <DataGrid x:Name="dgCasteStats" AutoGenerateColumns="False" HeadersVisibility="Column"
-                                              CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
-                                              GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
-                                              RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="100"/>
-                                            <DataGridTextColumn Header="Count" Binding="{Binding Count}" Width="60"/>
-                                            <DataGridTextColumn Header="Male" Binding="{Binding MaleCount}" Width="50"/>
-                                            <DataGridTextColumn Header="Female" Binding="{Binding FemaleCount}" Width="50"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-
-                                    <!-- City/Village breakdown -->
-                                    <Separator Margin="0,15"/>
-                                    <TextBlock Text="🏘️ City/Village Breakdown" FontSize="12" FontWeight="Bold"
-                                               Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                    <DataGrid x:Name="dgCityVillageStats" AutoGenerateColumns="False" HeadersVisibility="Column"
-                                              CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
-                                              GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
-                                              RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="City/Village" Binding="{Binding CityVillage}" Width="120"/>
-                                            <DataGridTextColumn Header="Count" Binding="{Binding Count}" Width="60"/>
-                                            <DataGridTextColumn Header="Male" Binding="{Binding MaleCount}" Width="50"/>
-                                            <DataGridTextColumn Header="Female" Binding="{Binding FemaleCount}" Width="50"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
-                            </Border>
-                        </Grid>
+                                <!-- City/Village -->
+                                <Border Background="{StaticResource SurfaceBrush}" CornerRadius="10"
+                                        Margin="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                    <StackPanel Margin="15">
+                                        <TextBlock Text="🏘️ City/Village Breakdown" FontSize="14" FontWeight="Bold"
+                                                   Margin="0,0,0,10" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <DataGrid x:Name="dgCityVillageStats" AutoGenerateColumns="False" HeadersVisibility="Column"
+                                                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" MaxHeight="260"
+                                                  GridLinesVisibility="Horizontal" BorderThickness="0" Background="Transparent"
+                                                  RowBackground="Transparent" AlternatingRowBackground="#F8F9FA">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="City/Village" Binding="{Binding CityVillage}" Width="*"/>
+                                                <DataGridTextColumn Header="Count" Binding="{Binding Count}" Width="60"/>
+                                                <DataGridTextColumn Header="Male" Binding="{Binding MaleCount}" Width="50"/>
+                                                <DataGridTextColumn Header="Female" Binding="{Binding FemaleCount}" Width="50"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+                        </StackPanel>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
