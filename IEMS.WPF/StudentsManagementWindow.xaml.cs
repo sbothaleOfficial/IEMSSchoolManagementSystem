@@ -1375,9 +1375,10 @@ public partial class StudentsManagementWindow : Window
                         academicSessionToUse = $"{currentYear}–{nextYear.ToString().Substring(2)}";
                     }
 
-                    // Create both numeric and words format as specified
-                    // Remove 'th' suffix if it already exists in selectedStudent.Standard
-                    var standardNumeric = selectedStudent.Standard.EndsWith("th") ? selectedStudent.Standard : $"{selectedStudent.Standard}th";
+                    // Standard values are already display-formatted in the data
+                    // ("Nursery", "KG1", "1st", "2nd", "10th"), so use them as-is. The old
+                    // code blindly appended "th", producing "Nurseryth", "1stth", "2ndth".
+                    var standardNumeric = selectedStudent.Standard;
                     var numericFormat = $"{standardNumeric} — Academic Session {academicSessionToUse}";
                     var wordsFormat = $"Class {standardWords} — Academic Session {ConvertAcademicSessionToWords(academicSessionToUse)}";
 
@@ -1741,6 +1742,15 @@ public partial class StudentsManagementWindow : Window
             {"11", "Eleventh"},
             {"12", "Twelfth"}
         };
+
+        if (string.IsNullOrWhiteSpace(standard)) return standard ?? string.Empty;
+
+        // Data stores standards as "1st", "2nd", "10th", "Nursery", "KG1" — normalise the
+        // leading digits ("1st" -> "1") so the map actually resolves; fall back to the
+        // original text for non-numeric standards (Nursery/KG).
+        var digits = new string(standard.TakeWhile(char.IsDigit).ToArray());
+        if (!string.IsNullOrEmpty(digits) && standardMap.ContainsKey(digits))
+            return standardMap[digits];
 
         return standardMap.ContainsKey(standard) ? standardMap[standard] : standard;
     }
