@@ -1897,19 +1897,6 @@ public partial class StudentsManagementWindow : Window
         return classOrder.TryGetValue(className, out var order) ? order : 99;
     }
 
-    private int GetClassIdByName(string className)
-    {
-        // Simple mapping of class names to IDs
-        var classMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
-        {
-            {"Nursery", 1}, {"KG1", 2}, {"KG2", 3},
-            {"Class 1", 4}, {"Class 2", 5}, {"Class 3", 6}, {"Class 4", 7}, {"Class 5", 8},
-            {"Class 6", 9}, {"Class 7", 10}, {"Class 8", 11}, {"Class 9", 12}, {"Class 10", 13}
-        };
-
-        return classMap.TryGetValue(className, out var id) ? id : -1;
-    }
-
     private void CmbPromotionFromClass_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         ValidatePromotionInputs();
@@ -1999,13 +1986,26 @@ public partial class StudentsManagementWindow : Window
             lblStatus.Text = "Executing bulk promotion...";
             btnExecutePromotion.IsEnabled = false;
 
+            // Resolve the selected academic year's Id. The service writes
+            // StudentPromotionHistory.AcademicYearId (a required FK), so passing only the
+            // year string left AcademicYearId at 0 and every UI promotion failed with a
+            // foreign-key violation. Also map Remarks/PromotedBy (the service reads those).
+            var selectedYear = cmbPromotionAcademicYear.SelectedItem as AcademicYearDto;
+            if (selectedYear == null)
+            {
+                MessageBox.Show("Please select a valid academic year.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var request = new BulkPromotionRequest
             {
                 FromClassId = fromClassId,
                 ToClassId = toClassId,
-                AcademicYear = cmbPromotionAcademicYear.SelectedValue.ToString(),
+                AcademicYearId = selectedYear.Id,
                 ExcludedStudentIds = new List<int>(), // No exclusions since no preview
-                Reason = "Annual Promotion"
+                Reason = "Annual Promotion",
+                Remarks = "Annual Promotion",
+                PromotedBy = Environment.UserName
             };
 
             var promotionResult = await _bulkPromotionService.ExecuteBulkPromotionAsync(request);
@@ -2013,13 +2013,13 @@ public partial class StudentsManagementWindow : Window
             // Update summary and show results
             if (promotionResult.IsSuccess)
             {
-                txtPromotionSummary.Text = $"✅ Promotion Completed Successfully!\n\nPromoted: {promotionResult.PromotedStudents} students\nFrom: {cmbPromotionFromClass.Text}\nTo: {cmbPromotionToClass.Text}\nAcademic Year: {request.AcademicYear}\nDate: {promotionResult.PromotionDate:yyyy-MM-dd HH:mm:ss}";
+                txtPromotionSummary.Text = $"✅ Promotion Completed Successfully!\n\nPromoted: {promotionResult.PromotedStudents} students\nFrom: {cmbPromotionFromClass.Text}\nTo: {cmbPromotionToClass.Text}\nAcademic Year: {selectedYear.Year}\nDate: {promotionResult.PromotionDate:yyyy-MM-dd HH:mm:ss}";
                 MessageBox.Show($"Bulk promotion completed successfully!\n\nPromoted: {promotionResult.PromotedStudents} students from {cmbPromotionFromClass.Text} to {cmbPromotionToClass.Text}",
                                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                txtPromotionSummary.Text = $"⚠️ Promotion Completed with Errors\n\nPromoted: {promotionResult.PromotedStudents} students\nFailed: {promotionResult.FailedPromotions} students\nFrom: {cmbPromotionFromClass.Text}\nTo: {cmbPromotionToClass.Text}\nAcademic Year: {request.AcademicYear}\nDate: {promotionResult.PromotionDate:yyyy-MM-dd HH:mm:ss}";
+                txtPromotionSummary.Text = $"⚠️ Promotion Completed with Errors\n\nPromoted: {promotionResult.PromotedStudents} students\nFailed: {promotionResult.FailedPromotions} students\nFrom: {cmbPromotionFromClass.Text}\nTo: {cmbPromotionToClass.Text}\nAcademic Year: {selectedYear.Year}\nDate: {promotionResult.PromotionDate:yyyy-MM-dd HH:mm:ss}";
                 var errorDetails = string.Join("\n", promotionResult.Errors.Take(5).Select(e => $"• {e.StudentName}: {e.Error}"));
                 if (promotionResult.Errors.Count > 5)
                     errorDetails += $"\n... and {promotionResult.Errors.Count - 5} more errors";
