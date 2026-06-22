@@ -499,21 +499,24 @@ public partial class StudentsManagementWindow : Window
             filteredStudents = filteredStudents.Where(s => s.ClassId == selectedClassId.Value);
         }
 
-        // Apply text search filter
+        // Apply text search filter. Use a null-safe local matcher so an optional field that
+        // happens to be null (e.g. Address/CityVillage/ParentMobile) can't crash the search.
         if (!string.IsNullOrEmpty(searchText))
         {
+            bool Contains(string? field) => (field ?? string.Empty).ToLower().Contains(searchText);
+
             filteredStudents = filteredStudents.Where(student =>
-                student.FirstName.ToLower().Contains(searchText) ||
-                student.Surname.ToLower().Contains(searchText) ||
-                student.FullName.ToLower().Contains(searchText) ||
-                student.FatherName.ToLower().Contains(searchText) ||
-                student.MotherName.ToLower().Contains(searchText) ||
-                student.StudentNumber.ToLower().Contains(searchText) ||
-                student.ParentMobileNumber.ToLower().Contains(searchText) ||
-                student.Standard.ToLower().Contains(searchText) ||
-                student.ClassDivision.ToLower().Contains(searchText) ||
-                student.Address.ToLower().Contains(searchText) ||
-                student.CityVillage.ToLower().Contains(searchText)
+                Contains(student.FirstName) ||
+                Contains(student.Surname) ||
+                Contains(student.FullName) ||
+                Contains(student.FatherName) ||
+                Contains(student.MotherName) ||
+                Contains(student.StudentNumber) ||
+                Contains(student.ParentMobileNumber) ||
+                Contains(student.Standard) ||
+                Contains(student.ClassDivision) ||
+                Contains(student.Address) ||
+                Contains(student.CityVillage)
             );
         }
 

@@ -356,6 +356,8 @@ await Section("9. FK & delete-guard integrity", async () =>
         await Throws(s => s.GetRequiredService<ClassService>().DeleteClassAsync(1)));
     Check("Cannot delete the current academic year",
         await Throws(s => s.GetRequiredService<AcademicYearService>().DeleteAcademicYearAsync(3)));
+    Check("Cannot delete a student who has fee payments (friendly guard, not raw DB error)",
+        await Throws(s => s.GetRequiredService<StudentService>().DeleteStudentAsync(1)));
 });
 
 // ----- 10. Referential integrity (no orphaned rows) -----

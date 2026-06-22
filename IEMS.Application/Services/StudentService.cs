@@ -1,6 +1,7 @@
 using IEMS.Core.Entities;
 using IEMS.Core.Interfaces;
 using IEMS.Application.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace IEMS.Application.Services;
 
@@ -144,7 +145,19 @@ public class StudentService
 
     public async Task DeleteStudentAsync(int id)
     {
-        await _studentRepository.DeleteAsync(id);
+        try
+        {
+            await _studentRepository.DeleteAsync(id);
+        }
+        catch (DbUpdateException)
+        {
+            // FeePayment and StudentPromotionHistory reference Student with DeleteBehavior.Restrict,
+            // so a student with fee payments or promotion history can't be deleted. Surface a clear
+            // message instead of a raw database error (consistent with Teacher/Class delete guards).
+            throw new InvalidOperationException(
+                "Cannot delete this student because related records exist (fee payments or promotion history). " +
+                "Please remove those records first, or keep the student for historical reference.");
+        }
     }
 
     public async Task<Student?> GetStudentEntityByIdAsync(int id)
