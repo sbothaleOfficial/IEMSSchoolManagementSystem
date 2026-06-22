@@ -798,15 +798,19 @@ namespace IEMS.WPF
         {
             var today = DateTime.Today;
 
+            // toDate must cover the WHOLE last day. Payments store PaymentDate = DateTime.Now
+            // (a real clock time), and expense/bill dates can carry a time too, so a midnight
+            // upper bound (e.g. "June 30 00:00") excluded everything recorded on the last day
+            // of the period. Use the last tick of the day instead.
             if (rbMonthly?.IsChecked == true)
             {
                 fromDate = new DateTime(today.Year, today.Month, 1);
-                toDate = fromDate.AddMonths(1).AddDays(-1);
+                toDate = fromDate.AddMonths(1).AddTicks(-1);
             }
             else if (rbYearly?.IsChecked == true)
             {
                 fromDate = new DateTime(today.Year, 1, 1);
-                toDate = new DateTime(today.Year, 12, 31);
+                toDate = new DateTime(today.Year + 1, 1, 1).AddTicks(-1);
             }
             else // Overall
             {
@@ -818,33 +822,6 @@ namespace IEMS.WPF
         }
 
         #endregion
-
-        /// <summary>
-        /// Calculates the number of months an employee was employed within a given period
-        /// </summary>
-        /// <param name="joiningDate">Employee joining date</param>
-        /// <param name="leavingDate">Employee leaving date (null if still employed)</param>
-        /// <param name="periodStart">Period start date</param>
-        /// <param name="periodEnd">Period end date</param>
-        /// <returns>Number of months as decimal (partial months included)</returns>
-        private decimal CalculateMonthsEmployedInPeriod(DateTime joiningDate, DateTime? leavingDate, DateTime periodStart, DateTime periodEnd)
-        {
-            // Determine the actual employment period within the specified date range
-            var employmentStart = joiningDate > periodStart ? joiningDate : periodStart;
-            var employmentEnd = leavingDate.HasValue && leavingDate.Value < periodEnd ? leavingDate.Value : periodEnd;
-
-            // If employee wasn't employed during this period, return 0
-            if (employmentStart > periodEnd || employmentEnd < periodStart)
-            {
-                return 0;
-            }
-
-            // Calculate the number of months (including partial months)
-            var totalDays = (employmentEnd - employmentStart).Days + 1; // +1 to include both start and end day
-            var months = (decimal)totalDays / 30.0m; // Approximate month as 30 days
-
-            return Math.Max(0, months);
-        }
 
         #endregion
     }
