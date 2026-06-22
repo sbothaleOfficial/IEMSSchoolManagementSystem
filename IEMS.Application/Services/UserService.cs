@@ -49,6 +49,14 @@ namespace IEMS.Application.Services
                 }
 
                 currentUser.LastLogin = DateTime.Now;
+
+                // Transparently upgrade an old/weak password hash to the current policy
+                // (e.g. legacy 10,000-iteration hashes) on a successful login.
+                if (_passwordHashingService.NeedsRehash(currentUser.PasswordHash))
+                {
+                    currentUser.PasswordHash = _passwordHashingService.HashPassword(password);
+                }
+
                 await _userRepository.UpdateAsync(currentUser);
 
                 return currentUser;
