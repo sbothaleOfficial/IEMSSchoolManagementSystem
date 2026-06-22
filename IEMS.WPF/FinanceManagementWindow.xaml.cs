@@ -352,16 +352,20 @@ namespace IEMS.WPF
             {
                 try
                 {
-                    if (sender is Button button && button.Tag is int billId)
-                {
-                    var editWindow = new AddEditElectricityBillWindow(_electricityBillService, billId);
-                    if (editWindow.ShowDialog() == true)
+                    if (dgElectricityBills.SelectedItem is ElectricityBillDto selectedBill)
                     {
-                        await LoadElectricityBills();
-                        await RefreshExpenseDashboard();
-                        lblStatus.Text = "Electricity bill updated successfully";
+                        var editWindow = new AddEditElectricityBillWindow(_electricityBillService, selectedBill.Id);
+                        if (editWindow.ShowDialog() == true)
+                        {
+                            await LoadElectricityBills();
+                            await RefreshExpenseDashboard();
+                            lblStatus.Text = "Electricity bill updated successfully";
+                        }
                     }
-                }
+                    else
+                    {
+                        MessageBox.Show("Please select a bill to edit.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -376,18 +380,22 @@ namespace IEMS.WPF
             {
                 try
                 {
-                    if (sender is Button button && button.Tag is int billId)
+                    if (dgElectricityBills.SelectedItem is ElectricityBillDto selectedBill)
                     {
-                        var result = MessageBox.Show("Are you sure you want to delete this electricity bill?",
+                        var result = MessageBox.Show($"Are you sure you want to delete bill '{selectedBill.BillNumber}'?",
                             "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                         if (result == MessageBoxResult.Yes)
                         {
-                            await _electricityBillService.DeleteAsync(billId);
+                            await _electricityBillService.DeleteAsync(selectedBill.Id);
                             await LoadElectricityBills();
                             await RefreshExpenseDashboard();
                             lblStatus.Text = "Electricity bill deleted successfully";
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a bill to delete.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)
