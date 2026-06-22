@@ -29,6 +29,13 @@ public class StudentDto
     public string CityVillage { get; set; } = string.Empty;
     public string ParentMobileNumber { get; set; } = string.Empty;
     public string? AadhaarNumber { get; set; }
+
+    /// <summary>Blood group (e.g. "O+", "AB-"). Optional but important on an ID card for emergencies.</summary>
+    public string? BloodGroup { get; set; }
+
+    /// <summary>Optional passport-style photo (JPEG/PNG bytes) used on ID cards. Null = no photo.</summary>
+    public byte[]? Photo { get; set; }
+
     public int ClassId { get; set; }
     public string ClassName { get; set; } = string.Empty;
     public decimal OutstandingFees { get; set; }

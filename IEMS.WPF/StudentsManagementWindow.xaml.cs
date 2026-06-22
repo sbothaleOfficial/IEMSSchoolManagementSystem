@@ -751,6 +751,71 @@ public partial class StudentsManagementWindow : Window
         });
     }
 
+    private void BtnGenerateIdCard_Click(object sender, RoutedEventArgs e)
+    {
+        AsyncHelper.SafeFireAndForget(async () =>
+        {
+            try
+            {
+                var selected = dgBonafideStudents.SelectedItems.OfType<StudentDto>().ToList();
+                if (selected.Count == 0)
+                {
+                    toastNotification.Message = "Select one or more students (Ctrl/Shift-click) to print ID cards.";
+                    toastNotification.ToastType = ToastType.Warning;
+                    toastNotification.Show();
+                    return;
+                }
+
+                var cards = new List<IEMS.WPF.Pdf.IdCardData>();
+                foreach (var dto in selected.OrderBy(s => s.SerialNo))
+                {
+                    // Load the full entity so we get the photo BLOB (not carried on list DTOs).
+                    var student = await _studentService.GetStudentEntityByIdAsync(dto.Id);
+                    if (student == null) continue;
+
+                    cards.Add(new IEMS.WPF.Pdf.IdCardData
+                    {
+                        StudentName = student.FullName,
+                        FatherName = student.FatherName,
+                        ClassName = student.ClassWithDivision,
+                        StudentNumber = string.IsNullOrWhiteSpace(student.StudentNumber) ? "-" : student.StudentNumber,
+                        DateOfBirth = student.DateOfBirth.ToString("dd/MM/yyyy"),
+                        BloodGroup = student.BloodGroup ?? string.Empty,
+                        ParentMobile = student.ParentMobileNumber,
+                        Address = student.CityVillage,
+                        Photo = student.Photo
+                    });
+                }
+
+                if (cards.Count == 0)
+                {
+                    toastNotification.Message = "Selected student(s) not found.";
+                    toastNotification.ToastType = ToastType.Error;
+                    toastNotification.Show();
+                    return;
+                }
+
+                var document = new IEMS.WPF.Pdf.StudentIdCardDocument(
+                    cards,
+                    "Inspire English Medium School, Mardi",
+                    "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
+                    BonafideCertificateWindow.LoadSchoolLogoBytes());
+
+                var suggested = cards.Count == 1
+                    ? $"IDCard_{cards[0].StudentName.Replace(' ', '_')}"
+                    : $"IDCards_{cards.Count}_students";
+
+                Dispatcher.Invoke(() => IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, suggested));
+            }
+            catch (Exception ex)
+            {
+                toastNotification.Message = $"Error generating ID card(s): {ex.Message}";
+                toastNotification.ToastType = ToastType.Error;
+                toastNotification.Show();
+            }
+        });
+    }
+
     private void BtnRefreshBonafide_Click(object sender, RoutedEventArgs e)
     {
         AsyncHelper.SafeFireAndForget(LoadBonafideStudentsAsync);

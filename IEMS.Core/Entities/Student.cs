@@ -25,6 +25,12 @@ public class Student
     public string ParentMobileNumber { get; set; } = string.Empty;
     public string? AadhaarNumber { get; set; }
 
+    /// <summary>Blood group (e.g. "O+", "AB-"). Optional but important on an ID card for emergencies.</summary>
+    public string? BloodGroup { get; set; }
+
+    /// <summary>Optional passport-style photo (JPEG/PNG bytes) used on ID cards. Null = no photo.</summary>
+    public byte[]? Photo { get; set; }
+
     // NEW: Foreign key to AcademicYear table for admission year
     public int? AdmissionAcademicYearId { get; set; }
     public virtual AcademicYear? AdmissionAcademicYear { get; set; }

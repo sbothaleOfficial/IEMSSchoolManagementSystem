@@ -12,6 +12,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!-- Basic Information Section -->
@@ -73,6 +74,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="140"/>
@@ -94,8 +96,21 @@
                         <Label Grid.Row="1" Grid.Column="3" Content="Aadhaar Number:" VerticalAlignment="Center"/>
                         <TextBox x:Name="txtAadhaarNumber" Grid.Row="1" Grid.Column="4" Height="35" Margin="0,5" MaxLength="12"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" Content="Address:" VerticalAlignment="Top" Margin="0,8,0,0"/>
-                        <TextBox x:Name="txtAddress" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"
+                        <Label Grid.Row="2" Grid.Column="0" Content="Blood Group:" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cmbBloodGroup" Grid.Row="2" Grid.Column="1" Height="35" Margin="0,5">
+                            <ComboBoxItem Content=""/>
+                            <ComboBoxItem Content="A+"/>
+                            <ComboBoxItem Content="A-"/>
+                            <ComboBoxItem Content="B+"/>
+                            <ComboBoxItem Content="B-"/>
+                            <ComboBoxItem Content="O+"/>
+                            <ComboBoxItem Content="O-"/>
+                            <ComboBoxItem Content="AB+"/>
+                            <ComboBoxItem Content="AB-"/>
+                        </ComboBox>
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Address:" VerticalAlignment="Top" Margin="0,8,0,0"/>
+                        <TextBox x:Name="txtAddress" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4"
                                  Height="60" Margin="0,5" TextWrapping="Wrap" AcceptsReturn="True"
                                  VerticalScrollBarVisibility="Auto"/>
                     </Grid>
@@ -164,8 +179,25 @@
                     </Grid>
                 </GroupBox>
 
+                <!-- Student Photo Section -->
+                <GroupBox Grid.Row="4" Header="Student Photo (optional, used on ID cards)" Margin="0,0,0,15" Padding="15">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="100" Height="120" BorderBrush="#BDC3C7" BorderThickness="1" Background="#F5F6FA">
+                            <Image x:Name="imgPhoto" Stretch="Uniform"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center" Margin="20,0,0,0">
+                            <Button x:Name="btnChoosePhoto" Content="Choose Photo..." Width="160" Height="35"
+                                    Margin="0,0,0,8" Click="BtnChoosePhoto_Click"
+                                    Style="{StaticResource PrimaryButtonStyle}"/>
+                            <Button x:Name="btnRemovePhoto" Content="Remove Photo" Width="160" Height="35"
+                                    Click="BtnRemovePhoto_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+                            <TextBlock Text="JPG or PNG, up to 2 MB." FontSize="11" Foreground="#7F8C8D" Margin="2,8,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
                 <!-- Action Buttons -->
-                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
                     <Button x:Name="btnSave" Content="Save" Width="100" Height="35" Margin="0,0,10,0"
                             Click="BtnSave_Click" Style="{StaticResource SuccessButtonStyle}"/>
                     <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="35" IsCancel="True"

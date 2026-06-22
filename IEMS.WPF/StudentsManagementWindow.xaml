@@ -532,6 +532,8 @@
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,0,10">
                         <Button x:Name="btnGenerateBonafide" Content="Generate Certificate" Width="130" Height="35" Margin="0,0,10,0"
                                 Click="BtnGenerateBonafide_Click" Style="{StaticResource SuccessButtonStyle}"/>
+                        <Button x:Name="btnGenerateIdCard" Content="ID Card (PDF)" Width="130" Height="35" Margin="0,0,10,0"
+                                Click="BtnGenerateIdCard_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                         <Button x:Name="btnRefreshBonafide" Content="Refresh" Width="130" Height="35" Margin="0,0,10,0"
                                 Click="BtnRefreshBonafide_Click" Style="{StaticResource SecondaryButtonStyle}"/>
                         <Separator Width="20"/>
@@ -542,6 +544,7 @@
                     </StackPanel>
 
                     <DataGrid x:Name="dgBonafideStudents" Grid.Row="1" AutoGenerateColumns="False"
+                              SelectionMode="Extended"
                               CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
                               GridLinesVisibility="Horizontal" HeadersVisibility="Column" AlternatingRowBackground="{StaticResource SurfaceBrush}">
                         <DataGrid.Columns>

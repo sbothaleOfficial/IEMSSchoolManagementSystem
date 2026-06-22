@@ -76,6 +76,8 @@ public class StudentService
             CityVillage = student.CityVillage,
             ParentMobileNumber = student.ParentMobileNumber,
             AadhaarNumber = student.AadhaarNumber,
+            BloodGroup = student.BloodGroup,
+            Photo = student.Photo,
             ClassId = student.ClassId,
             ClassName = student.Class?.Name ?? "Unknown"
         };
@@ -104,6 +106,8 @@ public class StudentService
             CityVillage = studentDto.CityVillage,
             ParentMobileNumber = studentDto.ParentMobileNumber,
             AadhaarNumber = studentDto.AadhaarNumber,
+            BloodGroup = studentDto.BloodGroup,
+            Photo = studentDto.Photo,
             ClassId = studentDto.ClassId,
             AdmissionAcademicYearId = studentDto.AdmissionAcademicYearId
         };
@@ -135,6 +139,8 @@ public class StudentService
             student.CityVillage = studentDto.CityVillage;
             student.ParentMobileNumber = studentDto.ParentMobileNumber;
             student.AadhaarNumber = studentDto.AadhaarNumber;
+            student.BloodGroup = studentDto.BloodGroup;
+            student.Photo = studentDto.Photo;
             student.ClassId = studentDto.ClassId;
             student.AdmissionAcademicYearId = studentDto.AdmissionAcademicYearId;
             student.UpdatedAt = DateTime.UtcNow;

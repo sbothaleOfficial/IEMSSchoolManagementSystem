@@ -388,7 +388,7 @@ namespace IEMS.WPF
                 SchoolAddress = "Tah. Maregaon, Dist. Yavatmal (Maharashtra) – 445303",
                 UDiseCode = "27140806704",
                 RegNo = "MH-15381/16",
-                Logo = LoadLogoBytes(),
+                Logo = LoadSchoolLogoBytes(),
                 StudentNameWithPrefix = $"{prefix} {fullName}",
                 FatherName = !string.IsNullOrEmpty(_student.FatherName) ? $"Mr. {_student.FatherName}" : "_________________",
                 MotherName = !string.IsNullOrEmpty(_student.MotherName) ? $"Mrs. {_student.MotherName}" : "_________________",
@@ -403,7 +403,8 @@ namespace IEMS.WPF
             };
         }
 
-        private static byte[]? LoadLogoBytes()
+        /// <summary>Loads the school logo from the app resource as bytes (shared by certificate and ID card PDFs).</summary>
+        public static byte[]? LoadSchoolLogoBytes()
         {
             try
             {

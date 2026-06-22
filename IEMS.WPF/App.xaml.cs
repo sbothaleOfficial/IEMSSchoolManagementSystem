@@ -159,20 +159,31 @@ public partial class App : System.Windows.Application
 
         if (schemaAlreadyExists && !hasMigrationHistory)
         {
-            Log.Information("Baselining a legacy (EnsureCreated) database into the migrations history");
+            // Legacy database created by the old EnsureCreated() path: it has the InitialCreate schema
+            // but no history. Baseline ONLY the first (InitialCreate) migration as applied, then let
+            // Migrate() apply every later migration normally. (Stamping ALL migrations here would mark
+            // later schema changes as "done" without ever creating their columns.)
+            var migrationsAssembly = context.GetService<IMigrationsAssembly>();
+            var firstMigration = migrationsAssembly.Migrations.Keys.First();
+            Log.Information("Baselining legacy (EnsureCreated) database at first migration {Migration}", firstMigration);
+
             var history = context.GetService<IHistoryRepository>();
             if (!history.Exists())
-            {
                 db.ExecuteSqlRaw(history.GetCreateScript());
-            }
-            var migrationsAssembly = context.GetService<IMigrationsAssembly>();
-            foreach (var migrationId in migrationsAssembly.Migrations.Keys)
-            {
-                db.ExecuteSqlRaw(history.GetInsertScript(new HistoryRow(migrationId, ProductVersion)));
-            }
+            db.ExecuteSqlRaw(history.GetInsertScript(new HistoryRow(firstMigration, ProductVersion)));
         }
 
-        db.Migrate();
+        var pending = db.GetPendingMigrations().ToList();
+        if (pending.Count > 0)
+        {
+            Log.Information("Applying {Count} pending migration(s): {Migrations}", pending.Count, string.Join(", ", pending));
+            db.Migrate();
+            Log.Information("Database migrations applied successfully");
+        }
+        else
+        {
+            Log.Information("Database schema is up to date ({Count} migration(s) applied)", db.GetAppliedMigrations().Count());
+        }
     }
 
     private static string ProductVersion =>
