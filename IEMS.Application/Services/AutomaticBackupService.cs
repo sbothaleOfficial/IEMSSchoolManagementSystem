@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using IEMS.Application.Interfaces;
 
 namespace IEMS.Application.Services
 {
@@ -240,7 +241,19 @@ namespace IEMS.Application.Services
                 var backupService = scope.ServiceProvider.GetService<IBackupService>();
                 if (backupService != null)
                 {
-                    var result = await backupService.CreateBackupAsync(type);
+                    // Honour the configurable Backup.BackupPath so scheduled backups land in the
+                    // user's chosen folder. Point it at a OneDrive/Google Drive desktop-sync folder
+                    // and every automatic backup is uploaded to the cloud for free (no API needed).
+                    string? destination = null;
+                    var settings = scope.ServiceProvider.GetService<ISystemSettingsService>();
+                    if (settings != null)
+                    {
+                        var configured = await settings.GetSettingValueAsync("Backup.BackupPath");
+                        if (!string.IsNullOrWhiteSpace(configured))
+                            destination = configured;
+                    }
+
+                    var result = await backupService.CreateBackupAsync(type, destination);
                     if (result.Success)
                     {
                         _logger.LogInformation("Backup completed successfully: {BackupPath}", result.BackupPath);

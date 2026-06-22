@@ -242,7 +242,7 @@
 
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock Text="Backup &amp; Restore" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                    <TextBlock Text="Backup your data to Google Drive or restore from backup" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,5,0,0"/>
+                                    <TextBlock Text="Back up your data locally or to a synced cloud folder (OneDrive / Google Drive)" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Grid>
 
