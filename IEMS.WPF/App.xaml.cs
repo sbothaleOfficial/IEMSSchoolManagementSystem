@@ -142,6 +142,9 @@ public partial class App : System.Windows.Application
 
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
+            // Keep our own logs readable: don't record every EF Core SQL command / host plumbing line.
+            .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", Serilog.Events.LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.File(
                 Path.Combine(logDir, "iems-.log"),
