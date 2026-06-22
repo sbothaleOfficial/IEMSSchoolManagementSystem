@@ -55,6 +55,8 @@ public partial class App : System.Windows.Application
                     services.AddScoped<IOtherExpenseRepository, OtherExpenseRepository>();
                     services.AddScoped<IAcademicYearRepository, AcademicYearRepository>();
                     services.AddScoped<IUserRepository, UserRepository>();
+                    services.AddScoped<ISystemSettingRepository, SystemSettingRepository>();
+                    services.AddScoped<IStudentPromotionRepository, StudentPromotionRepository>();
 
                     // Configuration
                     var bulkPromotionConfig = new BulkPromotionConfiguration

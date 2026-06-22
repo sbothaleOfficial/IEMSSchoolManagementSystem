@@ -3,8 +3,6 @@ using IEMS.Core.Interfaces;
 using IEMS.Core.Services;
 using IEMS.Core.Entities;
 using IEMS.Core.Configuration;
-using IEMS.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace IEMS.Application.Services;
 
@@ -16,7 +14,7 @@ public class BulkPromotionService
     private readonly StudentPromotionService _promotionService;
     private readonly StudentEligibilityValidator _eligibilityValidator;
     private readonly ClassProgressionValidator _progressionValidator;
-    private readonly ApplicationDbContext _context;
+    private readonly IStudentPromotionRepository _promotionRepository;
 
     public BulkPromotionService(
         IStudentRepository studentRepository,
@@ -25,7 +23,7 @@ public class BulkPromotionService
         StudentPromotionService promotionService,
         StudentEligibilityValidator eligibilityValidator,
         ClassProgressionValidator progressionValidator,
-        ApplicationDbContext context)
+        IStudentPromotionRepository promotionRepository)
     {
         _studentRepository = studentRepository;
         _classRepository = classRepository;
@@ -33,7 +31,7 @@ public class BulkPromotionService
         _promotionService = promotionService;
         _eligibilityValidator = eligibilityValidator;
         _progressionValidator = progressionValidator;
-        _context = context;
+        _promotionRepository = promotionRepository;
     }
 
     public async Task<List<StudentPromotionDto>> GetPromotionPreviewAsync(int fromClassId, int toClassId)
@@ -119,11 +117,11 @@ public class BulkPromotionService
                     // Get current username for audit (passed from UI layer)
                     var promotedBy = request.PromotedBy ?? "System";
 
-                    // Simple class update - no complex validations
+                    // Build the history rows and re-point each student to the target class.
+                    var historyRows = new List<StudentPromotionHistory>();
                     foreach (var student in studentsToPromote)
                     {
-                        // Save promotion history
-                        var promotionHistory = new StudentPromotionHistory
+                        historyRows.Add(new StudentPromotionHistory
                         {
                             StudentId = student.Id,
                             StudentName = student.FullName,
@@ -135,16 +133,14 @@ public class BulkPromotionService
                             PromotionDate = DateTime.UtcNow,
                             PromotedBy = promotedBy,
                             Remarks = request.Remarks
-                        };
-                        _context.StudentPromotionHistory.Add(promotionHistory);
+                        });
 
-                        // Update student class
                         student.ClassId = request.ToClassId;
                         student.UpdatedAt = DateTime.UtcNow;
                     }
 
-                    await _studentRepository.UpdateMultipleStudentsAsync(studentsToPromote);
-                    await _context.SaveChangesAsync(); // Save promotion history
+                    // Update the students AND insert the history atomically (one transaction).
+                    await _promotionRepository.PromoteAsync(studentsToPromote, historyRows);
                     result.PromotedStudents = studentsToPromote.Count;
                 }
                 catch (Exception ex)
@@ -179,16 +175,13 @@ public class BulkPromotionService
             AcademicYear = academicYear
         };
 
-        using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
             // Identify ONLY the students this promotion actually moved, from the promotion
             // history — NOT the entire target class, which may contain students who were
             // already enrolled there before the promotion. Moving the whole class back would
             // corrupt the records of those pre-existing students.
-            var historyRows = await _context.StudentPromotionHistory
-                .Where(h => h.FromClassId == fromClassId && h.ToClassId == toClassId)
-                .ToListAsync();
+            var historyRows = await _promotionRepository.GetHistoryAsync(fromClassId, toClassId);
 
             var promotedStudentIds = historyRows.Select(h => h.StudentId).Distinct().ToList();
             result.TotalStudents = promotedStudentIds.Count;
@@ -205,22 +198,15 @@ public class BulkPromotionService
                     student.ClassId = fromClassId;
                     student.UpdatedAt = DateTime.UtcNow;
                 }
-                // Update students AND remove the promotion-history rows in a single
-                // SaveChanges inside one transaction, so the rollback is fully atomic.
-                // (Do NOT call UpdateMultipleStudentsAsync here — it opens its own
-                // transaction, and SQLite does not support nested transactions.)
-                _context.Students.UpdateRange(studentsToRevert);
-                _context.StudentPromotionHistory.RemoveRange(historyRows);
-                await _context.SaveChangesAsync();
+
+                // Revert the students AND remove the history rows atomically (one transaction).
+                await _promotionRepository.RollbackAsync(studentsToRevert, historyRows);
 
                 result.PromotedStudents = studentsToRevert.Count;
             }
-
-            await transaction.CommitAsync();
         }
         catch (Exception ex)
         {
-            await transaction.RollbackAsync();
             result.Errors.Add(new PromotionError
             {
                 StudentId = 0,

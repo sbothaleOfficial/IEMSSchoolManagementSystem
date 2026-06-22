@@ -25,8 +25,8 @@ namespace IEMS.Application.Services
             _serviceProvider = serviceProvider;
             // Use the same single source of truth as EF Core (absolute path next to the exe),
             // so backup/restore always targets the database the app actually opens.
-            _databasePath = IEMS.Infrastructure.Data.DatabaseLocation.DatabaseFilePath;
-            _connectionString = IEMS.Infrastructure.Data.DatabaseLocation.ConnectionString;
+            _databasePath = IEMS.Core.Configuration.DatabaseLocation.DatabaseFilePath;
+            _connectionString = IEMS.Core.Configuration.DatabaseLocation.ConnectionString;
             _backupRootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IEMS_Backups");
             _metadataPath = Path.Combine(_backupRootPath, "backup_metadata.json");
 

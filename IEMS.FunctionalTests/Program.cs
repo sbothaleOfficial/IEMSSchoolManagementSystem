@@ -53,6 +53,8 @@ services.AddScoped<IElectricityBillRepository, ElectricityBillRepository>();
 services.AddScoped<IOtherExpenseRepository, OtherExpenseRepository>();
 services.AddScoped<IAcademicYearRepository, AcademicYearRepository>();
 services.AddScoped<IUserRepository, UserRepository>();
+services.AddScoped<ISystemSettingRepository, SystemSettingRepository>();
+services.AddScoped<IStudentPromotionRepository, StudentPromotionRepository>();
 services.AddScoped<FeeCalculationService>();
 services.AddScoped<AmountToWordsService>();
 services.AddScoped<PasswordHashingService>();
@@ -277,6 +279,12 @@ await Section("7. User management lifecycle", async () =>
 // ----- 8. Regression tests for the audited bug fixes -----
 await Section("8. Bug-fix regressions", async () =>
 {
+    // Architecture guard: the Application layer must not depend on Infrastructure (Clean
+    // Architecture). This locks in the layering fix so the dependency can't silently return.
+    var appRefsInfra = typeof(UserService).Assembly.GetReferencedAssemblies()
+        .Any(a => a.Name == "IEMS.Infrastructure");
+    Check("Architecture: IEMS.Application does not reference IEMS.Infrastructure", !appRefsInfra);
+
     var calc = sp.GetRequiredService<FeeCalculationService>();
     // Discount larger than the bill must NOT create a refund bigger than what was paid
     var over = calc.CalculatePayment(amountPaid: 100, discount: 70000, lateFee: 0, previousBalance: 0, totalFeeAmount: 60000);

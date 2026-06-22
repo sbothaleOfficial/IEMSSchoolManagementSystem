@@ -39,7 +39,7 @@ namespace IEMS.WPF
             try
             {
                 // FIXED BUG #1: Use Directory.GetCurrentDirectory() to match Entity Framework and BackupService
-                var dbPath = IEMS.Infrastructure.Data.DatabaseLocation.DatabaseFilePath;
+                var dbPath = IEMS.Core.Configuration.DatabaseLocation.DatabaseFilePath;
                 if (File.Exists(dbPath))
                 {
                     var fileInfo = new FileInfo(dbPath);

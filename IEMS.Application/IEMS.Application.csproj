@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IEMS.Core\IEMS.Core.csproj" />
-    <ProjectReference Include="..\IEMS.Infrastructure\IEMS.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
