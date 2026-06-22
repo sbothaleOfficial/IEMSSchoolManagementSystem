@@ -100,8 +100,10 @@ var sp = scope.ServiceProvider;
 await Section("1. Database creation & seed integrity", async () =>
 {
     var ctx = sp.GetRequiredService<ApplicationDbContext>();
-    bool created = ctx.Database.EnsureCreated();
-    Check("Database file auto-created", created && File.Exists(dbPath));
+    // Exercise the real production path: EF Core migrations (not EnsureCreated).
+    ctx.Database.Migrate();
+    Check("Database created via migrations", File.Exists(dbPath));
+    Check("Migrations history recorded", ctx.Database.GetAppliedMigrations().Any());
 
     Check("Seed: 10 teachers", await ctx.Teachers.CountAsync() == 10, $"{await ctx.Teachers.CountAsync()}");
     Check("Seed: 13 classes", await ctx.Classes.CountAsync() == 13, $"{await ctx.Classes.CountAsync()}");

@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IEMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251015122707_InitialCreate")]
+    [Migration("20260622155212_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
             modelBuilder.Entity("IEMS.Core.Entities.AcademicYear", b =>
                 {
@@ -59,41 +59,41 @@ namespace IEMS.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9896),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EndDate = new DateTime(2023, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCurrent = false,
                             StartDate = new DateTime(2022, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9897),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Year = "2022-23"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9900),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EndDate = new DateTime(2024, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCurrent = false,
                             StartDate = new DateTime(2023, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9900),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Year = "2023-24"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9902),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EndDate = new DateTime(2025, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCurrent = true,
                             StartDate = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9903),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Year = "2024-25"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9905),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EndDate = new DateTime(2026, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCurrent = false,
                             StartDate = new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9905),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Year = "2025-26"
                         });
                 });
@@ -133,119 +133,119 @@ namespace IEMS.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6846),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Nursery",
                             Section = "A",
                             TeacherId = 1,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6846)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6851),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "KG1",
                             Section = "A",
                             TeacherId = 2,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6852)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6853),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "KG2",
                             Section = "A",
                             TeacherId = 3,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6854)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6855),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 1",
                             Section = "A",
                             TeacherId = 4,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6855)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6857),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 2",
                             Section = "A",
                             TeacherId = 5,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6857)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6858),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 3",
                             Section = "A",
                             TeacherId = 6,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6858)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6860),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 4",
                             Section = "A",
                             TeacherId = 7,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6860)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6861),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 5",
                             Section = "A",
                             TeacherId = 8,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6862)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6863),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 6",
                             Section = "A",
                             TeacherId = 9,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6863)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6864),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 7",
                             Section = "A",
                             TeacherId = 10,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6865)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6867),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 8",
                             Section = "A",
                             TeacherId = 1,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6867)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6870),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 9",
                             Section = "A",
                             TeacherId = 2,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6870)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6872),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Class 10",
                             Section = "A",
                             TeacherId = 3,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6873)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -327,7 +327,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 1,
                             BillNumber = "EB001",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9645),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "January 2024 electricity bill",
@@ -335,7 +335,7 @@ namespace IEMS.Infrastructure.Migrations
                             PaymentMethod = 0,
                             Units = 150m,
                             UnitsRate = 4.8m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9646)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -344,7 +344,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 2,
                             BillNumber = "EB002",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9652),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "February 2024 electricity bill",
@@ -353,7 +353,7 @@ namespace IEMS.Infrastructure.Migrations
                             TransactionId = "TXN123456",
                             Units = 140m,
                             UnitsRate = 4.8m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9652)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -364,7 +364,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillNumber = "EB003",
                             BillYear = 2024,
                             ChequeNumber = "CH001",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9657),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "March 2024 electricity bill",
@@ -372,7 +372,7 @@ namespace IEMS.Infrastructure.Migrations
                             PaymentMethod = 2,
                             Units = 155m,
                             UnitsRate = 4.8m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9657)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -381,7 +381,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 4,
                             BillNumber = "EB004",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9661),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "April 2024 electricity bill",
@@ -389,7 +389,7 @@ namespace IEMS.Infrastructure.Migrations
                             PaymentMethod = 0,
                             Units = 170m,
                             UnitsRate = 4.8m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9661)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -398,7 +398,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 5,
                             BillNumber = "EB005",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9665),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "May 2024 electricity bill - High consumption due to summer",
@@ -407,7 +407,7 @@ namespace IEMS.Infrastructure.Migrations
                             TransactionId = "TXN234567",
                             Units = 200m,
                             UnitsRate = 4.75m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9665)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -416,7 +416,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 6,
                             BillNumber = "EB006",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9670),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "June 2024 electricity bill - Peak summer consumption",
@@ -424,7 +424,7 @@ namespace IEMS.Infrastructure.Migrations
                             PaymentMethod = 0,
                             Units = 220m,
                             UnitsRate = 4.6m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9670)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -433,7 +433,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 7,
                             BillNumber = "EB007",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9674),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "July 2024 electricity bill",
@@ -442,7 +442,7 @@ namespace IEMS.Infrastructure.Migrations
                             TransactionId = "TXN789123",
                             Units = 165m,
                             UnitsRate = 4.7m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9674)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -451,7 +451,7 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 8,
                             BillNumber = "EB008",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9677),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = true,
                             Notes = "August 2024 electricity bill",
@@ -459,7 +459,7 @@ namespace IEMS.Infrastructure.Migrations
                             PaymentMethod = 0,
                             Units = 180m,
                             UnitsRate = 4.7m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9678)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -468,13 +468,13 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 9,
                             BillNumber = "EB009",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9681),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = false,
                             Notes = "September 2024 electricity bill - Pending payment",
                             Units = 195m,
                             UnitsRate = 4.7m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9681)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -483,13 +483,13 @@ namespace IEMS.Infrastructure.Migrations
                             BillMonth = 10,
                             BillNumber = "EB010",
                             BillYear = 2024,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9684),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DueDate = new DateTime(2024, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsPaid = false,
                             Notes = "October 2024 electricity bill - Current month",
                             Units = 185m,
                             UnitsRate = 4.75m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9684)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -589,18 +589,18 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 15000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9804),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 0,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 12, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 0,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC001",
                             RemainingBalance = 45000m,
                             StudentId = 1,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9805)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -608,19 +608,19 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 20000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9811),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 0,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 9, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 14, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 1,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC002",
                             RemainingBalance = 40000m,
                             StudentId = 2,
                             TransactionId = "TXN112233",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9812)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -630,18 +630,18 @@ namespace IEMS.Infrastructure.Migrations
                             AmountPaid = 18000m,
                             BankName = "HDFC Bank",
                             ChequeNumber = "CH445566",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9817),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 0,
                             GeneratedBy = "Admin",
                             LateFee = 500m,
-                            PaymentDate = new DateTime(2025, 9, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 2,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC003",
                             RemainingBalance = 42500m,
                             StudentId = 3,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9817)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -649,18 +649,18 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 10000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9830),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 1000m,
                             FeeType = 0,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 7, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 0,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC004",
                             RemainingBalance = 49000m,
                             StudentId = 10,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9830)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -668,19 +668,19 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 12000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9835),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 0,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 1,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC005",
                             RemainingBalance = 48000m,
                             StudentId = 15,
                             TransactionId = "TXN223344",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9835)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -688,18 +688,18 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 5000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9840),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 1,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 2, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 0,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC006",
                             RemainingBalance = 0m,
                             StudentId = 20,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9840)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -707,19 +707,19 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 4000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9845),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 3,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 9, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 1,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC007",
                             RemainingBalance = 8000m,
                             StudentId = 25,
                             TransactionId = "TXN334455",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9845)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -727,18 +727,18 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 2000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9849),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 2,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 10, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 27, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 0,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC008",
                             RemainingBalance = 0m,
                             StudentId = 30,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9850)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -748,18 +748,18 @@ namespace IEMS.Infrastructure.Migrations
                             AmountPaid = 8000m,
                             BankName = "SBI Bank",
                             ChequeNumber = "CH556677",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9855),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 500m,
                             FeeType = 0,
                             GeneratedBy = "Admin",
                             LateFee = 200m,
-                            PaymentDate = new DateTime(2025, 10, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 24, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 2,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC009",
                             RemainingBalance = 46700m,
                             StudentId = 35,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9856)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -767,19 +767,19 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearId = 3,
                             AcademicYearString = "2024-25",
                             AmountPaid = 16000m,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9860),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Discount = 0m,
                             FeeType = 0,
                             GeneratedBy = "Admin",
                             LateFee = 0m,
-                            PaymentDate = new DateTime(2025, 10, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2024, 5, 29, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 1,
                             PreviousBalance = 0m,
                             ReceiptNumber = "REC010",
                             RemainingBalance = 39000m,
                             StudentId = 40,
                             TransactionId = "TXN445566",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9860)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -836,11 +836,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 60000m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9361),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 10-A",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9362)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -849,11 +849,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 60000m,
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9367),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 10-B",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9367)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -862,11 +862,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 55000m,
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9369),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 9-A",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9369)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -875,11 +875,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 55000m,
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9370),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 9-B",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9371)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -888,11 +888,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 50000m,
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9372),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 8-A",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9372)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -901,11 +901,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 50000m,
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9374),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 8-B",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9374)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -914,11 +914,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 45000m,
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9376),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 7-A",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9376)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -927,11 +927,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 40000m,
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9377),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 6-A",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9378)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -940,11 +940,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 38000m,
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9379),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 5-A",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9379)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -953,11 +953,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 35000m,
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9381),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Tuition Fees for Class 1-A",
                             FeeType = 0,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9381)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -966,11 +966,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 5000m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9383),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Admission Fee for Class 10-A",
                             FeeType = 1,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9383)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -979,11 +979,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 3000m,
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9386),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Admission Fee for Class 1-A",
                             FeeType = 1,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9386)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -992,11 +992,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 2000m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9387),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Examination Fee for Class 10-A",
                             FeeType = 2,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9388)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1005,11 +1005,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 2000m,
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9389),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Examination Fee for Class 10-B",
                             FeeType = 2,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9389)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1018,11 +1018,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 1800m,
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9391),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Examination Fee for Class 9-A",
                             FeeType = 2,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9391)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1031,11 +1031,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 12000m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9392),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Transport Fee for Class 10-A",
                             FeeType = 3,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9393)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1044,11 +1044,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 12000m,
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9394),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Transport Fee for Class 10-B",
                             FeeType = 3,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9394)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1057,11 +1057,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 10000m,
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9396),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Transport Fee for Class 8-A",
                             FeeType = 3,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9396)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1070,11 +1070,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 3000m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9397),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Sports Fee for Class 10-A",
                             FeeType = 4,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9398)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1083,11 +1083,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 2500m,
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9399),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Sports Fee for Class 9-A",
                             FeeType = 4,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9399)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1096,11 +1096,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 1500m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9401),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Library Fee for Class 10-A",
                             FeeType = 5,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9401)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1109,11 +1109,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 1500m,
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9403),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Library Fee for Class 10-B",
                             FeeType = 5,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9403)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1122,11 +1122,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 800m,
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9404),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Annual Library Fee for Class 1-A",
                             FeeType = 5,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9405)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1135,11 +1135,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 4000m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9406),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Uniform Fee for Class 10-A",
                             FeeType = 6,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9406)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1148,11 +1148,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 3000m,
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9407),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Uniform Fee for Class 1-A",
                             FeeType = 6,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9408)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1161,11 +1161,11 @@ namespace IEMS.Infrastructure.Migrations
                             AcademicYearString = "2024-25",
                             Amount = 2000m,
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9409),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Miscellaneous Charges for Class 10-A",
                             FeeType = 7,
                             IsActive = true,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9409)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -1237,13 +1237,13 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 1,
                             Amount = 2500m,
                             Category = 0,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9721),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Books, pens, papers for office use",
-                            ExpenseDate = new DateTime(2025, 9, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Office Supplies",
                             InvoiceNumber = "INV001",
                             PaymentMethod = 0,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9722),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Shree Stationery Mart"
                         },
                         new
@@ -1251,14 +1251,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 2,
                             Amount = 15000m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9728),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Decorations, refreshments, and prizes for Independence Day",
-                            ExpenseDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 7, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Independence Day Celebration",
                             InvoiceNumber = "INV002",
                             PaymentMethod = 1,
                             TransactionId = "TXN456789",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9729),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Event Decorators"
                         },
                         new
@@ -1268,13 +1268,13 @@ namespace IEMS.Infrastructure.Migrations
                             BankName = "SBI Bank",
                             Category = 2,
                             ChequeNumber = "123456",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9734),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Repair of desks and chairs in Class 10 classroom",
-                            ExpenseDate = new DateTime(2025, 10, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 24, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Classroom Repair",
                             InvoiceNumber = "INV003",
                             PaymentMethod = 2,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9734),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Repair Services"
                         },
                         new
@@ -1282,13 +1282,13 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 4,
                             Amount = 8200m,
                             Category = 0,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9738),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Charts, models, and laboratory equipment",
-                            ExpenseDate = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 12, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Teaching Materials",
                             InvoiceNumber = "INV004",
                             PaymentMethod = 0,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9739),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Educational Supplies Co"
                         },
                         new
@@ -1296,14 +1296,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 5,
                             Amount = 22000m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9743),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Sports equipment, prizes, and refreshments for annual sports day",
-                            ExpenseDate = new DateTime(2025, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 4, 17, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Annual Sports Day",
                             InvoiceNumber = "INV005",
                             PaymentMethod = 1,
                             TransactionId = "TXN567890",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9743),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Sports Events Org"
                         },
                         new
@@ -1313,13 +1313,13 @@ namespace IEMS.Infrastructure.Migrations
                             BankName = "HDFC Bank",
                             Category = 2,
                             ChequeNumber = "234567",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9747),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Repair of washroom facilities and water pipeline",
-                            ExpenseDate = new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Plumbing Work",
                             InvoiceNumber = "INV006",
                             PaymentMethod = 2,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9747),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "City Plumbers"
                         },
                         new
@@ -1327,13 +1327,13 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 7,
                             Amount = 4500m,
                             Category = 0,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9750),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Keyboards, mouse, cables for computer lab",
-                            ExpenseDate = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 2, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Computer Accessories",
                             InvoiceNumber = "INV007",
                             PaymentMethod = 0,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9751),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Tech Solutions"
                         },
                         new
@@ -1341,13 +1341,13 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 8,
                             Amount = 3500m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9753),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Flowers, gifts, and refreshments for teachers day",
-                            ExpenseDate = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 4, 27, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Teachers Day Celebration",
                             InvoiceNumber = "INV008",
                             PaymentMethod = 0,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9754),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Local Florist"
                         },
                         new
@@ -1355,14 +1355,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 9,
                             Amount = 6800m,
                             Category = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9757),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Plant care, fertilizers, and gardening tools",
-                            ExpenseDate = new DateTime(2025, 9, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 14, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Garden Maintenance",
                             InvoiceNumber = "INV009",
                             PaymentMethod = 1,
                             TransactionId = "TXN678901",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9758),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Green Gardens"
                         },
                         new
@@ -1372,13 +1372,13 @@ namespace IEMS.Infrastructure.Migrations
                             BankName = "SBI Bank",
                             Category = 0,
                             ChequeNumber = "345678",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9761),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "New textbooks and reference books for library",
-                            ExpenseDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 4, 22, 0, 0, 0, 0, DateTimeKind.Utc),
                             ExpenseType = "Library Books",
                             InvoiceNumber = "INV010",
                             PaymentMethod = 2,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9762),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VendorName = "Academic Publishers"
                         });
                 });
@@ -1461,7 +1461,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "123456789012",
                             Address = "101 Transport Ave, Mumbai",
                             BankAccountNumber = "1234567890",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9291),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "rajesh.kumar@school.edu",
                             EmployeeId = "ST001",
                             FirstName = "Rajesh",
@@ -1471,7 +1471,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "ABCDE1234F",
                             PhoneNumber = "9876543213",
                             Position = "Driver",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9291)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1479,7 +1479,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "234567890123",
                             Address = "202 Clean St, Delhi",
                             BankAccountNumber = "2345678901",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9300),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "kamala.devi@school.edu",
                             EmployeeId = "ST002",
                             FirstName = "Kamala",
@@ -1489,7 +1489,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "BCDEF2345G",
                             PhoneNumber = "9876543215",
                             Position = "Peon",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9300)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1497,7 +1497,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "345678901234",
                             Address = "303 Office Lane, Pune",
                             BankAccountNumber = "3456789012",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9304),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "suresh.singh@school.edu",
                             EmployeeId = "ST003",
                             FirstName = "Suresh",
@@ -1507,7 +1507,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "CDEFG3456H",
                             PhoneNumber = "9876543217",
                             Position = "Clerk",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9304)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1515,7 +1515,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "456789012345",
                             Address = "404 Support St, Bangalore",
                             BankAccountNumber = "4567890123",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9308),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "priya.mehta@school.edu",
                             EmployeeId = "ST004",
                             FirstName = "Priya",
@@ -1525,7 +1525,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "DEFGH4567I",
                             PhoneNumber = "9876543218",
                             Position = "Lab Assistant",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9308)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1533,7 +1533,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "567890123456",
                             Address = "505 Maintenance Rd, Chennai",
                             BankAccountNumber = "5678901234",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9311),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "mohan.rao@school.edu",
                             EmployeeId = "ST005",
                             FirstName = "Mohan",
@@ -1543,7 +1543,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "EFGHI5678J",
                             PhoneNumber = "9876543219",
                             Position = "Electrician",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9311)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1551,7 +1551,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "678901234567",
                             Address = "606 Admin Block, Kolkata",
                             BankAccountNumber = "6789012345",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9314),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "sunita.nair@school.edu",
                             EmployeeId = "ST006",
                             FirstName = "Sunita",
@@ -1561,7 +1561,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "FGHIJ6789K",
                             PhoneNumber = "9876543220",
                             Position = "Office Assistant",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9314)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1569,7 +1569,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "789012345678",
                             Address = "707 Security Gate, Hyderabad",
                             BankAccountNumber = "7890123456",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9317),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "vinod.patil@school.edu",
                             EmployeeId = "ST007",
                             FirstName = "Vinod",
@@ -1579,7 +1579,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "GHIJK7890L",
                             PhoneNumber = "9876543221",
                             Position = "Security Guard",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9318)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1587,7 +1587,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "890123456789",
                             Address = "808 Library Block, Ahmedabad",
                             BankAccountNumber = "8901234567",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9320),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "lata.desai@school.edu",
                             EmployeeId = "ST008",
                             FirstName = "Lata",
@@ -1597,7 +1597,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "HIJKL8901M",
                             PhoneNumber = "9876543222",
                             Position = "Librarian",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9321)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1605,7 +1605,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "901234567890",
                             Address = "909 Transport Yard, Jaipur",
                             BankAccountNumber = "9012345678",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9323),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "ravi.iyer@school.edu",
                             EmployeeId = "ST009",
                             FirstName = "Ravi",
@@ -1615,7 +1615,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "IJKLM9012N",
                             PhoneNumber = "9876543223",
                             Position = "Mechanic",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9324)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1623,7 +1623,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "012345678901",
                             Address = "101 Canteen Block, Lucknow",
                             BankAccountNumber = "0123456789",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9326),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "geeta.sharma@school.edu",
                             EmployeeId = "ST010",
                             FirstName = "Geeta",
@@ -1633,7 +1633,7 @@ namespace IEMS.Infrastructure.Migrations
                             PANNumber = "JKLMN0123O",
                             PhoneNumber = "9876543224",
                             Position = "Cook",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9326)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -1768,7 +1768,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6905),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Aarav",
@@ -1782,7 +1782,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S001",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6905)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1794,7 +1794,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6973),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ananya",
@@ -1808,7 +1808,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S002",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6973)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1820,7 +1820,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6983),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Arjun",
@@ -1834,7 +1834,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S003",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6983)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1846,7 +1846,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6990),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Diya",
@@ -1860,7 +1860,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S004",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6991)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1872,7 +1872,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6998),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Ishaan",
@@ -1886,7 +1886,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S005",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6998)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1898,7 +1898,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7006),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Kavya",
@@ -1912,7 +1912,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S006",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7007)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1924,7 +1924,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7014),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Karan",
@@ -1938,7 +1938,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S007",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7014)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1950,7 +1950,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7028),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Myra",
@@ -1964,7 +1964,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S008",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7029)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -1976,7 +1976,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7037),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Riya",
@@ -1990,7 +1990,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S009",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7037)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2002,7 +2002,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7048),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Vihaan",
@@ -2016,7 +2016,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S010",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7048)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2028,7 +2028,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7056),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Saanvi",
@@ -2042,7 +2042,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S011",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7056)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2054,7 +2054,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7064),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Reyansh",
@@ -2068,7 +2068,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S012",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7064)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2080,7 +2080,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7071),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Anvi",
@@ -2094,7 +2094,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S013",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7072)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2106,7 +2106,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7079),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Vivaan",
@@ -2120,7 +2120,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S014",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7080)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2132,7 +2132,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7087),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Aadya",
@@ -2146,7 +2146,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S015",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7087)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2158,7 +2158,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7094),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Aayan",
@@ -2172,7 +2172,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S016",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7094)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2184,7 +2184,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7101),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Pihu",
@@ -2198,7 +2198,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S017",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7102)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2210,7 +2210,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7109),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Krishna",
@@ -2224,7 +2224,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S018",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7110)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2236,7 +2236,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7117),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Advik",
@@ -2250,7 +2250,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S019",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7117)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2262,7 +2262,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7124),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2021, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Samaira",
@@ -2276,7 +2276,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "Nursery",
                             StudentNumber = "S020",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7124)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2288,7 +2288,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7131),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Kiaan",
@@ -2302,7 +2302,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S021",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7131)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2314,7 +2314,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7147),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 11, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Avni",
@@ -2328,7 +2328,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S022",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7148)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2340,7 +2340,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7156),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Aryan",
@@ -2354,7 +2354,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S023",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7156)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2366,7 +2366,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7163),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Pari",
@@ -2380,7 +2380,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S024",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7164)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2392,7 +2392,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7170),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Sai",
@@ -2406,7 +2406,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S025",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7171)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2418,7 +2418,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7178),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Atharv",
@@ -2432,7 +2432,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S026",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7178)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2444,7 +2444,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7185),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ira",
@@ -2458,7 +2458,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S027",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7185)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2470,7 +2470,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7193),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Ayaan",
@@ -2484,7 +2484,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S028",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7193)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2496,7 +2496,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7200),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Navya",
@@ -2510,7 +2510,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S029",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7200)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2522,7 +2522,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7207),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Rudra",
@@ -2536,7 +2536,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S030",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7207)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2548,7 +2548,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7214),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Anaya",
@@ -2562,7 +2562,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S031",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7214)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2574,7 +2574,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7221),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Om",
@@ -2588,7 +2588,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S032",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7222)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2600,7 +2600,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7229),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Tara",
@@ -2614,7 +2614,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S033",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7229)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2626,7 +2626,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7237),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Shaurya",
@@ -2640,7 +2640,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S034",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7238)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2652,7 +2652,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7244),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Kashvi",
@@ -2666,7 +2666,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S035",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7245)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2678,7 +2678,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7259),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Mihir",
@@ -2692,7 +2692,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S036",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7259)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2704,7 +2704,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7266),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Prisha",
@@ -2718,7 +2718,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S037",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7266)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2730,7 +2730,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7273),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Aadhya",
@@ -2744,7 +2744,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S038",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7273)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2756,7 +2756,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7280),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Dev",
@@ -2770,7 +2770,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S039",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7280)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2782,7 +2782,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7287),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2020, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Krisha",
@@ -2796,7 +2796,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG1",
                             StudentNumber = "S040",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7287)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2808,7 +2808,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7295),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Arnav",
@@ -2822,7 +2822,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S041",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7295)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2834,7 +2834,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7304),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Janvi",
@@ -2848,7 +2848,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S042",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7305)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2860,7 +2860,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7312),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Yug",
@@ -2874,7 +2874,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S043",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7312)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2886,7 +2886,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7319),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Shanaya",
@@ -2900,7 +2900,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S044",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7320)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2912,7 +2912,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7327),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Arjun",
@@ -2926,7 +2926,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S045",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7327)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2938,7 +2938,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7334),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Anika",
@@ -2952,7 +2952,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S046",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7334)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2964,7 +2964,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7341),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Vedant",
@@ -2978,7 +2978,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S047",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7341)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -2990,7 +2990,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7348),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 1, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Reet",
@@ -3004,7 +3004,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S048",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7349)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3016,7 +3016,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7356),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Aarush",
@@ -3030,7 +3030,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S049",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7356)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3042,7 +3042,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7363),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Khushi",
@@ -3056,7 +3056,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S050",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7363)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3068,7 +3068,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7377),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Aarav",
@@ -3082,7 +3082,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S051",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7378)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3094,7 +3094,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7385),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ananya",
@@ -3108,7 +3108,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S052",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7385)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3120,7 +3120,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7392),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Arjun",
@@ -3134,7 +3134,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S053",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7392)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3146,7 +3146,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7400),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Diya",
@@ -3160,7 +3160,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S054",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7400)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3172,7 +3172,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7407),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Ishaan",
@@ -3186,7 +3186,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S055",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7407)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3198,7 +3198,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7415),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Kavya",
@@ -3212,7 +3212,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S056",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7415)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3224,7 +3224,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7421),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Karan",
@@ -3238,7 +3238,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S057",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7422)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3250,7 +3250,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7429),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Myra",
@@ -3264,7 +3264,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S058",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7429)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3276,7 +3276,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7436),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Riya",
@@ -3290,7 +3290,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S059",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7437)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3302,7 +3302,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7444),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2019, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Vihaan",
@@ -3316,7 +3316,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "KG2",
                             StudentNumber = "S060",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7445)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3328,7 +3328,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7452),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Saanvi",
@@ -3342,7 +3342,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S061",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7452)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3354,7 +3354,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7461),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 3, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Reyansh",
@@ -3368,7 +3368,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S062",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7461)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3380,7 +3380,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7468),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Anvi",
@@ -3394,7 +3394,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S063",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7468)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3406,7 +3406,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7475),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Vivaan",
@@ -3420,7 +3420,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S064",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7475)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3432,7 +3432,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7482),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Aadya",
@@ -3446,7 +3446,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S065",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7483)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3458,7 +3458,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7497),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Aayan",
@@ -3472,7 +3472,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S066",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7497)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3484,7 +3484,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7505),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Pihu",
@@ -3498,7 +3498,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S067",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7505)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3510,7 +3510,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7512),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Krishna",
@@ -3524,7 +3524,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S068",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7512)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3536,7 +3536,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7519),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Advik",
@@ -3550,7 +3550,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S069",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7520)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3562,7 +3562,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7527),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Samaira",
@@ -3576,7 +3576,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S070",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7527)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3588,7 +3588,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7534),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Kiaan",
@@ -3602,7 +3602,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S071",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7535)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3614,7 +3614,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7542),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Avni",
@@ -3628,7 +3628,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S072",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7542)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3640,7 +3640,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7549),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Aryan",
@@ -3654,7 +3654,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S073",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7550)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3666,7 +3666,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7557),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Pari",
@@ -3680,7 +3680,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S074",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7557)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3692,7 +3692,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7564),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Sai",
@@ -3706,7 +3706,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S075",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7564)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3718,7 +3718,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7571),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Atharv",
@@ -3732,7 +3732,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S076",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7572)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3744,7 +3744,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7579),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ira",
@@ -3758,7 +3758,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S077",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7579)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3770,7 +3770,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7586),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Ayaan",
@@ -3784,7 +3784,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S078",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7586)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3796,7 +3796,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7593),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Navya",
@@ -3810,7 +3810,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S079",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7593)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3822,7 +3822,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7608),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2018, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Rudra",
@@ -3836,7 +3836,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "1st",
                             StudentNumber = "S080",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7608)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3848,7 +3848,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7616),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Anaya",
@@ -3862,7 +3862,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S081",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7616)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3874,7 +3874,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7624),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 11, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Om",
@@ -3888,7 +3888,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S082",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7624)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3900,7 +3900,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7632),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 12, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Tara",
@@ -3914,7 +3914,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S083",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7632)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3926,7 +3926,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7639),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Shaurya",
@@ -3940,7 +3940,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S084",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7640)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3952,7 +3952,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7646),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Kashvi",
@@ -3966,7 +3966,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S085",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7647)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -3978,7 +3978,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7654),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Mihir",
@@ -3992,7 +3992,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S086",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7654)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4004,7 +4004,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7661),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Prisha",
@@ -4018,7 +4018,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S087",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7661)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4030,7 +4030,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7668),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Aadhya",
@@ -4044,7 +4044,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S088",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7668)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4056,7 +4056,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7675),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Dev",
@@ -4070,7 +4070,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S089",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7676)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4082,7 +4082,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7682),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Krisha",
@@ -4096,7 +4096,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S090",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7683)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4108,7 +4108,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7689),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Arnav",
@@ -4122,7 +4122,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S091",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7690)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4134,7 +4134,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7697),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Janvi",
@@ -4148,7 +4148,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S092",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7697)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4160,7 +4160,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7704),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Yug",
@@ -4174,7 +4174,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S093",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7704)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4186,7 +4186,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7712),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Shanaya",
@@ -4200,7 +4200,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S094",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7712)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4212,7 +4212,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7726),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Arjun",
@@ -4226,7 +4226,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S095",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7727)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4238,7 +4238,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7735),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Anika",
@@ -4252,7 +4252,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S096",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7735)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4264,7 +4264,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7743),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Vedant",
@@ -4278,7 +4278,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S097",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7743)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4290,7 +4290,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7751),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Reet",
@@ -4304,7 +4304,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S098",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7751)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4316,7 +4316,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7759),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Aarush",
@@ -4330,7 +4330,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S099",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7759)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4342,7 +4342,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7766),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2017, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Khushi",
@@ -4356,7 +4356,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "2nd",
                             StudentNumber = "S100",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7766)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4368,7 +4368,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7774),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Aarav",
@@ -4382,7 +4382,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S101",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7774)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4394,7 +4394,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7783),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ananya",
@@ -4408,7 +4408,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S102",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7783)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4420,7 +4420,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7790),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Arjun",
@@ -4434,7 +4434,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S103",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7790)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4446,7 +4446,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7798),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Diya",
@@ -4460,7 +4460,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S104",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7798)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4472,7 +4472,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7805),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Ishaan",
@@ -4486,7 +4486,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S105",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7805)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4498,7 +4498,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7812),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 11, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Kavya",
@@ -4512,7 +4512,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S106",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7812)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4524,7 +4524,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7820),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Karan",
@@ -4538,7 +4538,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S107",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7820)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4550,7 +4550,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7827),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Myra",
@@ -4564,7 +4564,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S108",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7828)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4576,7 +4576,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7835),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Riya",
@@ -4590,7 +4590,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S109",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7835)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4602,7 +4602,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7850),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Vihaan",
@@ -4616,7 +4616,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S110",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7850)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4628,7 +4628,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7857),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Saanvi",
@@ -4642,7 +4642,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S111",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7857)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4654,7 +4654,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7865),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Reyansh",
@@ -4668,7 +4668,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S112",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7865)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4680,7 +4680,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7872),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Anvi",
@@ -4694,7 +4694,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S113",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7873)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4706,7 +4706,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7880),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Vivaan",
@@ -4720,7 +4720,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S114",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7880)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4732,7 +4732,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7887),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Aadya",
@@ -4746,7 +4746,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S115",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7887)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4758,7 +4758,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7894),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Aayan",
@@ -4772,7 +4772,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S116",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7895)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4784,7 +4784,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7902),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Pihu",
@@ -4798,7 +4798,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S117",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7902)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4810,7 +4810,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7909),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Krishna",
@@ -4824,7 +4824,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S118",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7909)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4836,7 +4836,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7916),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Advik",
@@ -4850,7 +4850,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S119",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7917)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4862,7 +4862,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7923),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2016, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Samaira",
@@ -4876,7 +4876,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "3rd",
                             StudentNumber = "S120",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7924)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4888,7 +4888,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7931),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Kiaan",
@@ -4902,7 +4902,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S121",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7932)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4914,7 +4914,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7941),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Avni",
@@ -4928,7 +4928,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S122",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7941)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4940,7 +4940,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7948),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Aryan",
@@ -4954,7 +4954,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S123",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7949)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4966,7 +4966,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7963),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Pari",
@@ -4980,7 +4980,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S124",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7964)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -4992,7 +4992,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7972),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Sai",
@@ -5006,7 +5006,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S125",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7972)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5018,7 +5018,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7979),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Atharv",
@@ -5032,7 +5032,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S126",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7979)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5044,7 +5044,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7986),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ira",
@@ -5058,7 +5058,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S127",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7986)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5070,7 +5070,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7994),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Ayaan",
@@ -5084,7 +5084,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S128",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(7994)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5096,7 +5096,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8001),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Navya",
@@ -5110,7 +5110,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S129",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8002)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5122,7 +5122,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8010),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Rudra",
@@ -5136,7 +5136,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S130",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8010)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5148,7 +5148,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8018),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Anaya",
@@ -5162,7 +5162,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S131",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8018)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5174,7 +5174,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8025),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 1, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Om",
@@ -5188,7 +5188,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S132",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8025)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5200,7 +5200,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8032),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Tara",
@@ -5214,7 +5214,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S133",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8033)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5226,7 +5226,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8040),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Shaurya",
@@ -5240,7 +5240,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S134",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8040)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5252,7 +5252,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8047),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Kashvi",
@@ -5266,7 +5266,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S135",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8047)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5278,7 +5278,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8062),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Mihir",
@@ -5292,7 +5292,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S136",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8062)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5304,7 +5304,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8070),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Prisha",
@@ -5318,7 +5318,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S137",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8070)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5330,7 +5330,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8077),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Aadhya",
@@ -5344,7 +5344,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S138",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8077)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5356,7 +5356,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8084),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Dev",
@@ -5370,7 +5370,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S139",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8085)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5382,7 +5382,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8091),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2015, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Krisha",
@@ -5396,7 +5396,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "4th",
                             StudentNumber = "S140",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8092)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5408,7 +5408,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8100),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Arnav",
@@ -5422,7 +5422,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S141",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8100)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5434,7 +5434,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8109),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Janvi",
@@ -5448,7 +5448,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S142",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8110)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5460,7 +5460,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8117),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Yug",
@@ -5474,7 +5474,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S143",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8117)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5486,7 +5486,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8124),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Shanaya",
@@ -5500,7 +5500,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S144",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8125)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5512,7 +5512,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8132),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Arjun",
@@ -5526,7 +5526,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S145",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8132)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5538,7 +5538,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8139),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 3, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Anika",
@@ -5552,7 +5552,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S146",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8140)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5564,7 +5564,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8147),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Vedant",
@@ -5578,7 +5578,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S147",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8147)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5590,7 +5590,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8154),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Reet",
@@ -5604,7 +5604,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S148",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8155)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5616,7 +5616,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8161),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Aarush",
@@ -5630,7 +5630,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S149",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8162)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5642,7 +5642,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8169),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Khushi",
@@ -5656,7 +5656,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S150",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8169)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5668,7 +5668,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8184),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Aarav",
@@ -5682,7 +5682,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S151",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8185)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5694,7 +5694,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8192),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ananya",
@@ -5708,7 +5708,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S152",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8192)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5720,7 +5720,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8199),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Arjun",
@@ -5734,7 +5734,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S153",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8199)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5746,7 +5746,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8206),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Diya",
@@ -5760,7 +5760,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S154",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8207)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5772,7 +5772,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8214),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Ishaan",
@@ -5786,7 +5786,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S155",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8214)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5798,7 +5798,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8221),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Kavya",
@@ -5812,7 +5812,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S156",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8221)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5824,7 +5824,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8228),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Karan",
@@ -5838,7 +5838,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S157",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8229)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5850,7 +5850,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8236),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Myra",
@@ -5864,7 +5864,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S158",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8236)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5876,7 +5876,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8244),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Riya",
@@ -5890,7 +5890,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S159",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8244)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5902,7 +5902,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8252),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2014, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Vihaan",
@@ -5916,7 +5916,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "5th",
                             StudentNumber = "S160",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8252)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5928,7 +5928,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8259),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Saanvi",
@@ -5942,7 +5942,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S161",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8260)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5954,7 +5954,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8268),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Reyansh",
@@ -5968,7 +5968,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S162",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8269)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -5980,7 +5980,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8276),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Anvi",
@@ -5994,7 +5994,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S163",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8276)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6006,7 +6006,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8283),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Vivaan",
@@ -6020,7 +6020,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S164",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8283)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6032,7 +6032,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8290),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Aadya",
@@ -6046,7 +6046,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S165",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8290)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6058,7 +6058,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8306),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 11, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Aayan",
@@ -6072,7 +6072,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S166",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8306)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6084,7 +6084,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8313),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 12, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Pihu",
@@ -6098,7 +6098,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S167",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8313)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6110,7 +6110,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8321),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Krishna",
@@ -6124,7 +6124,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S168",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8321)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6136,7 +6136,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8328),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Advik",
@@ -6150,7 +6150,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S169",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8328)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6162,7 +6162,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8335),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Samaira",
@@ -6176,7 +6176,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S170",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8335)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6188,7 +6188,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8342),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Kiaan",
@@ -6202,7 +6202,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S171",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8343)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6214,7 +6214,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8350),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Avni",
@@ -6228,7 +6228,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S172",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8350)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6240,7 +6240,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8357),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Aryan",
@@ -6254,7 +6254,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S173",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8358)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6266,7 +6266,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8365),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Pari",
@@ -6280,7 +6280,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S174",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8365)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6292,7 +6292,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8372),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Sai",
@@ -6306,7 +6306,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S175",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8372)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6318,7 +6318,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8379),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Atharv",
@@ -6332,7 +6332,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S176",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8379)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6344,7 +6344,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8387),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ira",
@@ -6358,7 +6358,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S177",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8387)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6370,7 +6370,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8394),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Ayaan",
@@ -6384,7 +6384,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S178",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8394)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6396,7 +6396,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8401),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Navya",
@@ -6410,7 +6410,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S179",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8401)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6422,7 +6422,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8409),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2013, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Rudra",
@@ -6436,7 +6436,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "6th",
                             StudentNumber = "S180",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8409)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6448,7 +6448,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8425),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Anaya",
@@ -6462,7 +6462,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S181",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8425)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6474,7 +6474,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8434),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Om",
@@ -6488,7 +6488,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S182",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8434)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6500,7 +6500,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8442),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Tara",
@@ -6514,7 +6514,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S183",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8442)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6526,7 +6526,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8450),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Shaurya",
@@ -6540,7 +6540,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S184",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8450)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6552,7 +6552,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8458),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Kashvi",
@@ -6566,7 +6566,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S185",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8458)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6578,7 +6578,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8465),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Mihir",
@@ -6592,7 +6592,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S186",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8465)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6604,7 +6604,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8473),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Prisha",
@@ -6618,7 +6618,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S187",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8474)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6630,7 +6630,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8481),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Aadhya",
@@ -6644,7 +6644,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S188",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8481)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6656,7 +6656,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8489),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Dev",
@@ -6670,7 +6670,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S189",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8489)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6682,7 +6682,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8496),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 11, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Krisha",
@@ -6696,7 +6696,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S190",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8496)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6708,7 +6708,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8503),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Arnav",
@@ -6722,7 +6722,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S191",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8504)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6734,7 +6734,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8511),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Janvi",
@@ -6748,7 +6748,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S192",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8512)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6760,7 +6760,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8519),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Yug",
@@ -6774,7 +6774,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S193",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8519)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6786,7 +6786,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8526),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Shanaya",
@@ -6800,7 +6800,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S194",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8526)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6812,7 +6812,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8534),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Arjun",
@@ -6826,7 +6826,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S195",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8535)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6838,7 +6838,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8550),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Anika",
@@ -6852,7 +6852,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S196",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8550)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6864,7 +6864,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8558),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Vedant",
@@ -6878,7 +6878,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S197",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8558)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6890,7 +6890,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8566),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Reet",
@@ -6904,7 +6904,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S198",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8566)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6916,7 +6916,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8573),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Aarush",
@@ -6930,7 +6930,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S199",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8574)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6942,7 +6942,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8581),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2012, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Khushi",
@@ -6956,7 +6956,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "7th",
                             StudentNumber = "S200",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8581)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6968,7 +6968,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8589),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Aarav",
@@ -6982,7 +6982,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S201",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8589)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -6994,7 +6994,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8597),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ananya",
@@ -7008,7 +7008,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S202",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8597)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7020,7 +7020,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8605),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Arjun",
@@ -7034,7 +7034,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S203",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8605)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7046,7 +7046,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8613),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Diya",
@@ -7060,7 +7060,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S204",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8613)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7072,7 +7072,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8620),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Ishaan",
@@ -7086,7 +7086,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S205",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8621)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7098,7 +7098,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8628),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Kavya",
@@ -7112,7 +7112,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S206",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8628)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7124,7 +7124,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8635),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Karan",
@@ -7138,7 +7138,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S207",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8636)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7150,7 +7150,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8643),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Myra",
@@ -7164,7 +7164,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S208",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8643)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7176,7 +7176,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8651),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Riya",
@@ -7190,7 +7190,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S209",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8651)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7202,7 +7202,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8658),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Vihaan",
@@ -7216,7 +7216,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S210",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8658)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7228,7 +7228,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8673),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Saanvi",
@@ -7242,7 +7242,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S211",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8674)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7254,7 +7254,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8682),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Reyansh",
@@ -7268,7 +7268,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S212",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8682)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7280,7 +7280,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8689),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Anvi",
@@ -7294,7 +7294,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S213",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8690)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7306,7 +7306,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8697),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Vivaan",
@@ -7320,7 +7320,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S214",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8697)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7332,7 +7332,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8705),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Aadya",
@@ -7346,7 +7346,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S215",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8705)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7358,7 +7358,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8712),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 1, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Aayan",
@@ -7372,7 +7372,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S216",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8713)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7384,7 +7384,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8720),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Pihu",
@@ -7398,7 +7398,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S217",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8721)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7410,7 +7410,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8728),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Krishna",
@@ -7424,7 +7424,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S218",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8728)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7436,7 +7436,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8735),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Advik",
@@ -7450,7 +7450,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S219",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8736)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7462,7 +7462,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 11,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8743),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2011, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Samaira",
@@ -7476,7 +7476,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "8th",
                             StudentNumber = "S220",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8744)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7488,7 +7488,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8751),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Kiaan",
@@ -7502,7 +7502,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S221",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8751)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7514,7 +7514,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8759),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Avni",
@@ -7528,7 +7528,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S222",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8760)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7540,7 +7540,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8767),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Aryan",
@@ -7554,7 +7554,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S223",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8767)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7566,7 +7566,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8775),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Pari",
@@ -7580,7 +7580,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S224",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8775)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7592,7 +7592,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8789),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Sai",
@@ -7606,7 +7606,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S225",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8790)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7618,7 +7618,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8798),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Atharv",
@@ -7632,7 +7632,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S226",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8798)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7644,7 +7644,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8806),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ira",
@@ -7658,7 +7658,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S227",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8806)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7670,7 +7670,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8813),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Ayaan",
@@ -7684,7 +7684,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S228",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8813)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7696,7 +7696,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8821),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Navya",
@@ -7710,7 +7710,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S229",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8821)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7722,7 +7722,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8828),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 3, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Rudra",
@@ -7736,7 +7736,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S230",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8829)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7748,7 +7748,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8837),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Anaya",
@@ -7762,7 +7762,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S231",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8837)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7774,7 +7774,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8844),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Om",
@@ -7788,7 +7788,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S232",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8844)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7800,7 +7800,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8852),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Tara",
@@ -7814,7 +7814,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S233",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8852)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7826,7 +7826,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8859),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Shaurya",
@@ -7840,7 +7840,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S234",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8859)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7852,7 +7852,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8867),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Kashvi",
@@ -7866,7 +7866,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S235",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8867)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7878,7 +7878,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kanpur",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8875),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Srivastava Malhotra",
                             FirstName = "Mihir",
@@ -7892,7 +7892,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S236",
                             Surname = "Reddy",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8875)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7904,7 +7904,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nagpur",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8882),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Pandey Kapoor",
                             FirstName = "Prisha",
@@ -7918,7 +7918,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S237",
                             Surname = "Khan",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8883)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7930,7 +7930,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Indore",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8890),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Tiwari Mittal",
                             FirstName = "Aadhya",
@@ -7944,7 +7944,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S238",
                             Surname = "Mishra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8890)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7956,7 +7956,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bhopal",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8898),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 12, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Dubey Joshi",
                             FirstName = "Dev",
@@ -7970,7 +7970,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S239",
                             Surname = "Chopra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8898)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -7982,7 +7982,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Patna",
                             ClassDivision = "A",
                             ClassId = 12,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8912),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2010, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Sharma Saxena",
                             FirstName = "Krisha",
@@ -7996,7 +7996,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "9th",
                             StudentNumber = "S240",
                             Surname = "Bansal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8913)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8008,7 +8008,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vadodara",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8921),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Patel Srivastava",
                             FirstName = "Arnav",
@@ -8022,7 +8022,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S241",
                             Surname = "Agrawal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8921)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8034,7 +8034,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ludhiana",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8929),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Singh Pandey",
                             FirstName = "Janvi",
@@ -8048,7 +8048,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S242",
                             Surname = "Malhotra",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8930)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8060,7 +8060,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Agra",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8937),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kumar Tiwari",
                             FirstName = "Yug",
@@ -8074,7 +8074,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S243",
                             Surname = "Kapoor",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8937)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8086,7 +8086,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Nashik",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8944),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Gupta Dubey",
                             FirstName = "Shanaya",
@@ -8100,7 +8100,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S244",
                             Surname = "Mittal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8945)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8112,7 +8112,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Faridabad",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8952),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agarwal Sharma",
                             FirstName = "Arjun",
@@ -8126,7 +8126,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S245",
                             Surname = "Joshi",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8952)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8138,7 +8138,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Meerut",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8960),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Verma Patel",
                             FirstName = "Anika",
@@ -8152,7 +8152,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S246",
                             Surname = "Saxena",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8960)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8164,7 +8164,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Rajkot",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8967),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Jain Singh",
                             FirstName = "Vedant",
@@ -8178,7 +8178,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S247",
                             Surname = "Srivastava",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8967)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8190,7 +8190,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kalyan",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8974),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Shah Kumar",
                             FirstName = "Reet",
@@ -8204,7 +8204,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S248",
                             Surname = "Pandey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8974)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8216,7 +8216,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Vasai",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8982),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Yadav Gupta",
                             FirstName = "Aarush",
@@ -8230,7 +8230,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S249",
                             Surname = "Tiwari",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8982)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8242,7 +8242,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Varanasi",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8989),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 11, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Reddy Agarwal",
                             FirstName = "Khushi",
@@ -8256,7 +8256,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S250",
                             Surname = "Dubey",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8990)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8268,7 +8268,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Mumbai",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8997),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 12, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Khan Verma",
                             FirstName = "Aarav",
@@ -8282,7 +8282,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S251",
                             Surname = "Sharma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(8997)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8294,7 +8294,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Delhi",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9004),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mishra Jain",
                             FirstName = "Ananya",
@@ -8308,7 +8308,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S252",
                             Surname = "Patel",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9005)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8320,7 +8320,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Pune",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9012),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Chopra Shah",
                             FirstName = "Arjun",
@@ -8334,7 +8334,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S253",
                             Surname = "Singh",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9012)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8346,7 +8346,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Bangalore",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9019),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Bansal Yadav",
                             FirstName = "Diya",
@@ -8360,7 +8360,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S254",
                             Surname = "Kumar",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9019)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8372,7 +8372,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Chennai",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9033),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Agrawal Reddy",
                             FirstName = "Ishaan",
@@ -8386,7 +8386,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S255",
                             Surname = "Gupta",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9034)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8398,7 +8398,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Kolkata",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9041),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Malhotra Khan",
                             FirstName = "Kavya",
@@ -8412,7 +8412,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S256",
                             Surname = "Agarwal",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9042)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8424,7 +8424,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Hyderabad",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9049),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Kapoor Mishra",
                             FirstName = "Karan",
@@ -8438,7 +8438,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S257",
                             Surname = "Verma",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9049)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8450,7 +8450,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Ahmedabad",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9058),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Mittal Chopra",
                             FirstName = "Myra",
@@ -8464,7 +8464,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S258",
                             Surname = "Jain",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9058)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8476,7 +8476,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Jaipur",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9065),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Joshi Bansal",
                             FirstName = "Riya",
@@ -8490,7 +8490,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S259",
                             Surname = "Shah",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9066)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8502,7 +8502,7 @@ namespace IEMS.Infrastructure.Migrations
                             CityVillage = "Lucknow",
                             ClassDivision = "A",
                             ClassId = 13,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9073),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DateOfBirth = new DateTime(2009, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FatherName = "Saxena Agrawal",
                             FirstName = "Vihaan",
@@ -8516,7 +8516,7 @@ namespace IEMS.Infrastructure.Migrations
                             Standard = "10th",
                             StudentNumber = "S260",
                             Surname = "Yadav",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9074)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -8633,20 +8633,9 @@ namespace IEMS.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Key = "Academic.CurrentYear",
-                            Category = "Academic",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4679),
-                            DataType = "String",
-                            DefaultValue = "2024-25",
-                            Description = "Current academic year",
-                            IsReadOnly = false,
-                            Value = "2024-25"
-                        },
-                        new
-                        {
                             Key = "Backup.AutoBackupEnabled",
                             Category = "Backup",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4682),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "Boolean",
                             DefaultValue = "true",
                             Description = "Enable automatic backup",
@@ -8657,7 +8646,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "Backup.RetentionDays",
                             Category = "Backup",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4684),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "Integer",
                             DefaultValue = "30",
                             Description = "Days to retain backup files",
@@ -8668,7 +8657,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "Backup.BackupPath",
                             Category = "Backup",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4686),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "DirectoryPath",
                             DefaultValue = "C:\\Users\\SP\\Documents\\IEMS_Backups",
                             Description = "Default backup directory path",
@@ -8679,7 +8668,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.ManagementName",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4688),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "Mahalakmi Bahuddeshiy Sanstha, Chikhalgaon",
                             Description = "Name of school management organization",
@@ -8690,7 +8679,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.Name",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4690),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "Inspire English Medium School, Mardi",
                             Description = "Official school name",
@@ -8701,7 +8690,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.AddressLine1",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4692),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "Tah. Maregaon, Dist. Yavatmal (Maharashtra)",
                             Description = "School address line 1",
@@ -8712,7 +8701,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.PinCode",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4694),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "445303",
                             Description = "School pin code",
@@ -8723,7 +8712,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.AccreditationNumber",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4695),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "115381/2016",
                             Description = "School accreditation number",
@@ -8734,7 +8723,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.UDISECode",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4697),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "27140806704",
                             Description = "U-DISE code for school",
@@ -8745,7 +8734,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.Board",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4699),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "State",
                             Description = "Educational board affiliation",
@@ -8756,7 +8745,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.Phone",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4700),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "8483949981",
                             Description = "School primary phone number",
@@ -8767,7 +8756,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.AlternatePhone",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4702),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "",
                             Description = "School alternate phone number",
@@ -8778,7 +8767,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.Email",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4704),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "inspire.mardi@gmail.com",
                             Description = "School official email address",
@@ -8789,7 +8778,7 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Key = "School.Website",
                             Category = "School",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 445, DateTimeKind.Utc).AddTicks(4706),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DataType = "String",
                             DefaultValue = "",
                             Description = "School website URL",
@@ -8865,7 +8854,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "1234-5678-9012",
                             Address = "123 Teachers Colony, Mumbai",
                             BankAccountNumber = "SBI1234567890",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6583),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "priya.sharma@iemsschool.edu.in",
                             EmployeeId = "T001",
                             FirstName = "Priya",
@@ -8874,7 +8863,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 55000m,
                             PANNumber = "ABCDE1234F",
                             PhoneNumber = "9876543201",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6584)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8882,7 +8871,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "2345-6789-0123",
                             Address = "456 Gandhi Nagar, Pune",
                             BankAccountNumber = "HDFC9876543210",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6589),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "rajesh.patel@iemsschool.edu.in",
                             EmployeeId = "T002",
                             FirstName = "Rajesh",
@@ -8891,7 +8880,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 62000m,
                             PANNumber = "FGHIJ5678K",
                             PhoneNumber = "9876543202",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6590)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8899,7 +8888,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "3456-7890-1234",
                             Address = "789 Shivaji Park, Nashik",
                             BankAccountNumber = "ICICI5432109876",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6594),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "anita.kulkarni@iemsschool.edu.in",
                             EmployeeId = "T003",
                             FirstName = "Anita",
@@ -8908,7 +8897,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 48000m,
                             PANNumber = "LMNOP9012Q",
                             PhoneNumber = "9876543203",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6594)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8916,7 +8905,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "4567-8901-2345",
                             Address = "101 Nehru Colony, Nagpur",
                             BankAccountNumber = "AXIS6789012345",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6599),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "suresh.gupta@iemsschool.edu.in",
                             EmployeeId = "T004",
                             FirstName = "Suresh",
@@ -8925,7 +8914,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 68000m,
                             PANNumber = "RSTUV3456W",
                             PhoneNumber = "9876543204",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6599)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8933,16 +8922,16 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "5678-9012-3456",
                             Address = "202 Laxmi Nagar, Aurangabad",
                             BankAccountNumber = "PNB3456789012",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6603),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "kavita.singh@iemsschool.edu.in",
                             EmployeeId = "T005",
                             FirstName = "Kavita",
                             JoiningDate = new DateTime(2022, 1, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Singh",
                             MonthlySalary = 45000m,
-                            PANNumber = "WXYZ7890A",
+                            PANNumber = "WXYZE7890A",
                             PhoneNumber = "9876543205",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6603)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8950,7 +8939,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "6789-0123-4567",
                             Address = "303 Saraswati Vihar, Delhi",
                             BankAccountNumber = "BOI4567890123",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6607),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "amit.verma@iemsschool.edu.in",
                             EmployeeId = "T006",
                             FirstName = "Amit",
@@ -8959,7 +8948,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 52000m,
                             PANNumber = "BCDEF8901B",
                             PhoneNumber = "9876543206",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6607)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8967,7 +8956,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "7890-1234-5678",
                             Address = "404 Indira Nagar, Jaipur",
                             BankAccountNumber = "UCO5678901234",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6611),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "sunita.joshi@iemsschool.edu.in",
                             EmployeeId = "T007",
                             FirstName = "Sunita",
@@ -8976,7 +8965,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 58000m,
                             PANNumber = "CDEFG9012C",
                             PhoneNumber = "9876543207",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6611)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -8984,7 +8973,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "8901-2345-6789",
                             Address = "505 Vasant Kunj, Lucknow",
                             BankAccountNumber = "CBI6789012345",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6617),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "vikram.yadav@iemsschool.edu.in",
                             EmployeeId = "T008",
                             FirstName = "Vikram",
@@ -8993,7 +8982,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 46000m,
                             PANNumber = "DEFGH0123D",
                             PhoneNumber = "9876543208",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6617)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -9001,7 +8990,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "9012-3456-7890",
                             Address = "606 MG Road, Bangalore",
                             BankAccountNumber = "IOB7890123456",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6621),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "meera.agarwal@iemsschool.edu.in",
                             EmployeeId = "T009",
                             FirstName = "Meera",
@@ -9010,7 +8999,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 54000m,
                             PANNumber = "EFGHI1234E",
                             PhoneNumber = "9876543209",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6622)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -9018,7 +9007,7 @@ namespace IEMS.Infrastructure.Migrations
                             AadharNumber = "0123-4567-8901",
                             Address = "707 Park Street, Kolkata",
                             BankAccountNumber = "UNION8901234567",
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6625),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "rohit.mishra@iemsschool.edu.in",
                             EmployeeId = "T010",
                             FirstName = "Rohit",
@@ -9027,7 +9016,7 @@ namespace IEMS.Infrastructure.Migrations
                             MonthlySalary = 65000m,
                             PANNumber = "FGHIJ2345F",
                             PhoneNumber = "9876543210",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(6626)
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -9088,14 +9077,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 1,
                             Amount = 5000m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9555),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Fuel refill for bus",
                             DriverName = "Rajesh Kumar",
-                            ExpenseDate = new DateTime(2025, 10, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 27, 0, 0, 0, 0, DateTimeKind.Utc),
                             FuelType = 1,
                             InvoiceNumber = "F001",
                             Quantity = 50m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9555),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 1
                         },
                         new
@@ -9103,14 +9092,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 2,
                             Amount = 1200m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9560),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "CNG refill for auto",
                             DriverName = "Suresh Patil",
-                            ExpenseDate = new DateTime(2025, 10, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 29, 0, 0, 0, 0, DateTimeKind.Utc),
                             FuelType = 3,
                             InvoiceNumber = "F002",
                             Quantity = 20m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9561),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 2
                         },
                         new
@@ -9118,13 +9107,13 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 3,
                             Amount = 3500m,
                             Category = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9565),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Brake pad replacement",
                             DriverName = "Mohan Singh",
-                            ExpenseDate = new DateTime(2025, 10, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             InvoiceNumber = "M001",
                             Quantity = 1m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9566),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 3
                         },
                         new
@@ -9132,14 +9121,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 4,
                             Amount = 6200m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9571),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Weekly diesel refill",
                             DriverName = "Ashok Yadav",
-                            ExpenseDate = new DateTime(2025, 10, 13, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 30, 0, 0, 0, 0, DateTimeKind.Utc),
                             FuelType = 1,
                             InvoiceNumber = "F003",
                             Quantity = 65m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9571),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 4
                         },
                         new
@@ -9147,14 +9136,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 5,
                             Amount = 980m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9575),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "CNG refill",
                             DriverName = "Ramesh Gupta",
-                            ExpenseDate = new DateTime(2025, 10, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 28, 0, 0, 0, 0, DateTimeKind.Utc),
                             FuelType = 3,
                             InvoiceNumber = "F004",
                             Quantity = 15m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9576),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 5
                         },
                         new
@@ -9162,13 +9151,13 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 6,
                             Amount = 2800m,
                             Category = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9579),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Tire replacement",
                             DriverName = "Prakash Nair",
-                            ExpenseDate = new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             InvoiceNumber = "M002",
                             Quantity = 1m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9580),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 6
                         },
                         new
@@ -9176,14 +9165,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 7,
                             Amount = 4800m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9584),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Daily diesel supply",
                             DriverName = "Murugan Pillai",
-                            ExpenseDate = new DateTime(2025, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 31, 0, 0, 0, 0, DateTimeKind.Utc),
                             FuelType = 1,
                             InvoiceNumber = "F005",
                             Quantity = 45m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9584),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 7
                         },
                         new
@@ -9191,14 +9180,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 8,
                             Amount = 1400m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9589),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Auto CNG refill",
                             DriverName = "Biswajit Das",
-                            ExpenseDate = new DateTime(2025, 10, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 26, 0, 0, 0, 0, DateTimeKind.Utc),
                             FuelType = 3,
                             InvoiceNumber = "F006",
                             Quantity = 22m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9590),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 8
                         },
                         new
@@ -9206,13 +9195,13 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 9,
                             Amount = 4200m,
                             Category = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9593),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Engine service and oil change",
                             DriverName = "Dinesh Sharma",
-                            ExpenseDate = new DateTime(2025, 9, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Utc),
                             InvoiceNumber = "M003",
                             Quantity = 1m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9594),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 9
                         },
                         new
@@ -9220,14 +9209,14 @@ namespace IEMS.Infrastructure.Migrations
                             Id = 10,
                             Amount = 5500m,
                             Category = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9597),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Bus fuel refill",
                             DriverName = "Kiran Patel",
-                            ExpenseDate = new DateTime(2025, 10, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            ExpenseDate = new DateTime(2024, 5, 24, 0, 0, 0, 0, DateTimeKind.Utc),
                             FuelType = 1,
                             InvoiceNumber = "F007",
                             Quantity = 55m,
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9598),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleId = 10
                         });
                 });
@@ -9299,11 +9288,11 @@ namespace IEMS.Infrastructure.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            CreatedDate = new DateTime(2025, 10, 15, 17, 57, 6, 445, DateTimeKind.Local).AddTicks(3880),
+                            CreatedDate = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@iems.school",
                             FullName = "System Administrator",
                             IsActive = true,
-                            MustChangePassword = false,
+                            MustChangePassword = true,
                             PasswordHash = "AQIDBAUGBwgJCgsMDQ4PEEid+CGqDjXQiN9J1YT+4eNXW2t9UKfghgWIcum2O9k6",
                             Role = "Admin",
                             Username = "admin"
@@ -9356,110 +9345,110 @@ namespace IEMS.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9458),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Rajesh Kumar",
                             DriverPhone = "9876543213",
                             Route = "Main Street - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9458),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "MH12AB1234",
                             VehicleType = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9461),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Suresh Patil",
                             DriverPhone = "9876543214",
                             Route = "Park Road - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9461),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "MH12CD5678",
                             VehicleType = 2
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9464),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Mohan Singh",
                             DriverPhone = "9876543215",
                             Route = "Highway - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9464),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "MH12EF9012",
                             VehicleType = 3
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9466),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Ashok Yadav",
                             DriverPhone = "9876543216",
                             Route = "South Delhi - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9466),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "DL8CAB9876",
                             VehicleType = 1
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9468),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Ramesh Gupta",
                             DriverPhone = "9876543217",
                             Route = "Lucknow City - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9469),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "UP16GH3456",
                             VehicleType = 2
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9478),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Prakash Nair",
                             DriverPhone = "9876543218",
                             Route = "Bangalore North - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9479),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "KA05JK7890",
                             VehicleType = 3
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9481),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Murugan Pillai",
                             DriverPhone = "9876543219",
                             Route = "Chennai Central - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9482),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "TN07LM2345",
                             VehicleType = 1
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9484),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Biswajit Das",
                             DriverPhone = "9876543220",
                             Route = "Kolkata East - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9484),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "WB10NO6789",
                             VehicleType = 2
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9486),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Dinesh Sharma",
                             DriverPhone = "9876543221",
                             Route = "Jaipur Pink City - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9487),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "RJ14PQ0123",
                             VehicleType = 3
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9488),
+                            CreatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             DriverName = "Kiran Patel",
                             DriverPhone = "9876543222",
                             Route = "Ahmedabad West - School",
-                            UpdatedAt = new DateTime(2025, 10, 15, 12, 27, 6, 437, DateTimeKind.Utc).AddTicks(9489),
+                            UpdatedAt = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             VehicleNumber = "GJ01RS4567",
                             VehicleType = 1
                         });

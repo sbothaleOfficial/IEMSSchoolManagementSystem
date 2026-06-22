@@ -4,8 +4,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 using Serilog;
 using IEMS.Infrastructure.Data;
 using IEMS.Core.Interfaces;
@@ -110,7 +114,7 @@ public partial class App : System.Windows.Application
             using (var scope = _host.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                context.Database.EnsureCreated();
+                MigrateDatabase(context);
 
                 // Ensure default admin user exists
                 var userService = scope.ServiceProvider.GetRequiredService<UserService>();
@@ -132,6 +136,42 @@ public partial class App : System.Windows.Application
             this.Shutdown(1);
         }
     }
+
+    /// <summary>
+    /// Applies EF Core migrations. Databases originally created by the old EnsureCreated() path have
+    /// the schema but no __EFMigrationsHistory table; Migrate() would then fail trying to re-create
+    /// existing tables. Detect that and baseline the DB (record the existing migrations as already
+    /// applied) before migrating, so legacy databases upgrade cleanly and future schema changes ship
+    /// as ordinary migrations.
+    /// </summary>
+    private static void MigrateDatabase(ApplicationDbContext context)
+    {
+        var db = context.Database;
+        var creator = context.GetService<IRelationalDatabaseCreator>();
+
+        var schemaAlreadyExists = creator.Exists() && creator.HasTables();
+        var hasMigrationHistory = db.GetAppliedMigrations().Any();
+
+        if (schemaAlreadyExists && !hasMigrationHistory)
+        {
+            Log.Information("Baselining a legacy (EnsureCreated) database into the migrations history");
+            var history = context.GetService<IHistoryRepository>();
+            if (!history.Exists())
+            {
+                db.ExecuteSqlRaw(history.GetCreateScript());
+            }
+            var migrationsAssembly = context.GetService<IMigrationsAssembly>();
+            foreach (var migrationId in migrationsAssembly.Migrations.Keys)
+            {
+                db.ExecuteSqlRaw(history.GetInsertScript(new HistoryRow(migrationId, ProductVersion)));
+            }
+        }
+
+        db.Migrate();
+    }
+
+    private static string ProductVersion =>
+        typeof(ApplicationDbContext).Assembly.GetName().Version?.ToString() ?? "8.0.0";
 
     /// <summary>Writes rolling daily log files to %LOCALAPPDATA%\IEMS\logs (kept 31 days).</summary>
     private static void ConfigureLogging()
