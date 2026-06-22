@@ -15,6 +15,10 @@ public interface IFeeStructureRepository
     Task<FeeStructure?> GetByClassIdFeeTypeAndAcademicYearIdAsync(int classId, FeeType feeType, int academicYearId);
     Task<IEnumerable<FeeStructure>> GetByAcademicYearIdAsync(int academicYearId);
 
+    // Includes soft-deleted (IsActive = false) rows — used to reactivate a previously
+    // deleted fee structure instead of inserting a duplicate that violates the unique index.
+    Task<FeeStructure?> GetByClassFeeTypeYearIncludingInactiveAsync(int classId, FeeType feeType, int academicYearId);
+
     // DEPRECATED: String-based methods kept for backward compatibility during migration
     [Obsolete("Use GetByClassIdAndAcademicYearIdAsync instead. This method will be removed in a future version.")]
     Task<IEnumerable<FeeStructure>> GetByClassIdAndAcademicYearAsync(int classId, string academicYear);

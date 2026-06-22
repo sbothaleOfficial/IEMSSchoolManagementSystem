@@ -492,6 +492,13 @@ await Section("14. CRUD: Vehicle / TransportExpense / ElectricityBill / OtherExp
     await fss.DeleteFeeStructureAsync(fs.Id);
     Check("FeeStructure soft-deleted (excluded from active list)",
         (await fss.GetAllFeeStructuresAsync()).All(x => x.Id != fs.Id));
+    // Re-creating the SAME (class, fee type, year) after a soft delete must reactivate the
+    // existing row, NOT fail with a cryptic unique-constraint error.
+    var fsReact = await fss.CreateFeeStructureAsync(new CreateFeeStructureDto { ClassId = 5, FeeType = FeeType.SPORTS, Amount = 5000, AcademicYearId = 3, AcademicYear = "2024-25", Description = "reactivated" });
+    Check("Re-create after soft delete reactivates same row (no unique-constraint error)", fsReact.Id == fs.Id, $"new={fsReact.Id}, old={fs.Id}");
+    Check("Reactivated fee structure is active with the updated amount",
+        (await fss.GetAllFeeStructuresAsync()).Any(x => x.Id == fs.Id && x.Amount == 5000));
+    await fss.DeleteFeeStructureAsync(fsReact.Id);
 
     // Staff
     var ss = sp.GetRequiredService<StaffService>();

@@ -71,6 +71,16 @@ public class FeeStructureRepository : IFeeStructureRepository
             .ToListAsync();
     }
 
+    // Note: intentionally does NOT filter on IsActive, so callers can find a soft-deleted
+    // row occupying the unique (ClassId, FeeType, AcademicYearId) slot and reactivate it.
+    public async Task<FeeStructure?> GetByClassFeeTypeYearIncludingInactiveAsync(int classId, FeeType feeType, int academicYearId)
+    {
+        return await _context.FeeStructures
+            .Include(fs => fs.Class)
+            .Include(fs => fs.AcademicYear)
+            .FirstOrDefaultAsync(fs => fs.ClassId == classId && fs.FeeType == feeType && fs.AcademicYearId == academicYearId);
+    }
+
     // DEPRECATED: String-based methods kept for backward compatibility during migration
     [Obsolete("Use GetByClassIdAndAcademicYearIdAsync instead. This method will be removed in a future version.")]
     public async Task<IEnumerable<FeeStructure>> GetByClassIdAndAcademicYearAsync(int classId, string academicYear)

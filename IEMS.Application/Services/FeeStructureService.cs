@@ -91,6 +91,25 @@ public class FeeStructureService
         if (existingStructure != null)
             throw new InvalidOperationException("Fee structure already exists for this class, fee type, and academic year");
 
+        // A previously soft-deleted row still occupies the unique (ClassId, FeeType,
+        // AcademicYearId) slot at the DB level. Reactivate and update it instead of
+        // inserting a duplicate that would fail the unique constraint with a cryptic error.
+        var softDeleted = await _feeStructureRepository.GetByClassFeeTypeYearIncludingInactiveAsync(
+            createDto.ClassId, createDto.FeeType, createDto.AcademicYearId);
+        if (softDeleted != null)
+        {
+            softDeleted.IsActive = true;
+            softDeleted.Amount = createDto.Amount;
+#pragma warning disable CS0618 // Type or member is obsolete
+            softDeleted.AcademicYearString = academicYear.Year;
+#pragma warning restore CS0618 // Type or member is obsolete
+            softDeleted.Description = createDto.Description;
+            softDeleted.UpdatedAt = DateTime.UtcNow;
+            await _feeStructureRepository.UpdateAsync(softDeleted);
+            var reactivated = await _feeStructureRepository.GetByIdAsync(softDeleted.Id);
+            return MapToDto(reactivated!);
+        }
+
         var feeStructure = new FeeStructure
         {
             ClassId = createDto.ClassId,
