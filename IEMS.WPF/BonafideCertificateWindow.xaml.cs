@@ -304,10 +304,10 @@ namespace IEMS.WPF
 
             contentText.Text = $"This is to Certify that {prefix} {fullName}\n" +
                               $"S/O, D/O {fatherName} and Mother {motherName}\n" +
-                              $"is a Bonafied Student of this School Since {admissionDate} and now\n" +
-                              $"He/She is Studying in Standard {standard} Her/She Reg./Roll.No. {studentNumber}\n" +
-                              $"The Date of Birth this Student as per Record is {dateOfBirth} in\n" +
-                              $"Words {dateOfBirthInWords}. His/She Caste is {caste}\n" +
+                              $"is a Bonafide Student of this School Since {admissionDate} and now\n" +
+                              $"He/She is Studying in Standard {standard} His/Her Reg./Roll No. {studentNumber}\n" +
+                              $"The Date of Birth of this Student as per Record is {dateOfBirth} in\n" +
+                              $"Words {dateOfBirthInWords}. His/Her Caste is {caste}\n" +
                               $"and in Religion {religion} According to School General Register.";
 
             contentPanel.Children.Add(contentText);
@@ -328,7 +328,7 @@ namespace IEMS.WPF
 
             var clarkText = new TextBlock
             {
-                Text = "Clark",
+                Text = "Clerk",
                 FontSize = 14,
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = HorizontalAlignment.Center,

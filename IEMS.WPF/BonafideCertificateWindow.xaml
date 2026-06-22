@@ -61,7 +61,7 @@
                     <Border Height="2" Background="#34495E" Margin="0,0,0,30"/>
 
                     <!-- Certificate Title -->
-                    <TextBlock Text="BONAFIED CERTIFICATE" FontSize="28" FontWeight="Bold"
+                    <TextBlock Text="BONAFIDE CERTIFICATE" FontSize="28" FontWeight="Bold"
                                HorizontalAlignment="Center" Margin="0,0,0,40"
                                TextDecorations="Underline"/>
 
@@ -77,22 +77,22 @@
                             <Run Text=" and Mother "/>
                             <Run x:Name="MotherNameRun" FontWeight="Bold"/>
                             <LineBreak/>
-                            <Run Text="is a Bonafied Student of this School Since "/>
+                            <Run Text="is a Bonafide Student of this School Since "/>
                             <Run x:Name="AdmissionDateRun" FontWeight="Bold"/>
                             <Run Text=" and now"/>
                             <LineBreak/>
                             <Run Text="He/She is Studying in Standard "/>
                             <Run x:Name="StandardRun" FontWeight="Bold"/>
-                            <Run Text=" Her/She Reg./Roll.No. "/>
+                            <Run Text=" His/Her Reg./Roll No. "/>
                             <Run x:Name="StudentNumberRun" FontWeight="Bold"/>
                             <LineBreak/>
-                            <Run Text="The Date of Birth this Student as per Record is "/>
+                            <Run Text="The Date of Birth of this Student as per Record is "/>
                             <Run x:Name="DateOfBirthRun" FontWeight="Bold"/>
                             <Run Text=" in"/>
                             <LineBreak/>
                             <Run Text="Words "/>
                             <Run x:Name="DateOfBirthInWordsRun" FontWeight="Bold"/>
-                            <Run Text=". His/She Caste is "/>
+                            <Run Text=". His/Her Caste is "/>
                             <Run x:Name="CasteRun" FontWeight="Bold"/>
                             <LineBreak/>
                             <Run Text="and in Religion "/>
@@ -116,7 +116,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                            <TextBlock Text="Clark" FontSize="14" FontWeight="Bold"
+                            <TextBlock Text="Clerk" FontSize="14" FontWeight="Bold"
                                        HorizontalAlignment="Center" Margin="0,60,0,0"/>
                         </StackPanel>
 
