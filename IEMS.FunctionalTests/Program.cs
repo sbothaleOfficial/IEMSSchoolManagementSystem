@@ -8,6 +8,7 @@ using IEMS.Application.Services;
 using IEMS.Application.Interfaces;
 using IEMS.Application.DTOs;
 using IEMS.Core.Enums;
+using IEMS.Core.Configuration;
 
 // ============================================================================
 // IEMS School Management System - Functional Test Harness
@@ -55,6 +56,22 @@ services.AddScoped<IUserRepository, UserRepository>();
 services.AddScoped<FeeCalculationService>();
 services.AddScoped<AmountToWordsService>();
 services.AddScoped<PasswordHashingService>();
+services.AddSingleton(new BulkPromotionConfiguration
+{
+    EligibilityRules = new EligibilityRulesConfiguration
+    {
+        MaxPendingFees = 0m, MinAttendancePercentage = 75,
+        RequireTeacherApproval = false, AllowPromotionWithPendingFees = false
+    },
+    ClassProgression = new ClassProgressionConfiguration
+    {
+        AllowSameGradePromotion = true, AllowSkipGrade = false, StrictProgressionOnly = true
+    }
+});
+services.AddScoped<StudentPromotionService>();
+services.AddScoped<StudentEligibilityValidator>();
+services.AddScoped<ClassProgressionValidator>();
+services.AddScoped<BulkPromotionService>();
 services.AddScoped<StudentService>();
 services.AddScoped<TeacherService>();
 services.AddScoped<ClassService>();
@@ -283,6 +300,274 @@ await Section("8. Bug-fix regressions", async () =>
     var users2 = sp.GetRequiredService<UserService>();
     var nullUser = await users2.AuthenticateAsync(null, "x");
     Check("Auth with null username returns null (no crash)", nullUser == null);
+});
+
+// Helper: run an action in a fresh DI scope and report whether it threw.
+async Task<bool> Throws(Func<IServiceProvider, Task> act)
+{
+    using var s2 = provider.CreateScope();
+    try { await act(s2.ServiceProvider); return false; }
+    catch { return true; }
+}
+
+// Helper: a valid StudentDto with the given unique keys.
+StudentDto MakeStudent(int serial, string number, int classId = 1) => new StudentDto
+{
+    SerialNo = serial, Standard = "Class 1", ClassDivision = "A",
+    FirstName = "Test", FatherName = "Test Father", Surname = "Student",
+    DateOfBirth = new DateTime(2015, 5, 5), Gender = "Male", MotherName = "Test Mother",
+    StudentNumber = number, AdmissionDate = new DateTime(2024, 6, 1),
+    CasteCategory = "General", Religion = "Hindu", Address = "1 Test Rd",
+    CityVillage = "Testville", ParentMobileNumber = "9000000000",
+    AadhaarNumber = "111122223333", ClassId = classId
+};
+
+var dbOpts = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlite(connString).Options;
+
+// ----- 8. Unique-constraint integrity (duplicates MUST be rejected) -----
+await Section("8. Unique-constraint integrity", async () =>
+{
+    Check("Duplicate student number S001 rejected",
+        await Throws(s => s.GetRequiredService<StudentService>().AddStudentAsync(MakeStudent(90001, "S001"))));
+    Check("Duplicate student serial-no rejected",
+        await Throws(s => s.GetRequiredService<StudentService>().AddStudentAsync(MakeStudent(1, "SUNIQUE1"))));
+    Check("Duplicate teacher EmployeeId T001 rejected",
+        await Throws(s => s.GetRequiredService<TeacherService>().AddTeacherAsync(new TeacherDto { EmployeeId = "T001", FirstName = "Dup", LastName = "Teacher", PhoneNumber = "9000000000", Address = "x" })));
+    Check("Duplicate staff EmployeeId ST001 rejected",
+        await Throws(s => s.GetRequiredService<StaffService>().CreateStaffAsync(new StaffDto { EmployeeId = "ST001", FirstName = "Dup", LastName = "Staff", PhoneNumber = "9000000000", Address = "x", Position = "Clerk", JoiningDate = DateTime.Today })));
+    Check("Duplicate vehicle number MH12AB1234 rejected",
+        await Throws(s => s.GetRequiredService<VehicleService>().CreateVehicleAsync(new CreateVehicleDto { VehicleNumber = "MH12AB1234", VehicleType = VehicleType.BUS, DriverName = "Dup", DriverPhone = "9000000000", Route = "x" })));
+    Check("Duplicate academic year 2024-25 rejected",
+        await Throws(s => s.GetRequiredService<AcademicYearService>().AddAcademicYearAsync(new AcademicYearDto { Year = "2024-25", StartDate = new DateTime(2024, 6, 1), EndDate = new DateTime(2025, 5, 31) })));
+    Check("Duplicate fee structure (Class1/TUITION/AY3) rejected",
+        await Throws(s => s.GetRequiredService<FeeStructureService>().CreateFeeStructureAsync(new CreateFeeStructureDto { ClassId = 1, FeeType = FeeType.TUITION, Amount = 1, AcademicYearId = 3, AcademicYear = "2024-25", Description = "dup" })));
+    Check("Duplicate username 'admin' rejected",
+        await Throws(s => s.GetRequiredService<UserService>().CreateUserAsync("admin", "Pass@123", "Dup", "Clerk", "d@x.test", "admin")));
+    Check("Duplicate electricity bill (month 1 / 2024) rejected",
+        await Throws(s => s.GetRequiredService<ElectricityBillService>().CreateAsync(new ElectricityBillDto { BillNumber = "EBDUP", BillMonth = 1, BillYear = 2024, Amount = 100, DueDate = DateTime.Today, Units = 1, UnitsRate = 1 })));
+});
+
+// ----- 9. Foreign-key & delete-guard integrity -----
+await Section("9. FK & delete-guard integrity", async () =>
+{
+    Check("Cannot delete teacher assigned to a class",
+        await Throws(s => s.GetRequiredService<TeacherService>().DeleteTeacherAsync(1)));
+    Check("Cannot delete class that has students",
+        await Throws(s => s.GetRequiredService<ClassService>().DeleteClassAsync(1)));
+    Check("Cannot delete the current academic year",
+        await Throws(s => s.GetRequiredService<AcademicYearService>().DeleteAcademicYearAsync(3)));
+});
+
+// ----- 10. Referential integrity (no orphaned rows) -----
+await Section("10. Referential integrity (no orphans)", async () =>
+{
+    using var ctx = new ApplicationDbContext(dbOpts);
+    Check("Every FeePayment.StudentId references a real student",
+        await ctx.FeePayments.CountAsync(p => !ctx.Students.Any(s => s.Id == p.StudentId)) == 0);
+    Check("Every Student.ClassId references a real class",
+        await ctx.Students.CountAsync(st => !ctx.Classes.Any(c => c.Id == st.ClassId)) == 0);
+    Check("Every Class.TeacherId references a real teacher",
+        await ctx.Classes.CountAsync(c => c.TeacherId != null && !ctx.Teachers.Any(t => t.Id == c.TeacherId)) == 0);
+    Check("Every FeeStructure.ClassId references a real class",
+        await ctx.FeeStructures.CountAsync(f => !ctx.Classes.Any(c => c.Id == f.ClassId)) == 0);
+    Check("Every FeeStructure.AcademicYearId references a real year",
+        await ctx.FeeStructures.CountAsync(f => !ctx.AcademicYears.Any(a => a.Id == f.AcademicYearId)) == 0);
+    Check("Every FeePayment.AcademicYearId references a real year",
+        await ctx.FeePayments.CountAsync(p => !ctx.AcademicYears.Any(a => a.Id == p.AcademicYearId)) == 0);
+});
+
+// ----- 11. Durability (data survives a brand-new connection) -----
+await Section("11. Durability (persist across fresh connection)", async () =>
+{
+    int newId;
+    using (var s2 = provider.CreateScope())
+    {
+        var v = await s2.ServiceProvider.GetRequiredService<VehicleService>()
+            .CreateVehicleAsync(new CreateVehicleDto { VehicleNumber = "MH99DUR001", VehicleType = VehicleType.BUS, DriverName = "Durable", DriverPhone = "9000000000", Route = "R" });
+        newId = v.Id;
+    }
+    // Brand-new context + connection to the same file — proves it was flushed to disk.
+    using (var fresh = new ApplicationDbContext(dbOpts))
+    {
+        var found = await fresh.Vehicles.FirstOrDefaultAsync(x => x.Id == newId);
+        Check("Created vehicle is readable from a new connection", found != null && found.VehicleNumber == "MH99DUR001");
+        Check("Seed still intact in fresh connection (>=260 students)", await fresh.Students.CountAsync() >= 260);
+    }
+    // restore count
+    using (var s3 = provider.CreateScope())
+        await s3.ServiceProvider.GetRequiredService<VehicleService>().DeleteVehicleAsync(newId);
+});
+
+// ----- 12. Transaction atomicity & consistency (bulk promotion) -----
+await Section("12. Bulk promotion atomicity & consistency", async () =>
+{
+    using (var s2 = provider.CreateScope())
+    {
+        var bulk = s2.ServiceProvider.GetRequiredService<BulkPromotionService>();
+        var result = await bulk.ExecuteBulkPromotionAsync(new BulkPromotionRequest
+        { FromClassId = 2, ToClassId = 5, AcademicYearId = 3, PromotedBy = "test", Reason = "regression" });
+        Check("Promotion reports success", result.IsSuccess, $"promoted={result.PromotedStudents}, failed={result.FailedPromotions}");
+        Check("Promotion moved all 20 students", result.PromotedStudents == 20, $"{result.PromotedStudents}");
+    }
+    using (var fresh = new ApplicationDbContext(dbOpts))
+    {
+        Check("Source class 2 is now empty (atomic move)", await fresh.Students.CountAsync(s => s.ClassId == 2) == 0);
+        Check("Target class 5 now holds 40 students", await fresh.Students.CountAsync(s => s.ClassId == 5) == 40);
+        Check("Promotion history rows == students promoted (consistent)",
+            await fresh.StudentPromotionHistory.CountAsync(h => h.AcademicYearId == 3) == 20);
+    }
+    // Roll back so the rest of the suite sees seeded distribution + verify reversibility.
+    using (var s3 = provider.CreateScope())
+        await s3.ServiceProvider.GetRequiredService<BulkPromotionService>().RollbackPromotionAsync(2, 5, "2024-25");
+    using (var fresh = new ApplicationDbContext(dbOpts))
+    {
+        Check("Rollback restores class 2 to 20 students", await fresh.Students.CountAsync(s => s.ClassId == 2) == 20);
+        Check("Rollback restores class 5 to 20 students", await fresh.Students.CountAsync(s => s.ClassId == 5) == 20);
+    }
+});
+
+// ----- 13. Fee payment creation + balance-math consistency -----
+await Section("13. Fee payment creation & balance consistency", async () =>
+{
+    var fps = sp.GetRequiredService<FeePaymentService>();
+    int before = (await fps.GetAllFeePaymentsAsync()).Count();
+    // Student 41 is in Class 3 (TUITION fee 55000), has no prior payment.
+    var pay = await fps.CreateFeePaymentAsync(new CreateFeePaymentDto
+    {
+        StudentId = 41, FeeType = FeeType.TUITION, AmountPaid = 20000, PaymentMethod = PaymentMethod.CASH,
+        AcademicYearId = 3, AcademicYear = "2024-25", GeneratedBy = "test"
+    });
+    Check("Payment created with a receipt number", !string.IsNullOrWhiteSpace(pay.ReceiptNumber), pay.ReceiptNumber);
+    Check("Remaining balance = 55000 - 20000 = 35000 (math consistent)", pay.RemainingBalance == 35000, $"{pay.RemainingBalance}");
+    Check("Receipt number is unique vs existing payments",
+        (await fps.GetAllFeePaymentsAsync()).Count(p => p.ReceiptNumber == pay.ReceiptNumber) == 1);
+    Check("Payment count incremented by exactly 1", (await fps.GetAllFeePaymentsAsync()).Count() == before + 1);
+    var status = await fps.GetStudentFeeStatusAsync(41, "2024-25");
+    Check("Student fee-status retrievable after payment", status != null);
+    // clean up
+    await fps.DeleteFeePaymentAsync(pay.Id);
+    Check("Payment deletable; count restored", (await fps.GetAllFeePaymentsAsync()).Count() == before);
+});
+
+// ----- 14. Full CRUD across remaining modules -----
+await Section("14. CRUD: Vehicle / TransportExpense / ElectricityBill / OtherExpense / FeeStructure / Staff / AcademicYear", async () =>
+{
+    // Vehicle
+    var vs = sp.GetRequiredService<VehicleService>();
+    var v = await vs.CreateVehicleAsync(new CreateVehicleDto { VehicleNumber = "MH00NEW99", VehicleType = VehicleType.AUTO, DriverName = "New", DriverPhone = "9000000001", Route = "A" });
+    await vs.UpdateVehicleAsync(new UpdateVehicleDto { Id = v.Id, VehicleNumber = "MH00NEW99", VehicleType = VehicleType.AUTO, DriverName = "New", DriverPhone = "9000000001", Route = "Updated" });
+    Check("Vehicle update persists route", (await vs.GetVehicleByIdAsync(v.Id))!.Route == "Updated");
+    await vs.DeleteVehicleAsync(v.Id);
+    Check("Vehicle deleted", await vs.GetVehicleByIdAsync(v.Id) == null);
+
+    // TransportExpense
+    var tes = sp.GetRequiredService<TransportExpenseService>();
+    var te = await tes.CreateExpenseAsync(new CreateTransportExpenseDto { VehicleId = 1, Category = ExpenseCategory.FUEL, FuelType = FuelType.DIESEL, Amount = 1234, Quantity = 10, ExpenseDate = DateTime.Today, DriverName = "D", Description = "test", InvoiceNumber = "INVX1" });
+    Check("TransportExpense created", te.Id > 0 && te.Amount == 1234);
+    await tes.DeleteExpenseAsync(te.Id);
+    Check("TransportExpense deleted", await tes.GetExpenseByIdAsync(te.Id) == null);
+
+    // ElectricityBill
+    var ebs = sp.GetRequiredService<ElectricityBillService>();
+    var eb = await ebs.CreateAsync(new ElectricityBillDto { BillNumber = "EBNEW1", BillMonth = 11, BillYear = 2030, Amount = 5000, DueDate = DateTime.Today.AddDays(15), Units = 100, UnitsRate = 5, IsPaid = false });
+    eb.IsPaid = true; eb.PaidDate = DateTime.Today; eb.PaymentMethod = PaymentMethod.CASH;
+    await ebs.UpdateAsync(eb);
+    Check("ElectricityBill update persists paid status", (await ebs.GetByIdAsync(eb.Id))!.IsPaid);
+    await ebs.DeleteAsync(eb.Id);
+    Check("ElectricityBill deleted", await ebs.GetByIdAsync(eb.Id) == null);
+
+    // OtherExpense
+    var oes = sp.GetRequiredService<OtherExpenseService>();
+    var oe = await oes.CreateAsync(new OtherExpenseDto { Category = OtherExpenseCategory.STATIONERY, ExpenseType = "Test", Description = "test", Amount = 999, ExpenseDate = DateTime.Today, PaymentMethod = PaymentMethod.CASH });
+    oe.Amount = 1500; await oes.UpdateAsync(oe);
+    Check("OtherExpense update persists amount", (await oes.GetByIdAsync(oe.Id))!.Amount == 1500);
+    await oes.DeleteAsync(oe.Id);
+    Check("OtherExpense deleted", await oes.GetByIdAsync(oe.Id) == null);
+
+    // FeeStructure (new unique combo: Class5 / SPORTS / AY3)
+    var fss = sp.GetRequiredService<FeeStructureService>();
+    var fs = await fss.CreateFeeStructureAsync(new CreateFeeStructureDto { ClassId = 5, FeeType = FeeType.SPORTS, Amount = 3000, AcademicYearId = 3, AcademicYear = "2024-25", Description = "test" });
+    await fss.UpdateFeeStructureAsync(fs.Id, new CreateFeeStructureDto { ClassId = 5, FeeType = FeeType.SPORTS, Amount = 4500, AcademicYearId = 3, AcademicYear = "2024-25", Description = "test2" });
+    Check("FeeStructure update persists amount", (await fss.GetFeeStructureByIdAsync(fs.Id))!.Amount == 4500);
+    await fss.DeleteFeeStructureAsync(fs.Id);
+    Check("FeeStructure soft-deleted (excluded from active list)",
+        (await fss.GetAllFeeStructuresAsync()).All(x => x.Id != fs.Id));
+
+    // Staff
+    var ss = sp.GetRequiredService<StaffService>();
+    var stf = await ss.CreateStaffAsync(new StaffDto { EmployeeId = "ST999", FirstName = "New", LastName = "Staff", PhoneNumber = "9000000002", Address = "x", Position = "Clerk", JoiningDate = DateTime.Today, MonthlySalary = 21000 });
+    stf.MonthlySalary = 26000; await ss.UpdateStaffAsync(stf);
+    Check("Staff update persists salary", (await ss.GetStaffByIdAsync(stf.Id))!.MonthlySalary == 26000);
+    await ss.DeleteStaffAsync(stf.Id);
+    Check("Staff deleted", await ss.GetStaffByIdAsync(stf.Id) == null);
+
+    // AcademicYear + single-current invariant
+    var ays = sp.GetRequiredService<AcademicYearService>();
+    var ay = await ays.AddAcademicYearAsync(new AcademicYearDto { Year = "2030-31", StartDate = new DateTime(2030, 6, 1), EndDate = new DateTime(2031, 5, 31), IsCurrent = false });
+    await ays.SetCurrentAcademicYearAsync(ay.Id);
+    using (var fresh = new ApplicationDbContext(dbOpts))
+        Check("Exactly one current academic year after switch (invariant held)", await fresh.AcademicYears.CountAsync(a => a.IsCurrent) == 1);
+    await ays.SetCurrentAcademicYearAsync(3); // restore 2024-25 as current
+    await ays.DeleteAcademicYearAsync(ay.Id);
+    Check("Non-current academic year deletable", await ays.GetAcademicYearByIdAsync(ay.Id) == null);
+});
+
+// ----- 15. Backup & restore durability (checksum-validated) -----
+await Section("15. Backup & restore durability", async () =>
+{
+    var cwd = Directory.GetCurrentDirectory();
+    var liveDb = Path.Combine(cwd, "school.db");           // BackupService backs up <cwd>/school.db
+    var bkDir = Path.Combine(AppContext.BaseDirectory, "_bk_test");
+    File.Copy(dbPath, liveDb, true);
+    if (Directory.Exists(bkDir)) Directory.Delete(bkDir, true);
+    Directory.CreateDirectory(bkDir);
+    try
+    {
+        var backup = sp.GetRequiredService<IBackupService>();
+        var res = await backup.CreateBackupAsync(BackupType.Full, bkDir);
+        Check("Backup reports success", res.Success, res.Message);
+        Check("Backup file exists on disk", !string.IsNullOrEmpty(res.BackupPath) && File.Exists(res.BackupPath), res.BackupPath ?? "");
+
+        if (res.Success && File.Exists(res.BackupPath))
+        {
+            var restore = await backup.RestoreBackupAsync(res.BackupPath!, validateChecksum: true, skipSafetyBackup: true);
+            Check("Restore (with checksum validation) succeeds", restore.Success, restore.Message);
+        }
+        else Check("Restore (with checksum validation) succeeds", false, "skipped — backup failed");
+    }
+    finally
+    {
+        try { if (File.Exists(liveDb)) File.Delete(liveDb); } catch { }
+        try { if (Directory.Exists(bkDir)) Directory.Delete(bkDir, true); } catch { }
+    }
+});
+
+// ----- 16. Aggregate / analytics consistency -----
+await Section("16. Aggregate & analytics consistency", async () =>
+{
+    using var ctx = new ApplicationDbContext(dbOpts);
+    var fps = sp.GetRequiredService<FeePaymentService>();
+
+    // Note: SQLite can't SUM(decimal) server-side, so aggregate the DB rows client-side
+    // (this is exactly what the production services do internally).
+    var svcSum = (await fps.GetAllFeePaymentsAsync()).Sum(p => p.AmountPaid);
+    var dbSum = (await ctx.FeePayments.Select(p => p.AmountPaid).ToListAsync()).Sum();
+    Check("FeePayment service total == DB total (no rows lost in mapping)", svcSum == dbSum, $"{svcSum} vs {dbSum}");
+
+    var ebs = sp.GetRequiredService<ElectricityBillService>();
+    var svcYearTotal = await ebs.GetTotalAmountByYearAsync(2024);
+    var dbYearTotal = (await ctx.ElectricityBills.Where(b => b.BillYear == 2024).Select(b => b.Amount).ToListAsync()).Sum();
+    Check("Electricity 2024 total (service) == DB sum", svcYearTotal == dbYearTotal, $"{svcYearTotal} vs {dbYearTotal}");
+
+    var oes = sp.GetRequiredService<OtherExpenseService>();
+    var svcOtherStationery = await oes.GetTotalAmountByCategoryAsync(OtherExpenseCategory.STATIONERY);
+    var dbOtherStationery = (await ctx.OtherExpenses.Where(e => e.Category == OtherExpenseCategory.STATIONERY).Select(e => e.Amount).ToListAsync()).Sum();
+    Check("OtherExpense STATIONERY total (service) == DB sum", svcOtherStationery == dbOtherStationery, $"{svcOtherStationery} vs {dbOtherStationery}");
+
+    var tes = sp.GetRequiredService<TransportExpenseService>();
+    var svcVeh1 = await tes.GetTotalExpensesByVehicleAsync(1);
+    var dbVeh1 = (await ctx.TransportExpenses.Where(e => e.VehicleId == 1).Select(e => e.Amount).ToListAsync()).Sum();
+    Check("Transport vehicle-1 total (service) == DB sum", svcVeh1 == dbVeh1, $"{svcVeh1} vs {dbVeh1}");
 });
 
 // ----- Summary -----

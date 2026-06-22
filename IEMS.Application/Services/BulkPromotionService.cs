@@ -4,6 +4,7 @@ using IEMS.Core.Services;
 using IEMS.Core.Entities;
 using IEMS.Core.Configuration;
 using IEMS.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace IEMS.Application.Services;
 
@@ -178,25 +179,48 @@ public class BulkPromotionService
             AcademicYear = academicYear
         };
 
+        using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            // Get students who were promoted (now in target class)
-            var promotedStudents = (await _studentRepository.GetStudentsByClassIdAsync(toClassId)).ToList();
+            // Identify ONLY the students this promotion actually moved, from the promotion
+            // history — NOT the entire target class, which may contain students who were
+            // already enrolled there before the promotion. Moving the whole class back would
+            // corrupt the records of those pre-existing students.
+            var historyRows = await _context.StudentPromotionHistory
+                .Where(h => h.FromClassId == fromClassId && h.ToClassId == toClassId)
+                .ToListAsync();
 
-            result.TotalStudents = promotedStudents.Count;
+            var promotedStudentIds = historyRows.Select(h => h.StudentId).Distinct().ToList();
+            result.TotalStudents = promotedStudentIds.Count;
 
-            // Rollback promotion (move back to original class)
-            foreach (var student in promotedStudents)
+            if (promotedStudentIds.Count > 0)
             {
-                student.ClassId = fromClassId;
-                student.UpdatedAt = DateTime.UtcNow;
+                // Move back only the promoted students that are still in the target class.
+                var studentsToRevert = (await _studentRepository.GetStudentsByClassIdAsync(toClassId))
+                    .Where(s => promotedStudentIds.Contains(s.Id))
+                    .ToList();
+
+                foreach (var student in studentsToRevert)
+                {
+                    student.ClassId = fromClassId;
+                    student.UpdatedAt = DateTime.UtcNow;
+                }
+                // Update students AND remove the promotion-history rows in a single
+                // SaveChanges inside one transaction, so the rollback is fully atomic.
+                // (Do NOT call UpdateMultipleStudentsAsync here — it opens its own
+                // transaction, and SQLite does not support nested transactions.)
+                _context.Students.UpdateRange(studentsToRevert);
+                _context.StudentPromotionHistory.RemoveRange(historyRows);
+                await _context.SaveChangesAsync();
+
+                result.PromotedStudents = studentsToRevert.Count;
             }
 
-            await _studentRepository.UpdateMultipleStudentsAsync(promotedStudents);
-            result.PromotedStudents = promotedStudents.Count;
+            await transaction.CommitAsync();
         }
         catch (Exception ex)
         {
+            await transaction.RollbackAsync();
             result.Errors.Add(new PromotionError
             {
                 StudentId = 0,
