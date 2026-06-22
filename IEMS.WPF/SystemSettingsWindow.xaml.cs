@@ -10,17 +10,20 @@ namespace IEMS.WPF
     public partial class SystemSettingsWindow : Window
     {
         private readonly ISystemSettingsService _systemSettingsService;
+        private readonly IServiceProvider _services;
         private List<SystemSetting> _currentSettings = new();
         private readonly Dictionary<string, Control> _settingControls = new();
         private bool _isBusy = false;  // FIXED BUG #7: Prevent race condition between save and category change
         private bool _hasUnsavedChanges = false;  // FIXED BUG #1: Track unsaved changes
 
-        public SystemSettingsWindow()
+        public SystemSettingsWindow(IServiceProvider services)
         {
             InitializeComponent();
 
-            var serviceProvider = App.ServiceProvider;
-            _systemSettingsService = serviceProvider.GetRequiredService<ISystemSettingsService>();
+            // Resolve from the window's own DI scope (passed in by MainWindow) rather than the
+            // root provider, so the scoped DbContext isn't captured for the app's whole lifetime.
+            _services = services;
+            _systemSettingsService = services.GetRequiredService<ISystemSettingsService>();
 
             Loaded += SystemSettingsWindow_Loaded;
             Closing += SystemSettingsWindow_Closing;  // FIXED BUG #1: Warn on close with unsaved changes
@@ -679,8 +682,7 @@ namespace IEMS.WPF
         private async void ClearTestDataButton_Click(object sender, RoutedEventArgs e)
         {
             // CRITICAL: Validate that database contains TEST data, not USER data
-            var serviceProvider = App.ServiceProvider;
-            var dbContext = serviceProvider.GetRequiredService<IEMS.Infrastructure.Data.ApplicationDbContext>();
+            var dbContext = _services.GetRequiredService<IEMS.Infrastructure.Data.ApplicationDbContext>();
 
             // Check if data appears to be seed/test data
             var isTestData = await ValidateIsTestDataAsync(dbContext);

@@ -1,329 +1,145 @@
+using System;
 using System.Windows;
-using System.Windows.Controls;
 using IEMS.Application.Services;
-using IEMS.Application.DTOs;
-using IEMS.Core.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IEMS.WPF;
 
 public partial class MainWindow : Window
 {
-    private readonly StudentService _studentService;
-    private readonly TeacherService _teacherService;
-    private readonly ClassService _classService;
-    private readonly StaffService _staffService;
-    private readonly FeePaymentService _feePaymentService;
-    private readonly FeeStructureService _feeStructureService;
-    private readonly VehicleService _vehicleService;
-    private readonly TransportExpenseService _transportExpenseService;
-    private readonly ElectricityBillService _electricityBillService;
-    private readonly OtherExpenseService _otherExpenseService;
-    private readonly BulkPromotionService _bulkPromotionService;
-    private readonly AcademicYearService _academicYearService;
-    private readonly UserService _userService;
+    // Each module window is opened in its OWN DI scope (and therefore its own DbContext),
+    // disposed when the modal window closes. Previously every window shared the one
+    // session-long DbContext, which accumulated tracked entities for the whole session and
+    // leaked one screen's edits into another.
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public MainWindow(StudentService studentService, TeacherService teacherService, ClassService classService, StaffService staffService, FeePaymentService feePaymentService, FeeStructureService feeStructureService, VehicleService vehicleService, TransportExpenseService transportExpenseService, ElectricityBillService electricityBillService, OtherExpenseService otherExpenseService, BulkPromotionService bulkPromotionService, AcademicYearService academicYearService, UserService userService)
+    public MainWindow(IServiceScopeFactory scopeFactory)
     {
         InitializeComponent();
-        _studentService = studentService;
-        _teacherService = teacherService;
-        _classService = classService;
-        _staffService = staffService;
-        _feePaymentService = feePaymentService;
-        _feeStructureService = feeStructureService;
-        _vehicleService = vehicleService;
-        _transportExpenseService = transportExpenseService;
-        _electricityBillService = electricityBillService;
-        _otherExpenseService = otherExpenseService;
-        _bulkPromotionService = bulkPromotionService;
-        _academicYearService = academicYearService;
-        _userService = userService;
+        _scopeFactory = scopeFactory;
 
-        // Update welcome message with current user
         if (LoginWindow.CurrentUser != null)
         {
             txtWelcomeUser.Text = $"Welcome, {LoginWindow.CurrentUser.FullName}";
 
             // Show User Management only for Admin role (case-insensitive)
-            if (!string.Equals(LoginWindow.CurrentUser.Role, "Admin", System.StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(LoginWindow.CurrentUser.Role, "Admin", StringComparison.OrdinalIgnoreCase))
             {
-                cardUserManagement.Visibility = System.Windows.Visibility.Collapsed;
+                cardUserManagement.Visibility = Visibility.Collapsed;
             }
         }
 
         lblStatus.Text = "Dashboard loaded successfully";
     }
 
+    /// <summary>
+    /// Opens a module window inside a fresh DI scope, shows it modally, then disposes the
+    /// scope (and its DbContext) once the window closes.
+    /// </summary>
+    private void OpenModule(Func<IServiceProvider, Window> createWindow, string moduleName)
+    {
+        try
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var window = createWindow(scope.ServiceProvider);
+            window.Owner = this;
+            window.ShowDialog();
+            lblStatus.Text = $"{moduleName} module accessed";
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error opening {moduleName}: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            lblStatus.Text = $"Error opening {moduleName}";
+        }
+    }
+
     private void BtnLogout_Click(object sender, RoutedEventArgs e)
     {
         var result = MessageBox.Show("Are you sure you want to logout?", "Confirm Logout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result != MessageBoxResult.Yes)
+            return;
 
-        if (result == MessageBoxResult.Yes)
+        LoginWindow.CurrentUser = null;
+
+        var loginWindow = new LoginWindow();
+        loginWindow.Show();
+        System.Windows.Application.Current.MainWindow = loginWindow;
+
+        // Dispose the login-time service scope that created this window, if present.
+        if (this.Tag is IServiceScope scope)
         {
-            // Clear current user
-            LoginWindow.CurrentUser = null;
-
-            // Create and show login window
-            var loginWindow = new LoginWindow();
-            loginWindow.Show();
-
-            // Set login window as main window before closing this one
-            System.Windows.Application.Current.MainWindow = loginWindow;
-
-            // Dispose the service scope if it exists
-            if (this.Tag is IServiceScope scope)
-            {
-                scope.Dispose();
-            }
-
-            // Close main window (won't shut down app since MainWindow is now loginWindow)
-            this.Close();
+            scope.Dispose();
         }
+
+        this.Close();
     }
 
-    // Dashboard Navigation Event Handlers
+    // ---- Dashboard navigation (each opens in its own scope) ----
 
-    // New Single Entry Point Handlers
-    private void BtnStudentManagement_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            // Direct access to general student management - no confusing popup
-            var studentsWindow = new StudentsManagementWindow(_studentService, _classService, _teacherService, _feePaymentService, _feeStructureService, _bulkPromotionService, _academicYearService);
-            studentsWindow.ShowDialog();
-            lblStatus.Text = "Student Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Student Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Student Management";
-        }
-    }
+    private void BtnStudentManagement_Click(object sender, RoutedEventArgs e) => OpenStudents("Student Management");
+    private void BtnStudentsModule_Click(object sender, RoutedEventArgs e) => OpenStudents("Students Management");
+    private void BtnFeesModule_Click(object sender, RoutedEventArgs e) => OpenStudents("Student Fees Management");
 
-    private void BtnTransportManagement_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var transportWindow = new TransportManagementWindow(_vehicleService, _transportExpenseService);
-            transportWindow.ShowDialog();
-            lblStatus.Text = "Transport Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Transport Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Transport Management";
-        }
-    }
+    private void OpenStudents(string name) => OpenModule(sp => new StudentsManagementWindow(
+        sp.GetRequiredService<StudentService>(),
+        sp.GetRequiredService<ClassService>(),
+        sp.GetRequiredService<TeacherService>(),
+        sp.GetRequiredService<FeePaymentService>(),
+        sp.GetRequiredService<FeeStructureService>(),
+        sp.GetRequiredService<BulkPromotionService>(),
+        sp.GetRequiredService<AcademicYearService>()), name);
 
-    private void BtnStaffManagement_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var staffWindow = new StaffManagementWindow(_teacherService, _classService, _staffService);
-            staffWindow.ShowDialog();
-            lblStatus.Text = "Staff Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Staff Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Staff Management";
-        }
-    }
+    private void BtnTransportManagement_Click(object sender, RoutedEventArgs e) => OpenTransport("Transport Management");
+    private void BtnBusesModule_Click(object sender, RoutedEventArgs e) => OpenTransport("Transport Management");
+    private void BtnRoutesModule_Click(object sender, RoutedEventArgs e) => OpenTransport("Transport Management");
 
-    private void BtnFinanceManagement_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var financeWindow = new FinanceManagementWindow(_feePaymentService, _classService, _studentService, _feeStructureService, _electricityBillService, _otherExpenseService, _transportExpenseService, _teacherService, _staffService, _academicYearService);
-            financeWindow.ShowDialog();
-            lblStatus.Text = "Finance Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Finance Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Finance Management";
-        }
-    }
+    private void OpenTransport(string name) => OpenModule(sp => new TransportManagementWindow(
+        sp.GetRequiredService<VehicleService>(),
+        sp.GetRequiredService<TransportExpenseService>()), name);
 
-    private void BtnBackupRestore_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var backupWindow = new BackupRestoreWindow();
-            backupWindow.ShowDialog();
-            lblStatus.Text = "Backup & Restore module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Backup & Restore: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Backup & Restore";
-        }
-    }
+    private void BtnStaffManagement_Click(object sender, RoutedEventArgs e) => OpenStaff("Staff Management");
+    private void BtnTeachersModule_Click(object sender, RoutedEventArgs e) => OpenStaff("Staff Management");
+    private void BtnSupportStaffModule_Click(object sender, RoutedEventArgs e) => OpenStaff("Staff Management");
 
-    private void BtnSystemSettings_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var systemSettingsWindow = new SystemSettingsWindow();
-            systemSettingsWindow.ShowDialog();
-            lblStatus.Text = "System Settings module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening System Settings: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening System Settings";
-        }
-    }
+    private void OpenStaff(string name) => OpenModule(sp => new StaffManagementWindow(
+        sp.GetRequiredService<TeacherService>(),
+        sp.GetRequiredService<ClassService>(),
+        sp.GetRequiredService<StaffService>()), name);
 
-    private void BtnUserManagement_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var userManagementWindow = new UserManagementWindow(_userService);
-            userManagementWindow.ShowDialog();
-            lblStatus.Text = "User Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening User Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening User Management";
-        }
-    }
+    private void BtnFinanceManagement_Click(object sender, RoutedEventArgs e) => OpenModule(sp => new FinanceManagementWindow(
+        sp.GetRequiredService<FeePaymentService>(),
+        sp.GetRequiredService<ClassService>(),
+        sp.GetRequiredService<StudentService>(),
+        sp.GetRequiredService<FeeStructureService>(),
+        sp.GetRequiredService<ElectricityBillService>(),
+        sp.GetRequiredService<OtherExpenseService>(),
+        sp.GetRequiredService<TransportExpenseService>(),
+        sp.GetRequiredService<TeacherService>(),
+        sp.GetRequiredService<StaffService>(),
+        sp.GetRequiredService<AcademicYearService>()), "Finance Management");
 
-    private void BtnAcademicYearManagement_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var academicYearWindow = new AcademicYearManagementWindow(_academicYearService);
-            academicYearWindow.ShowDialog();
-            lblStatus.Text = "Academic Year Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Academic Year Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Academic Year Management";
-        }
-    }
+    private void BtnBackupRestore_Click(object sender, RoutedEventArgs e) =>
+        OpenModule(sp => new BackupRestoreWindow(sp), "Backup & Restore");
 
-    // Legacy Click Handlers (kept for backward compatibility if needed)
-    private void BtnStudentsModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var studentsWindow = new StudentsManagementWindow(_studentService, _classService, _teacherService, _feePaymentService, _feeStructureService, _bulkPromotionService, _academicYearService);
-            studentsWindow.ShowDialog();
-            lblStatus.Text = "Students Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Students Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Students Management";
-        }
-    }
+    private void BtnSystemSettings_Click(object sender, RoutedEventArgs e) =>
+        OpenModule(sp => new SystemSettingsWindow(sp), "System Settings");
 
-    private void BtnClassesModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var classesWindow = new ClassesManagementWindow(_classService, _teacherService, _studentService);
-            classesWindow.ShowDialog();
-            lblStatus.Text = "Classes Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Classes Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Classes Management";
-        }
-    }
+    private void BtnUserManagement_Click(object sender, RoutedEventArgs e) =>
+        OpenModule(sp => new UserManagementWindow(sp.GetRequiredService<UserService>()), "User Management");
 
-    private void BtnTeachersModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var staffWindow = new StaffManagementWindow(_teacherService, _classService, _staffService);
-            staffWindow.ShowDialog();
-            lblStatus.Text = "Staff Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Staff Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Staff Management";
-        }
-    }
+    private void BtnAcademicYearManagement_Click(object sender, RoutedEventArgs e) =>
+        OpenModule(sp => new AcademicYearManagementWindow(sp.GetRequiredService<AcademicYearService>()), "Academic Year Management");
 
-    private void BtnBusesModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var transportWindow = new TransportManagementWindow(_vehicleService, _transportExpenseService);
-            transportWindow.ShowDialog();
-            lblStatus.Text = "Transport Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Transport Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Transport Management";
-        }
-    }
+    private void BtnClassesModule_Click(object sender, RoutedEventArgs e) => OpenModule(sp => new ClassesManagementWindow(
+        sp.GetRequiredService<ClassService>(),
+        sp.GetRequiredService<TeacherService>(),
+        sp.GetRequiredService<StudentService>()), "Classes Management");
 
-    private void BtnRoutesModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var transportWindow = new TransportManagementWindow(_vehicleService, _transportExpenseService);
-            transportWindow.ShowDialog();
-            lblStatus.Text = "Transport Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Transport Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Transport Management";
-        }
-    }
-
-    private void BtnSupportStaffModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var staffWindow = new StaffManagementWindow(_teacherService, _classService, _staffService);
-            staffWindow.ShowDialog();
-            lblStatus.Text = "Staff Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Staff Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Staff Management";
-        }
-    }
-
-    private void BtnFeesModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var studentsWindow = new StudentsManagementWindow(_studentService, _classService, _teacherService, _feePaymentService, _feeStructureService, _bulkPromotionService, _academicYearService);
-            studentsWindow.ShowDialog();
-            lblStatus.Text = "Student Fees Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Student Fees Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Student Fees Management";
-        }
-    }
-
-    private void BtnExpensesModule_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var expenseWindow = new ExpenseManagementWindow(_electricityBillService, _otherExpenseService, _transportExpenseService, _feePaymentService, _teacherService, _staffService);
-            expenseWindow.ShowDialog();
-            lblStatus.Text = "Expense Management module accessed";
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error opening Expense Management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            lblStatus.Text = "Error opening Expense Management";
-        }
-    }
+    private void BtnExpensesModule_Click(object sender, RoutedEventArgs e) => OpenModule(sp => new ExpenseManagementWindow(
+        sp.GetRequiredService<ElectricityBillService>(),
+        sp.GetRequiredService<OtherExpenseService>(),
+        sp.GetRequiredService<TransportExpenseService>(),
+        sp.GetRequiredService<FeePaymentService>(),
+        sp.GetRequiredService<TeacherService>(),
+        sp.GetRequiredService<StaffService>()), "Expense Management");
 }

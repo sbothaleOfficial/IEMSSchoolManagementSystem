@@ -18,12 +18,12 @@ namespace IEMS.WPF
         private List<BackupInfoViewModel> _backupHistory;
         private string _selectedBackupPath = string.Empty;
 
-        public BackupRestoreWindow()
+        public BackupRestoreWindow(IServiceProvider services)
         {
             InitializeComponent();
-            // FIXED BUG #4: Use DI container to get BackupService with IServiceProvider
-            // This ensures database connections can be properly closed during backup/restore
-            _backupService = App.ServiceProvider.GetRequiredService<IBackupService>();
+            // Resolve from the window's own DI scope (passed in by MainWindow) rather than the
+            // root provider, so scoped services aren't captured for the app's whole lifetime.
+            _backupService = services.GetRequiredService<IBackupService>();
             Loaded += Window_Loaded;
         }
 
@@ -39,7 +39,7 @@ namespace IEMS.WPF
             try
             {
                 // FIXED BUG #1: Use Directory.GetCurrentDirectory() to match Entity Framework and BackupService
-                var dbPath = Path.Combine(Directory.GetCurrentDirectory(), "school.db");
+                var dbPath = IEMS.Infrastructure.Data.DatabaseLocation.DatabaseFilePath;
                 if (File.Exists(dbPath))
                 {
                     var fileInfo = new FileInfo(dbPath);
