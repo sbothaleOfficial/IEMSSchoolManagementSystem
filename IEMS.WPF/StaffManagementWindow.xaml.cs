@@ -189,6 +189,7 @@ public partial class StaffManagementWindow : Window
         {
             _allStaff = (await _staffService.GetAllStaffAsync()).ToList();
             _staffLoaded = true;
+            PopulateStaffPositions();
             ApplyStaffSearch();
             lblStatus.Text = $"Loaded {_allStaff.Count} staff members";
             CheckAndInitializePayslip();
@@ -200,10 +201,30 @@ public partial class StaffManagementWindow : Window
         }
     }
 
+    // Populate the position filter from the actual staff positions so every real
+    // position (Cook, Electrician, Mechanic, Office Assistant, ...) is filterable,
+    // instead of a hard-coded list that silently omitted some.
+    private void PopulateStaffPositions()
+    {
+        if (cmbStaffPosition == null) return;
+
+        var current = cmbStaffPosition.SelectedItem?.ToString();
+
+        var positions = new List<string> { "All Positions" };
+        positions.AddRange(_allStaff
+            .Select(s => s.Position)
+            .Where(p => !string.IsNullOrWhiteSpace(p))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(p => p));
+
+        cmbStaffPosition.ItemsSource = positions;
+        cmbStaffPosition.SelectedItem = (current != null && positions.Contains(current)) ? current : "All Positions";
+    }
+
     private void ApplyStaffSearch()
     {
         var searchText = txtSearchStaff?.Text?.Trim().ToLower() ?? string.Empty;
-        var selectedPosition = (cmbStaffPosition?.SelectedItem as ComboBoxItem)?.Content?.ToString();
+        var selectedPosition = cmbStaffPosition?.SelectedItem?.ToString();
         var filteredStaff = _allStaff.AsEnumerable();
 
         // Filter by position if not "All Positions"

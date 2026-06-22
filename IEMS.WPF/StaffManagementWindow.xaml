@@ -123,19 +123,11 @@
                         <!-- Search Section -->
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                             <TextBlock Text="Search:" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="14"/>
+                            <!-- Items are populated from the actual staff positions in code
+                                 (PopulateStaffPositions), so every real position is filterable. -->
                             <ComboBox x:Name="cmbStaffPosition" Width="150" Height="35" Margin="0,0,10,0"
                                       VerticalContentAlignment="Center"
-                                      SelectionChanged="CmbStaffPosition_SelectionChanged">
-                                <ComboBoxItem Content="All Positions"/>
-                                <ComboBoxItem Content="Driver"/>
-                                <ComboBoxItem Content="Peon"/>
-                                <ComboBoxItem Content="Clerk"/>
-                                <ComboBoxItem Content="Accountant"/>
-                                <ComboBoxItem Content="Administrator"/>
-                                <ComboBoxItem Content="Librarian"/>
-                                <ComboBoxItem Content="Lab Assistant"/>
-                                <ComboBoxItem Content="Security Guard"/>
-                            </ComboBox>
+                                      SelectionChanged="CmbStaffPosition_SelectionChanged"/>
                             <TextBox x:Name="txtSearchStaff" Width="250" Height="35"
                                      VerticalContentAlignment="Center"
                                      TextChanged="TxtSearchStaff_TextChanged">
