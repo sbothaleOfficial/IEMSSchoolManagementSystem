@@ -32,6 +32,9 @@ public partial class App : System.Windows.Application
         // from here on is captured to disk instead of vanishing.
         ConfigureLogging();
         SetupGlobalExceptionHandling();
+        // QuestPDF Community licence is free for organisations under the revenue threshold (a school
+        // qualifies). Required before any PDF is generated.
+        QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
         Log.Information("IEMS application starting");
 
         try

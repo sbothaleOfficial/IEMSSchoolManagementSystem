@@ -179,6 +179,12 @@ public partial class FeeReceiptWindow : Window
         }
     }
 
+    private void BtnExportPdf_Click(object sender, RoutedEventArgs e)
+    {
+        var document = new IEMS.WPF.Pdf.FeeReceiptDocument(_receipt);
+        IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, $"FeeReceipt_{_receipt.ReceiptNumber}");
+    }
+
     private void BtnClose_Click(object sender, RoutedEventArgs e)
     {
         Close();

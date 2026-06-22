@@ -138,6 +138,9 @@
             <Button Name="PrintButton" Content="Print Certificate" Width="150" Height="35"
                     Margin="10,0,10,0" Background="#27AE60" Foreground="White"
                     FontWeight="Bold" Click="PrintButton_Click"/>
+            <Button Name="ExportPdfButton" Content="Export PDF" Width="130" Height="35"
+                    Margin="10,0,10,0" Background="#8E44AD" Foreground="White"
+                    FontWeight="Bold" Click="ExportPdfButton_Click"/>
             <Button Name="CloseButton" Content="Close" Width="100" Height="35"
                     Margin="10,0,0,0" Background="#95A5A6" Foreground="White"
                     FontWeight="Bold" Click="CloseButton_Click"/>

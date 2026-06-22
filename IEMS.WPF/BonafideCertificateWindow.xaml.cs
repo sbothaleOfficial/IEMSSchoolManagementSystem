@@ -358,6 +358,69 @@ namespace IEMS.WPF
             return printBorder;
         }
 
+        private void ExportPdfButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var data = BuildCertificateData();
+                var document = new IEMS.WPF.Pdf.BonafideCertificateDocument(data);
+                var safeName = $"{_student.FirstName}_{_student.Surname}".Trim().Replace(' ', '_');
+                IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, $"BonafideCertificate_{safeName}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting certificate PDF: {ex.Message}", "Export Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>Resolves the same display fields used on screen into a data object for the PDF.</summary>
+        private IEMS.WPF.Pdf.BonafideCertificateData BuildCertificateData()
+        {
+            string prefix = _student.Gender?.ToLower() == "female" ? "Miss." : "Mr.";
+            string fullName = $"{_student.FirstName} {_student.Surname}".Trim();
+            string standard = _student.Standard +
+                (!string.IsNullOrEmpty(_student.ClassDivision) ? $" ({_student.ClassDivision})" : "");
+
+            return new IEMS.WPF.Pdf.BonafideCertificateData
+            {
+                SchoolName = "Inspire English Medium School, Mardi",
+                SchoolAddress = "Tah. Maregaon, Dist. Yavatmal (Maharashtra) – 445303",
+                UDiseCode = "27140806704",
+                RegNo = "MH-15381/16",
+                Logo = LoadLogoBytes(),
+                StudentNameWithPrefix = $"{prefix} {fullName}",
+                FatherName = !string.IsNullOrEmpty(_student.FatherName) ? $"Mr. {_student.FatherName}" : "_________________",
+                MotherName = !string.IsNullOrEmpty(_student.MotherName) ? $"Mrs. {_student.MotherName}" : "_________________",
+                AdmissionDate = _student.AdmissionDate.ToString("dd/MM/yyyy"),
+                Standard = standard,
+                StudentNumber = !string.IsNullOrEmpty(_student.StudentNumber) ? _student.StudentNumber : "_______",
+                DateOfBirth = _student.DateOfBirth.ToString("dd/MM/yyyy"),
+                DateOfBirthInWords = ConvertDateToWords(_student.DateOfBirth),
+                Caste = !string.IsNullOrEmpty(_student.CasteCategory) ? _student.CasteCategory : "___________",
+                Religion = !string.IsNullOrEmpty(_student.Religion) ? _student.Religion : "___________",
+                PreparedDate = DateTime.Now.ToString("dd/MM/yyyy")
+            };
+        }
+
+        private static byte[]? LoadLogoBytes()
+        {
+            try
+            {
+                var uri = new Uri("pack://application:,,,/IEMS.WPF;component/Exact_color_logo.png");
+                var resource = System.Windows.Application.GetResourceStream(uri);
+                if (resource == null) return null;
+                using var stream = resource.Stream;
+                using var ms = new System.IO.MemoryStream();
+                stream.CopyTo(ms);
+                return ms.ToArray();
+            }
+            catch
+            {
+                return null; // Logo is decorative; the certificate is still valid without it.
+            }
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

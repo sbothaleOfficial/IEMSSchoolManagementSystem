@@ -15,6 +15,9 @@
             <Button x:Name="btnPrint" Content="Print" Width="100" Height="35"
                     Margin="5" Click="BtnPrint_Click"
                     Style="{StaticResource SuccessButtonStyle}"/>
+            <Button x:Name="btnExportPdf" Content="Export PDF" Width="110" Height="35"
+                    Margin="5" Click="BtnExportPdf_Click"
+                    Style="{StaticResource PrimaryButtonStyle}"/>
             <Button x:Name="btnClose" Content="Close" Width="100" Height="35"
                     Margin="5" Click="BtnClose_Click"
                     Style="{StaticResource SecondaryButtonStyle}"/>
