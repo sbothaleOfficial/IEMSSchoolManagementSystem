@@ -132,6 +132,19 @@ namespace IEMS.Application.Services
                 throw new InvalidOperationException($"Invalid role '{user.Role}'. Valid roles are: {string.Join(", ", GetValidRoles())}");
             }
 
+            // An edit must never leave the system with zero active administrators. The Edit User
+            // form sets IsActive and Role directly, which would otherwise bypass the last-admin
+            // guard in DisableUserAsync and the self-disable guard in the UI (e.g. disabling or
+            // demoting the last admin would lock everyone out).
+            var allUsers = await _userRepository.GetAllAsync();
+            var otherActiveAdmins = allUsers.Count(u => u.Id != user.Id && u.Role == "Admin" && u.IsActive);
+            var thisIsActiveAdmin = user.Role == "Admin" && user.IsActive;
+            if (otherActiveAdmins == 0 && !thisIsActiveAdmin)
+            {
+                throw new InvalidOperationException(
+                    "This change would leave no active administrator. At least one active admin account is required.");
+            }
+
             user.ModifiedDate = DateTime.Now;
             user.ModifiedBy = modifiedBy;
             await _userRepository.UpdateAsync(user);

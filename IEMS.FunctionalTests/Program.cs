@@ -253,6 +253,23 @@ await Section("7. User management lifecycle", async () =>
     await users.EnableUserAsync(u.Id, "admin");
     Check("Re-enabled user can authenticate", (await users.AuthenticateAsync("clerk1", "NewPass@1")) != null);
     Check("User count incremented by 1", await users.GetUserCountAsync() == before + 1);
+
+    // The Edit User form can set IsActive/Role directly via UpdateUserAsync; that path must
+    // not be allowed to disable or demote the last active administrator (lockout protection).
+    Check("UpdateUserAsync cannot disable the last admin (no lockout)", await Throws(async s =>
+    {
+        var us = s.GetRequiredService<UserService>();
+        var admin = await us.GetByIdAsync(1);
+        admin.IsActive = false;
+        await us.UpdateUserAsync(admin, "test");
+    }));
+    Check("UpdateUserAsync cannot demote the last admin's role (no lockout)", await Throws(async s =>
+    {
+        var us = s.GetRequiredService<UserService>();
+        var admin = await us.GetByIdAsync(1);
+        admin.Role = "Clerk";
+        await us.UpdateUserAsync(admin, "test");
+    }));
 });
 
 // ----- 8. Regression tests for the audited bug fixes -----

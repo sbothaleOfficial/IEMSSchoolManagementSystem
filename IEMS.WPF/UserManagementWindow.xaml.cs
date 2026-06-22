@@ -33,7 +33,7 @@ namespace IEMS.WPF
                     Username = u.Username,
                     FullName = u.FullName,
                     Role = u.Role,
-                    Email = u.Email,
+                    Email = u.Email ?? string.Empty, // DB column is nullable; keep the display model non-null so search can't NRE
                     IsActive = u.IsActive,
                     LastLogin = u.LastLogin,
                     CreatedDate = u.CreatedDate,
