@@ -315,34 +315,11 @@ namespace IEMS.Application.Services
 
         private void ValidatePasswordStrength(string password)
         {
-            if (string.IsNullOrWhiteSpace(password))
+            // Delegates to the shared PasswordPolicy (IEMS.Core.Services) so the rule lives in one place.
+            var (isValid, error) = PasswordPolicy.Validate(password);
+            if (!isValid)
             {
-                throw new InvalidOperationException("Password cannot be empty.");
-            }
-
-            if (password.Length < 8)
-            {
-                throw new InvalidOperationException("Password must be at least 8 characters long.");
-            }
-
-            if (!password.Any(char.IsUpper))
-            {
-                throw new InvalidOperationException("Password must contain at least one uppercase letter.");
-            }
-
-            if (!password.Any(char.IsLower))
-            {
-                throw new InvalidOperationException("Password must contain at least one lowercase letter.");
-            }
-
-            if (!password.Any(char.IsDigit))
-            {
-                throw new InvalidOperationException("Password must contain at least one number.");
-            }
-
-            if (!password.Any(c => !char.IsLetterOrDigit(c)))
-            {
-                throw new InvalidOperationException("Password must contain at least one special character.");
+                throw new InvalidOperationException(error);
             }
         }
 
