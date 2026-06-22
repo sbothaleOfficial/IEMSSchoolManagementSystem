@@ -604,7 +604,10 @@ public class ApplicationDbContext : DbContext
                 IsActive = true,
                 CreatedDate = DateTime.Now,
                 CreatedBy = "System",
-                MustChangePassword = false
+                // Force the well-known default password (admin123) to be changed at first login.
+                // LoginWindow enforces this flag, so a fresh install can't keep running on the
+                // shipped default credential.
+                MustChangePassword = true
             }
         );
 

@@ -14,13 +14,14 @@
     <ProjectReference Include="..\IEMS.Core\IEMS.Core.csproj" />
     <ProjectReference Include="..\IEMS.Application\IEMS.Application.csproj" />
     <ProjectReference Include="..\IEMS.Infrastructure\IEMS.Infrastructure.csproj" />
-    <ProjectReference Include="..\IEMS.Shared\IEMS.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.105.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

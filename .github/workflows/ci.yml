@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    # WPF (net8.0-windows) only builds on Windows.
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore IEMS.WindowsApp.sln
+
+      - name: Build (Release)
+        run: dotnet build IEMS.WindowsApp.sln -c Release --no-restore
+
+      - name: Run functional verification suite (128 checks)
+        # The harness exits non-zero if any check fails, which fails the job.
+        run: dotnet run -c Release --no-build --project IEMS.FunctionalTests/IEMS.FunctionalTests.csproj
