@@ -197,6 +197,10 @@ namespace IEMS.WPF
         {
             txtError.Text = message;
             txtError.Visibility = Visibility.Visible;
+            txtError.BringIntoView();
+            // The inline error sits at the bottom of a scrollable panel and can be off-screen,
+            // so also surface it as a dialog to guarantee the user sees why the save failed.
+            MessageBox.Show(message, "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }
