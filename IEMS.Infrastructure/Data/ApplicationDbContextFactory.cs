@@ -8,7 +8,7 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        optionsBuilder.UseSqlite("Data Source=school.db");
+        optionsBuilder.UseSqlite(DatabaseLocation.ConnectionString);
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }

@@ -37,7 +37,7 @@ public partial class App : System.Windows.Application
                 .ConfigureServices((context, services) =>
                 {
                     services.AddDbContext<ApplicationDbContext>(options =>
-                        options.UseSqlite("Data Source=school.db"));
+                        options.UseSqlite(DatabaseLocation.ConnectionString));
 
                     services.AddScoped<IStudentRepository, StudentRepository>();
                     services.AddScoped<IClassRepository, ClassRepository>();

@@ -571,8 +571,8 @@ await Section("14. CRUD: Vehicle / TransportExpense / ElectricityBill / OtherExp
 // ----- 15. Backup & restore durability (checksum-validated) -----
 await Section("15. Backup & restore durability", async () =>
 {
-    var cwd = Directory.GetCurrentDirectory();
-    var liveDb = Path.Combine(cwd, "school.db");           // BackupService backs up <cwd>/school.db
+    // BackupService now backs up DatabaseLocation.DatabaseFilePath = <AppContext.BaseDirectory>/school.db
+    var liveDb = Path.Combine(AppContext.BaseDirectory, "school.db");
     var bkDir = Path.Combine(AppContext.BaseDirectory, "_bk_test");
     File.Copy(dbPath, liveDb, true);
     if (Directory.Exists(bkDir)) Directory.Delete(bkDir, true);

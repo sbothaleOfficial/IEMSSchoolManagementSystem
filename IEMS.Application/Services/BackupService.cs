@@ -23,10 +23,10 @@ namespace IEMS.Application.Services
         public BackupService(IServiceProvider? serviceProvider = null)
         {
             _serviceProvider = serviceProvider;
-            // FIXED BUG #1: Use Directory.GetCurrentDirectory() to match Entity Framework's database location
-            // Entity Framework uses "Data Source=school.db" which is relative to current working directory
-            _databasePath = Path.Combine(Directory.GetCurrentDirectory(), "school.db");
-            _connectionString = $"Data Source={_databasePath}";
+            // Use the same single source of truth as EF Core (absolute path next to the exe),
+            // so backup/restore always targets the database the app actually opens.
+            _databasePath = IEMS.Infrastructure.Data.DatabaseLocation.DatabaseFilePath;
+            _connectionString = IEMS.Infrastructure.Data.DatabaseLocation.ConnectionString;
             _backupRootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IEMS_Backups");
             _metadataPath = Path.Combine(_backupRootPath, "backup_metadata.json");
 
