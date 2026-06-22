@@ -455,6 +455,18 @@ await Section("13. Fee payment creation & balance consistency", async () =>
     Check("Payment count incremented by exactly 1", (await fps.GetAllFeePaymentsAsync()).Count() == before + 1);
     var status = await fps.GetStudentFeeStatusAsync(41, "2024-25");
     Check("Student fee-status retrievable after payment", status != null);
+
+    // Receipt amount-in-words must use the corrected shared AmountToWordsService
+    // (paise handled, not truncated by the old local duplicate).
+    var payP = await fps.CreateFeePaymentAsync(new CreateFeePaymentDto
+    {
+        StudentId = 42, FeeType = FeeType.TUITION, AmountPaid = 12345.50m, PaymentMethod = PaymentMethod.CASH,
+        AcademicYearId = 3, AcademicYear = "2024-25", GeneratedBy = "test"
+    });
+    var receipt = await fps.GenerateReceiptAsync(payP.Id);
+    Check("Receipt amount-in-words includes paise correctly", receipt.AmountInWords.Contains("Fifty Paise"), receipt.AmountInWords);
+    await fps.DeleteFeePaymentAsync(payP.Id);
+
     // clean up
     await fps.DeleteFeePaymentAsync(pay.Id);
     Check("Payment deletable; count restored", (await fps.GetAllFeePaymentsAsync()).Count() == before);

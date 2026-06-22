@@ -276,7 +276,7 @@ public class FeePaymentService
             ChequeNumber = feePayment.ChequeNumber,
             BankName = feePayment.BankName,
             AmountPaid = feePayment.AmountPaid,
-            AmountInWords = ConvertAmountToWords(feePayment.AmountPaid),
+            AmountInWords = _amountToWordsService.ConvertToWords(feePayment.AmountPaid),
             TotalFees = feeStructure.Amount,
             PreviousBalance = feePayment.PreviousBalance,
             RemainingBalance = feePayment.RemainingBalance,
@@ -544,7 +544,7 @@ public class FeePaymentService
         return studentsWithPending;
     }
 
-    private static FeePaymentDto MapToDto(FeePayment feePayment)
+    private FeePaymentDto MapToDto(FeePayment feePayment)
     {
         return new FeePaymentDto
         {
@@ -577,83 +577,8 @@ public class FeePaymentService
 #pragma warning restore CS0618 // Type or member is obsolete
             GeneratedBy = feePayment.GeneratedBy,
             PaymentDate = feePayment.PaymentDate,
-            AmountInWords = ConvertAmountToWords(feePayment.AmountPaid)
+            AmountInWords = _amountToWordsService.ConvertToWords(feePayment.AmountPaid)
         };
     }
 
-    private static string ConvertAmountToWords(decimal amount)
-    {
-        if (amount == 0) return "Zero Rupees Only";
-
-        string[] ones = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
-        string[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
-        string[] tens = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
-
-        int rupees = (int)amount;
-        int paise = (int)((amount - rupees) * 100);
-
-        string result = ConvertNumberToWords(rupees, ones, teens, tens);
-
-        if (!string.IsNullOrEmpty(result))
-        {
-            result += " Rupee" + (rupees > 1 ? "s" : "");
-        }
-
-        if (paise > 0)
-        {
-            if (!string.IsNullOrEmpty(result))
-                result += " and ";
-            result += ConvertNumberToWords(paise, ones, teens, tens) + " Paise";
-        }
-
-        return result + " Only";
-    }
-
-    private static string ConvertNumberToWords(int number, string[] ones, string[] teens, string[] tens)
-    {
-        if (number == 0) return "";
-
-        string result = "";
-
-        if (number >= 10000000)
-        {
-            result += ConvertNumberToWords(number / 10000000, ones, teens, tens) + " Crore ";
-            number %= 10000000;
-        }
-
-        if (number >= 100000)
-        {
-            result += ConvertNumberToWords(number / 100000, ones, teens, tens) + " Lakh ";
-            number %= 100000;
-        }
-
-        if (number >= 1000)
-        {
-            result += ConvertNumberToWords(number / 1000, ones, teens, tens) + " Thousand ";
-            number %= 1000;
-        }
-
-        if (number >= 100)
-        {
-            result += ones[number / 100] + " Hundred ";
-            number %= 100;
-        }
-
-        if (number >= 20)
-        {
-            result += tens[number / 10];
-            if (number % 10 > 0)
-                result += " " + ones[number % 10];
-        }
-        else if (number >= 10)
-        {
-            result += teens[number - 10];
-        }
-        else if (number > 0)
-        {
-            result += ones[number];
-        }
-
-        return result.Trim();
-    }
 }

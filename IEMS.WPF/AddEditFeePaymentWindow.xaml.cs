@@ -334,15 +334,23 @@ public partial class AddEditFeePaymentWindow : Window
 
             try
             {
+                var selectedMethod = (PaymentMethod)cmbPaymentMethod.SelectedValue;
+                var referenceNumber = txtTransactionId.Text.Trim();
+                var isChequeOrDd = selectedMethod == PaymentMethod.CHEQUE || selectedMethod == PaymentMethod.DD;
+
                 var createDto = new CreateFeePaymentDto
                 {
                     StudentId = (int)cmbStudent.SelectedValue,
                     FeeType = (FeeType)cmbFeeType.SelectedValue,
                     AmountPaid = decimal.Parse(txtAmount.Text),
-                    PaymentMethod = (PaymentMethod)cmbPaymentMethod.SelectedValue,
-                    TransactionId = txtTransactionId.Text.Trim(),
-                    ChequeNumber = txtTransactionId.Text.Trim(), // Same field for cheque/DD
-                    BankName = txtBankName.Text.Trim(),
+                    PaymentMethod = selectedMethod,
+                    // The form has a single reference field reused for Transaction ID (ONLINE) and
+                    // Cheque/DD Number. Route it to the semantically-correct column ONLY, instead of
+                    // writing the same value into BOTH TransactionId and ChequeNumber (which polluted
+                    // every payment with a wrong value in the other column).
+                    TransactionId = selectedMethod == PaymentMethod.ONLINE ? referenceNumber : null,
+                    ChequeNumber = isChequeOrDd ? referenceNumber : null,
+                    BankName = isChequeOrDd ? txtBankName.Text.Trim() : null,
                     PaymentNotes = "",
                     LateFee = 0,
                     Discount = 0,
