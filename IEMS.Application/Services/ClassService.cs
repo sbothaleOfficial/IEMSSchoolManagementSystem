@@ -1,6 +1,7 @@
 using IEMS.Core.Entities;
 using IEMS.Core.Interfaces;
 using IEMS.Application.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace IEMS.Application.Services;
 
@@ -94,7 +95,19 @@ public class ClassService
             throw new InvalidOperationException("Cannot delete class that has enrolled students. Please move students to other classes first.");
         }
 
-        await _classRepository.DeleteAsync(id);
+        try
+        {
+            await _classRepository.DeleteAsync(id);
+        }
+        catch (DbUpdateException)
+        {
+            // A class is also referenced by FeeStructure and StudentPromotionHistory
+            // (both DeleteBehavior.Restrict). Surface a clear message instead of a raw
+            // database error when one of those still references this class.
+            throw new InvalidOperationException(
+                "Cannot delete this class because related records exist (fee structures or promotion history). " +
+                "Please remove those records first.");
+        }
     }
 
     public async Task<bool> IsClassNameSectionUniqueAsync(string name, string section, int? excludeClassId = null)

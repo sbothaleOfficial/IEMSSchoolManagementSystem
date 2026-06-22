@@ -358,6 +358,15 @@ await Section("9. FK & delete-guard integrity", async () =>
         await Throws(s => s.GetRequiredService<AcademicYearService>().DeleteAcademicYearAsync(3)));
     Check("Cannot delete a student who has fee payments (friendly guard, not raw DB error)",
         await Throws(s => s.GetRequiredService<StudentService>().DeleteStudentAsync(1)));
+    Check("Cannot delete a class that has fee structures (friendly guard, not raw DB error)",
+        await Throws(async s =>
+        {
+            var cs = s.GetRequiredService<ClassService>();
+            var fss = s.GetRequiredService<FeeStructureService>();
+            var newClass = await cs.AddClassAsync(new ClassDto { Name = "Class 1", Section = "ZZ", TeacherId = 1 });
+            await fss.CreateFeeStructureAsync(new CreateFeeStructureDto { ClassId = newClass.Id, FeeType = FeeType.LIBRARY, Amount = 100, AcademicYearId = 3, AcademicYear = "2024-25", Description = "guard-test" });
+            await cs.DeleteClassAsync(newClass.Id); // class has no students but has a fee structure -> must throw friendly
+        }));
 });
 
 // ----- 10. Referential integrity (no orphaned rows) -----
