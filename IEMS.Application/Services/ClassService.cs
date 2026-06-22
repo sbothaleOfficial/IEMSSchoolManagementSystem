@@ -100,11 +100,15 @@ public class ClassService
     public async Task<bool> IsClassNameSectionUniqueAsync(string name, string section, int? excludeClassId = null)
     {
         var allClasses = await _classRepository.GetAllAsync();
-        var existingClass = allClasses.FirstOrDefault(c =>
+        // Look for ANY class (other than the one being edited) with the same name+section.
+        // The previous version only inspected the first match, so a genuine duplicate by
+        // another class could slip through depending on ordering.
+        var duplicate = allClasses.FirstOrDefault(c =>
             c.Name.Equals(name, StringComparison.OrdinalIgnoreCase) &&
-            c.Section.Equals(section, StringComparison.OrdinalIgnoreCase));
+            c.Section.Equals(section, StringComparison.OrdinalIgnoreCase) &&
+            (!excludeClassId.HasValue || c.Id != excludeClassId.Value));
 
-        return existingClass == null || (excludeClassId.HasValue && existingClass.Id == excludeClassId.Value);
+        return duplicate == null;
     }
 
     public async Task<IEnumerable<ClassDto>> GetClassesByTeacherIdAsync(int teacherId)

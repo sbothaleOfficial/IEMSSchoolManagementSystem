@@ -209,6 +209,7 @@ public class FeePaymentService
             Discount = createDto.Discount,
             InstallmentNumber = createDto.InstallmentNumber,
             NextDueDate = createDto.NextDueDate,
+            AcademicYearId = createDto.AcademicYearId,
 #pragma warning disable CS0618 // Type or member is obsolete
             AcademicYearString = createDto.AcademicYear,
 #pragma warning restore CS0618 // Type or member is obsolete
@@ -227,6 +228,8 @@ public class FeePaymentService
         var feePayment = await _feePaymentRepository.GetByIdAsync(feePaymentId);
         if (feePayment == null)
             throw new ArgumentException("Fee payment not found");
+        if (feePayment.Student == null)
+            throw new InvalidOperationException($"Fee payment {feePayment.ReceiptNumber} has no associated student record; cannot generate receipt.");
 
 #pragma warning disable CS0618 // Type or member is obsolete
         var feeStructure = await _feeStructureRepository.GetByClassIdFeeTypeAndAcademicYearAsync(
@@ -548,12 +551,14 @@ public class FeePaymentService
             Id = feePayment.Id,
             ReceiptNumber = feePayment.ReceiptNumber,
             StudentId = feePayment.StudentId,
-            StudentName = $"{feePayment.Student.FirstName} {feePayment.Student.Surname}",
-            ClassName = feePayment.Student.Class != null
+            StudentName = feePayment.Student != null
+                ? $"{feePayment.Student.FirstName} {feePayment.Student.Surname}"
+                : "Unknown",
+            ClassName = feePayment.Student?.Class != null
                 ? $"{feePayment.Student.Class.Name} - {feePayment.Student.Class.Section}"
                 : "No Class Assigned",
-            StudentNumber = feePayment.Student.StudentNumber,
-            ParentMobileNumber = feePayment.Student.ParentMobileNumber,
+            StudentNumber = feePayment.Student?.StudentNumber ?? "",
+            ParentMobileNumber = feePayment.Student?.ParentMobileNumber ?? "",
             FeeType = feePayment.FeeType,
             AmountPaid = feePayment.AmountPaid,
             PaymentMethod = feePayment.PaymentMethod,

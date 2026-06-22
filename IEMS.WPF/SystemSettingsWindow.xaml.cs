@@ -813,17 +813,18 @@ namespace IEMS.WPF
                 ClearTestDataButton.IsEnabled = false;
                 SaveButton.IsEnabled = false;
 
-                // Delete data in correct order (respecting foreign key constraints)
+                // Delete data children-first so Restrict foreign keys are never violated.
+                // (Students must go AFTER the rows that reference them.)
+                dbContext.StudentPromotionHistory.RemoveRange(dbContext.StudentPromotionHistory);
                 dbContext.FeePayments.RemoveRange(dbContext.FeePayments);
                 dbContext.FeeStructures.RemoveRange(dbContext.FeeStructures);
-                dbContext.Students.RemoveRange(dbContext.Students);
-                dbContext.StudentPromotionHistory.RemoveRange(dbContext.StudentPromotionHistory);
                 dbContext.TransportExpenses.RemoveRange(dbContext.TransportExpenses);
-                dbContext.Vehicles.RemoveRange(dbContext.Vehicles);
                 dbContext.ElectricityBills.RemoveRange(dbContext.ElectricityBills);
                 dbContext.OtherExpenses.RemoveRange(dbContext.OtherExpenses);
-                dbContext.Staff.RemoveRange(dbContext.Staff);
+                dbContext.Students.RemoveRange(dbContext.Students);
+                dbContext.Vehicles.RemoveRange(dbContext.Vehicles);
                 dbContext.Classes.RemoveRange(dbContext.Classes);
+                dbContext.Staff.RemoveRange(dbContext.Staff);
                 dbContext.Teachers.RemoveRange(dbContext.Teachers);
 
                 var recordsDeleted = await dbContext.SaveChangesAsync();

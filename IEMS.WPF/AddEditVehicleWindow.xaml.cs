@@ -152,9 +152,10 @@ public partial class AddEditVehicleWindow : Window
         // Allow variations: XX-00-XX-0000 or XX00XX0000
         var cleanVehicleNumber = vehicleNumber.Replace("-", "").Replace(" ", "");
 
-        if (!System.Text.RegularExpressions.Regex.IsMatch(cleanVehicleNumber, @"^[A-Z]{2}\d{2}[A-Z]{1,2}\d{4}$"))
+        // Allow 1-2 RTO district digits and 1-3 series letters (covers plates like DL8CAB9876)
+        if (!System.Text.RegularExpressions.Regex.IsMatch(cleanVehicleNumber, @"^[A-Z]{2}\d{1,2}[A-Z]{1,3}\d{4}$"))
         {
-            ShowValidationError("Vehicle Number must be in Indian format (e.g., MH12AB1234 or DL01CA9999).");
+            ShowValidationError("Vehicle Number must be in Indian format (e.g., MH12AB1234 or DL8CAB9876).");
             txtVehicleNumber.Focus();
             return false;
         }

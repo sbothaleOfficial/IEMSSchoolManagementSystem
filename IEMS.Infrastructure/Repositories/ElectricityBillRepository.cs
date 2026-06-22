@@ -78,7 +78,7 @@ public class ElectricityBillRepository : IElectricityBillRepository
     public async Task<IEnumerable<ElectricityBill>> GetBillsByDateRangeAsync(DateTime fromDate, DateTime toDate)
     {
         return await _context.ElectricityBills
-            .Where(e => e.DueDate >= fromDate && e.DueDate <= toDate)
+            .Where(e => e.DueDate >= fromDate.Date && e.DueDate < toDate.Date.AddDays(1))
             .OrderBy(e => e.DueDate)
             .ToListAsync();
     }
@@ -94,7 +94,7 @@ public class ElectricityBillRepository : IElectricityBillRepository
     public async Task<decimal> GetTotalAmountByDateRangeAsync(DateTime fromDate, DateTime toDate)
     {
         var bills = await _context.ElectricityBills
-            .Where(e => e.DueDate >= fromDate && e.DueDate <= toDate)
+            .Where(e => e.DueDate >= fromDate.Date && e.DueDate < toDate.Date.AddDays(1))
             .ToListAsync();
         return bills.Sum(e => e.Amount);
     }

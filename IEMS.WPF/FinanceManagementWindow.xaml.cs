@@ -676,25 +676,23 @@ namespace IEMS.WPF
                     .Where(t => t.ExpenseDate >= fromDate && t.ExpenseDate <= toDate)
                     .Sum(t => t.Amount);
 
-                // FIXED BUG #2: Calculate staff salaries based on employment duration within date range
+                // Staff salary expense for the selected reporting period.
+                // PREVIOUS BUG: each employee's monthly salary was multiplied by their ENTIRE
+                // tenure in months. Because the "Overall" range starts in year 2000, this
+                // reported cumulative lifetime payroll (tens of crores) and dwarfed every other
+                // figure on the dashboard. We now report payroll for the number of months the
+                // selected period represents: Monthly -> 1 month, Yearly/Overall -> 12-month
+                // run-rate, counting only staff already employed by the end of the period.
                 var allTeachers = await _teacherService.GetAllTeachersAsync();
                 var allStaff = await _staffService.GetAllStaffAsync();
 
-                decimal salariesTotal = 0;
+                int periodMonths = (rbMonthly?.IsChecked == true) ? 1 : 12;
 
-                // Calculate teacher salaries for the period
-                foreach (var teacher in allTeachers)
-                {
-                    var monthsEmployed = CalculateMonthsEmployedInPeriod(teacher.JoiningDate, null, fromDate, toDate);
-                    salariesTotal += teacher.MonthlySalary * monthsEmployed;
-                }
+                decimal monthlyPayroll =
+                    allTeachers.Where(t => t.JoiningDate.Date <= toDate.Date).Sum(t => t.MonthlySalary) +
+                    allStaff.Where(s => s.JoiningDate.Date <= toDate.Date).Sum(s => s.MonthlySalary);
 
-                // Calculate staff salaries for the period
-                foreach (var staff in allStaff)
-                {
-                    var monthsEmployed = CalculateMonthsEmployedInPeriod(staff.JoiningDate, null, fromDate, toDate);
-                    salariesTotal += staff.MonthlySalary * monthsEmployed;
-                }
+                decimal salariesTotal = monthlyPayroll * periodMonths;
 
                 // Get income data from fee payments
                 var feePayments = await _feePaymentService.GetAllFeePaymentsAsync();

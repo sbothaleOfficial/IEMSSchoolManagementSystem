@@ -45,8 +45,8 @@ public partial class MainWindow : Window
         {
             txtWelcomeUser.Text = $"Welcome, {LoginWindow.CurrentUser.FullName}";
 
-            // Show User Management only for Admin role
-            if (LoginWindow.CurrentUser.Role != "Admin")
+            // Show User Management only for Admin role (case-insensitive)
+            if (!string.Equals(LoginWindow.CurrentUser.Role, "Admin", System.StringComparison.OrdinalIgnoreCase))
             {
                 cardUserManagement.Visibility = System.Windows.Visibility.Collapsed;
             }

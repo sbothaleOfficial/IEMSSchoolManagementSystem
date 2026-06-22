@@ -103,6 +103,14 @@ public class AcademicYearService
 
     public async Task DeleteAcademicYearAsync(int id)
     {
+        var academicYear = await _academicYearRepository.GetByIdAsync(id);
+        if (academicYear == null)
+            throw new ArgumentException($"Academic year with ID {id} not found.");
+
+        // Don't allow deleting the active year — it would leave the system with no current year.
+        if (academicYear.IsCurrent)
+            throw new InvalidOperationException("Cannot delete the current academic year. Set another year as current first.");
+
         await _academicYearRepository.DeleteAsync(id);
     }
 

@@ -18,7 +18,10 @@ public class FeeCalculationService
         // CORRECT CALCULATION:
         // Total owed = previousBalance + feeAmount + lateFee - discount
         // Remaining = totalOwed - amountPaid
-        var totalOwed = previousBalance + totalFeeAmount + lateFee - discount;
+        // Floor at 0 so a discount larger than the bill cannot create a negative "owed"
+        // (which would otherwise refund more money than was actually paid).
+        var totalOwed = Math.Round(Math.Max(0, previousBalance + totalFeeAmount + lateFee - discount), 2);
+        amountPaid = Math.Round(amountPaid, 2);
         var newRemainingBalance = Math.Max(0, totalOwed - amountPaid);
         var isOverpayment = amountPaid > totalOwed;
         var effectiveAmount = amountPaid; // Amount paid is the effective payment amount
@@ -40,7 +43,7 @@ public class FeeCalculationService
     {
         if (paymentDate <= dueDate) return 0;
 
-        var daysLate = (paymentDate - dueDate).Days;
+        var daysLate = (decimal)(paymentDate - dueDate).TotalDays;
         var lateFee = baseAmount * lateFeePercentage * (daysLate / 30.0m); // Monthly basis
         return Math.Round(lateFee, 2);
     }

@@ -176,10 +176,11 @@ public partial class AddEditTeacherWindow : Window
 
         if (!string.IsNullOrWhiteSpace(txtAadharNumber.Text))
         {
-            var aadhaar = txtAadharNumber.Text.Trim();
+            // Accept dashes/spaces in the entered value (the data is stored/seeded as 1234-5678-9012)
+            var aadhaar = txtAadharNumber.Text.Trim().Replace("-", "").Replace(" ", "");
             if (!System.Text.RegularExpressions.Regex.IsMatch(aadhaar, @"^\d{12}$"))
             {
-                MessageBox.Show("Aadhaar number must be exactly 12 digits.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Aadhaar number must be 12 digits (dashes optional).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtAadharNumber.Focus();
                 return false;
             }
@@ -199,9 +200,10 @@ public partial class AddEditTeacherWindow : Window
         if (!string.IsNullOrWhiteSpace(txtBankAccount.Text))
         {
             var bankAccount = txtBankAccount.Text.Trim();
-            if (!System.Text.RegularExpressions.Regex.IsMatch(bankAccount, @"^\d{9,18}$"))
+            // Bank account numbers may include a bank/branch alpha prefix (e.g. SBI1234567890)
+            if (!System.Text.RegularExpressions.Regex.IsMatch(bankAccount, @"^[A-Za-z0-9]{9,18}$"))
             {
-                MessageBox.Show("Bank account number must be 9 to 18 digits.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Bank account number must be 9 to 18 letters or digits.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtBankAccount.Focus();
                 return false;
             }

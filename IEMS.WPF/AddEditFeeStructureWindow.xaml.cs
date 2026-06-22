@@ -300,7 +300,8 @@ namespace IEMS.WPF
                             FeeType = (FeeType)cmbFeeType.SelectedValue,
                             Amount = decimal.Parse(txtAmount.Text),
                             AcademicYear = cmbAcademicYear.SelectedItem.ToString(),
-                            Description = ""
+                            // Preserve the existing description (no UI field) instead of wiping it on edit
+                            Description = _currentFeeStructure?.Description ?? ""
                         };
 
                         await _feeStructureService.UpdateFeeStructureAsync(_feeStructureId.Value, updateDto);
@@ -316,7 +317,8 @@ namespace IEMS.WPF
                             FeeType = (FeeType)cmbFeeType.SelectedValue,
                             Amount = decimal.Parse(txtAmount.Text),
                             AcademicYear = cmbAcademicYear.SelectedItem.ToString(),
-                            Description = ""
+                            // Generate a sensible default description (no UI field for it yet)
+                            Description = $"{(FeeType)cmbFeeType.SelectedValue} fee"
                         };
 
                         await _feeStructureService.CreateFeeStructureAsync(createDto);

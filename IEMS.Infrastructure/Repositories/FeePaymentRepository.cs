@@ -133,26 +133,27 @@ public class FeePaymentRepository : IFeePaymentRepository
             using var transaction = await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable);
             try
             {
-                // Get the last receipt number with row-level locking
-                var lastReceipt = await _context.FeePayments
-                    .OrderByDescending(fp => fp.Id)
-                    .FirstOrDefaultAsync();
+                // Base the next number on the highest *numeric* receipt number, not the
+                // highest Id (legacy seed receipts like "REC001" aren't numeric and the
+                // Id order doesn't track the receipt sequence).
+                var existingReceipts = await _context.FeePayments
+                    .Select(fp => fp.ReceiptNumber)
+                    .ToListAsync();
 
-                int nextNumber = 1;
-                if (lastReceipt != null && int.TryParse(lastReceipt.ReceiptNumber, out int lastNumber))
+                int maxNumber = 0;
+                foreach (var r in existingReceipts)
                 {
-                    nextNumber = lastNumber + 1;
+                    if (int.TryParse(r, out int n) && n > maxNumber)
+                        maxNumber = n;
                 }
 
+                int nextNumber = maxNumber + 1;
                 var receiptNumber = nextNumber.ToString("D6");
 
-                // Verify uniqueness before returning
-                var existingReceipt = await _context.FeePayments
-                    .FirstOrDefaultAsync(fp => fp.ReceiptNumber == receiptNumber);
-
-                if (existingReceipt != null)
+                // Loop until genuinely unique (handles legacy collisions / races)
+                var taken = new HashSet<string>(existingReceipts);
+                while (taken.Contains(receiptNumber))
                 {
-                    // If somehow a duplicate exists, increment and try again
                     nextNumber++;
                     receiptNumber = nextNumber.ToString("D6");
                 }
@@ -186,6 +187,7 @@ public class FeePaymentRepository : IFeePaymentRepository
         var lastPayment = await _context.FeePayments
             .Where(fp => fp.StudentId == studentId && fp.FeeType == feeType)
             .OrderByDescending(fp => fp.PaymentDate)
+            .ThenByDescending(fp => fp.Id)
             .FirstOrDefaultAsync();
 
         return lastPayment?.RemainingBalance ?? 0;

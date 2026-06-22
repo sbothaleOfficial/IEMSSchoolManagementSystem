@@ -23,7 +23,14 @@ public partial class AddEditClassWindow : Window
 
         Title = _isEditMode ? "Edit Class" : "Add Class";
         LoadClassNames();
-        AsyncHelper.SafeFireAndForget(LoadTeachersAsync, "Load Teachers Error");
+        // Populate the edit fields only AFTER the teacher list has loaded, otherwise the
+        // async load finishes later and resets cmbTeacher.SelectedValue to 0 (teacher lost).
+        AsyncHelper.SafeFireAndForget(InitializeAsync, "Load Teachers Error");
+    }
+
+    private async Task InitializeAsync()
+    {
+        await LoadTeachersAsync();
 
         if (_isEditMode && _classToEdit != null)
         {

@@ -40,16 +40,23 @@ namespace IEMS.Core.Services
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine($"DEBUG PasswordHashingService: Verifying password (length: {password?.Length})");
-                System.Diagnostics.Debug.WriteLine($"DEBUG PasswordHashingService: HashedPassword length: {hashedPassword?.Length}");
+                if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(hashedPassword))
+                    return false;
 
                 // Get hash bytes
                 byte[] hashBytes = Convert.FromBase64String(hashedPassword);
-                System.Diagnostics.Debug.WriteLine($"DEBUG PasswordHashingService: Hash bytes length: {hashBytes.Length} (expected: {SaltSize + HashSize})");
+
+                // Guard against truncated/corrupt stored hashes (would otherwise throw on indexing)
+                if (hashBytes.Length != SaltSize + HashSize)
+                    return false;
 
                 // Extract salt
                 byte[] salt = new byte[SaltSize];
                 Array.Copy(hashBytes, 0, salt, 0, SaltSize);
+
+                // Extract the stored hash portion
+                byte[] storedHash = new byte[HashSize];
+                Array.Copy(hashBytes, SaltSize, storedHash, 0, HashSize);
 
                 // Hash the password with the extracted salt
                 byte[] hash = KeyDerivation.Pbkdf2(
@@ -59,20 +66,11 @@ namespace IEMS.Core.Services
                     iterationCount: Iterations,
                     numBytesRequested: HashSize);
 
-                // Compare the computed hash with the stored hash using constant-time comparison
-                // to prevent timing attacks
-                bool isValid = true;
-                for (int i = 0; i < HashSize; i++)
-                {
-                    isValid &= (hashBytes[i + SaltSize] == hash[i]);
-                }
-
-                System.Diagnostics.Debug.WriteLine($"DEBUG PasswordHashingService: Verification result: {isValid}");
-                return isValid;
+                // Constant-time comparison to prevent timing attacks
+                return CryptographicOperations.FixedTimeEquals(storedHash, hash);
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine($"DEBUG PasswordHashingService: Exception during verification: {ex.Message}");
                 return false;
             }
         }

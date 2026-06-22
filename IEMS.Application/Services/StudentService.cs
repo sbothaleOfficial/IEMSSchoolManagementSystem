@@ -103,7 +103,8 @@ public class StudentService
             CityVillage = studentDto.CityVillage,
             ParentMobileNumber = studentDto.ParentMobileNumber,
             AadhaarNumber = studentDto.AadhaarNumber,
-            ClassId = studentDto.ClassId
+            ClassId = studentDto.ClassId,
+            AdmissionAcademicYearId = studentDto.AdmissionAcademicYearId
         };
 
         return await _studentRepository.AddAsync(student);
@@ -134,6 +135,7 @@ public class StudentService
             student.ParentMobileNumber = studentDto.ParentMobileNumber;
             student.AadhaarNumber = studentDto.AadhaarNumber;
             student.ClassId = studentDto.ClassId;
+            student.AdmissionAcademicYearId = studentDto.AdmissionAcademicYearId;
             student.UpdatedAt = DateTime.UtcNow;
 
             await _studentRepository.UpdateAsync(student);

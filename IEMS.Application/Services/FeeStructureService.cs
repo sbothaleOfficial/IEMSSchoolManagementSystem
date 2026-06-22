@@ -140,6 +140,7 @@ public class FeeStructureService
         feeStructure.AcademicYearString = academicYear.Year; // Populate legacy field for backward compatibility
 #pragma warning restore CS0618 // Type or member is obsolete
         feeStructure.Description = updateDto.Description;
+        feeStructure.UpdatedAt = DateTime.UtcNow;
 
         await _feeStructureRepository.UpdateAsync(feeStructure);
 

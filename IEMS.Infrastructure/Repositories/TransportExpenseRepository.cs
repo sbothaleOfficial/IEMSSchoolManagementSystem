@@ -45,7 +45,7 @@ public class TransportExpenseRepository : ITransportExpenseRepository
     {
         return await _context.TransportExpenses
             .Include(e => e.Vehicle)
-            .Where(e => e.ExpenseDate >= fromDate && e.ExpenseDate <= toDate)
+            .Where(e => e.ExpenseDate >= fromDate.Date && e.ExpenseDate < toDate.Date.AddDays(1))
             .OrderByDescending(e => e.ExpenseDate)
             .ToListAsync();
     }

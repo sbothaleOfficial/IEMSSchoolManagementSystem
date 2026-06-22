@@ -65,6 +65,12 @@ public class AcademicYearRepository : IAcademicYearRepository
 
     public async Task SetCurrentAcademicYearAsync(int academicYearId)
     {
+        // Validate the target exists FIRST — otherwise we would clear IsCurrent on every
+        // row and then fail to set a new one, leaving the system with no current year.
+        var targetYear = await _context.AcademicYears.FindAsync(academicYearId);
+        if (targetYear == null)
+            throw new ArgumentException($"Academic year with ID {academicYearId} was not found.");
+
         // Set all academic years to not current
         var allAcademicYears = await _context.AcademicYears.ToListAsync();
         foreach (var ay in allAcademicYears)
@@ -74,12 +80,8 @@ public class AcademicYearRepository : IAcademicYearRepository
         }
 
         // Set the specified academic year as current
-        var targetYear = await _context.AcademicYears.FindAsync(academicYearId);
-        if (targetYear != null)
-        {
-            targetYear.IsCurrent = true;
-            targetYear.UpdatedAt = DateTime.UtcNow;
-        }
+        targetYear.IsCurrent = true;
+        targetYear.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
     }

@@ -185,10 +185,10 @@ public partial class AddEditStaffWindow : Window
 
         if (!string.IsNullOrWhiteSpace(txtAadharNumber.Text))
         {
-            var aadhaar = txtAadharNumber.Text.Trim();
+            var aadhaar = txtAadharNumber.Text.Trim().Replace("-", "").Replace(" ", "");
             if (!System.Text.RegularExpressions.Regex.IsMatch(aadhaar, @"^\d{12}$"))
             {
-                MessageBox.Show("Aadhaar number must be exactly 12 digits.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Aadhaar number must be 12 digits (dashes optional).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtAadharNumber.Focus();
                 return false;
             }

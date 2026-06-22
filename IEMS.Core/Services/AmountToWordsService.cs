@@ -10,12 +10,26 @@ public class AmountToWordsService
 
     public string ConvertToWords(decimal amount)
     {
+        // Handle negative amounts (e.g. refunds) instead of dropping the sign and the integer part
+        if (amount < 0) return "Minus " + ConvertToWords(-amount);
+
+        // Round to paise up-front so the fractional part can never carry to 100
+        amount = Math.Round(amount, 2, MidpointRounding.AwayFromZero);
+
         if (amount == 0) return "Zero Rupees Only";
 
         var integerPart = (long)amount;
-        var decimalPart = (int)Math.Round((amount - integerPart) * 100);
+        var decimalPart = (int)Math.Round((amount - integerPart) * 100, MidpointRounding.AwayFromZero);
+
+        // Safety net: if rounding still produced 100 paise, roll it into rupees
+        if (decimalPart >= 100)
+        {
+            integerPart += decimalPart / 100;
+            decimalPart %= 100;
+        }
 
         var words = ConvertIntegerToWords(integerPart);
+        if (string.IsNullOrEmpty(words)) words = "Zero"; // amounts under ₹1 (e.g. 0.50)
 
         if (integerPart == 1)
             words += " Rupee";

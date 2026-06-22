@@ -24,8 +24,12 @@ namespace IEMS.Infrastructure.Repositories
 
         public async Task<User?> GetByUsernameAsync(string username)
         {
+            if (string.IsNullOrWhiteSpace(username))
+                return null;
+
+            var normalized = username.Trim().ToLower();
             return await _context.Users
-                .FirstOrDefaultAsync(u => u.Username.ToLower() == username.ToLower());
+                .FirstOrDefaultAsync(u => u.Username.ToLower() == normalized);
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
@@ -58,7 +62,11 @@ namespace IEMS.Infrastructure.Repositories
 
         public async Task<bool> UsernameExistsAsync(string username, int? excludeUserId = null)
         {
-            var query = _context.Users.Where(u => u.Username.ToLower() == username.ToLower());
+            if (string.IsNullOrWhiteSpace(username))
+                return false;
+
+            var normalized = username.Trim().ToLower();
+            var query = _context.Users.Where(u => u.Username.ToLower() == normalized);
 
             if (excludeUserId.HasValue)
             {

@@ -117,13 +117,14 @@ public partial class AddEditOtherExpenseWindow : Window
                 Description = string.IsNullOrWhiteSpace(txtDescription.Text) ? $"{cmbCategory.Text?.Replace("_", " ")} expense" : txtDescription.Text.Trim(),
                 Amount = decimal.Parse(txtAmount.Text),
                 ExpenseDate = dpExpenseDate.SelectedDate!.Value,
-                VendorName = string.Empty,
-                InvoiceNumber = string.Empty,
+                // No UI inputs for these yet — preserve existing values on edit instead of wiping them
+                VendorName = _currentExpense?.VendorName ?? string.Empty,
+                InvoiceNumber = _currentExpense?.InvoiceNumber ?? string.Empty,
                 PaymentMethod = (PaymentMethod)cmbPaymentMethod.SelectedValue,
                 TransactionId = txtTransactionId.Text.Trim(),
                 BankName = txtBankName.Text.Trim(),
                 ChequeNumber = txtChequeNumber.Text.Trim(),
-                Notes = string.Empty
+                Notes = _currentExpense?.Notes ?? string.Empty
             };
 
             if (_expenseId.HasValue)

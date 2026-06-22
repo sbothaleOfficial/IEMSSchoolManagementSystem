@@ -38,7 +38,9 @@ namespace IEMS.WPF
 
         private void LoginWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            // Ignore Enter while a login is already in flight — otherwise repeated Enter
+            // presses during the auth delay launch concurrent logins / multiple main windows.
+            if (e.Key == Key.Enter && btnLogin.IsEnabled)
             {
                 BtnLogin_Click(sender, e);
             }

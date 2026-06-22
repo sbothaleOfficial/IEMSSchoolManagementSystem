@@ -59,7 +59,7 @@ public class OtherExpenseRepository : IOtherExpenseRepository
     public async Task<IEnumerable<OtherExpense>> GetByDateRangeAsync(DateTime fromDate, DateTime toDate)
     {
         return await _context.OtherExpenses
-            .Where(e => e.ExpenseDate >= fromDate && e.ExpenseDate <= toDate)
+            .Where(e => e.ExpenseDate >= fromDate.Date && e.ExpenseDate < toDate.Date.AddDays(1))
             .OrderByDescending(e => e.ExpenseDate)
             .ToListAsync();
     }
@@ -99,7 +99,7 @@ public class OtherExpenseRepository : IOtherExpenseRepository
     public async Task<decimal> GetTotalAmountByDateRangeAsync(DateTime fromDate, DateTime toDate)
     {
         var expenses = await _context.OtherExpenses
-            .Where(e => e.ExpenseDate >= fromDate && e.ExpenseDate <= toDate)
+            .Where(e => e.ExpenseDate >= fromDate.Date && e.ExpenseDate < toDate.Date.AddDays(1))
             .ToListAsync();
         return expenses.Sum(e => e.Amount);
     }

@@ -96,10 +96,13 @@ public class StudentRepository : IStudentRepository
 
     public async Task<IEnumerable<Student>> GetStudentsWithPendingFeesAsync(int classId)
     {
+        // Only students who actually have an outstanding balance — previously this
+        // returned every student in the class, so fully-paid students showed as defaulters.
         return await _context.Students
             .Include(s => s.Class)
             .Include(s => s.FeePayments)
-            .Where(s => s.ClassId == classId)
+            .Where(s => s.ClassId == classId
+                        && s.FeePayments.Any(fp => fp.RemainingBalance > 0))
             .ToListAsync();
     }
 }

@@ -215,15 +215,16 @@ namespace IEMS.WPF
 
         private int GetClassIdByName(string className)
         {
-            // Simple mapping of class names to IDs
-            var classMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
-            {
-                {"Nursery", 1}, {"KG1", 2}, {"KG2", 3},
-                {"Class 1", 4}, {"Class 2", 5}, {"Class 3", 6}, {"Class 4", 7}, {"Class 5", 8},
-                {"Class 6", 9}, {"Class 7", 10}, {"Class 8", 11}, {"Class 9", 12}, {"Class 10", 13}
-            };
+            // Resolve against the actually-loaded classes rather than a hard-coded ID map
+            // (the map assumed contiguous seed IDs and broke for any other data set).
+            if (string.IsNullOrWhiteSpace(className))
+                return -1;
 
-            return classMap.TryGetValue(className, out var id) ? id : -1;
+            var match = _allClasses.FirstOrDefault(c =>
+                string.Equals(c.Name, className, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(c.DisplayName, className, StringComparison.OrdinalIgnoreCase));
+
+            return match?.Id ?? -1;
         }
 
         private void UpdatePreviewGrid()

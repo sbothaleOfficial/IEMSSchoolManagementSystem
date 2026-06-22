@@ -74,20 +74,21 @@ public partial class AddEditElectricityBillWindow : Window
             var billDto = new ElectricityBillDto
             {
                 Id = _currentBill?.Id ?? 0,
-                BillNumber = $"{billDate:MMMM yyyy}",
+                // On edit, preserve fields the simple form doesn't expose instead of wiping them.
+                BillNumber = _currentBill?.BillNumber ?? $"{billDate:MMMM yyyy}",
                 BillMonth = billDate.Month,
                 BillYear = billDate.Year,
-                Units = 1,
-                UnitsRate = decimal.Parse(txtAmount.Text),
+                Units = _currentBill?.Units ?? 1,
+                UnitsRate = _currentBill?.UnitsRate ?? decimal.Parse(txtAmount.Text),
                 Amount = decimal.Parse(txtAmount.Text),
                 DueDate = billDate.AddDays(15),
-                IsPaid = false,
-                PaidDate = null,
-                PaymentMethod = null,
-                TransactionId = string.Empty,
-                BankName = string.Empty,
-                ChequeNumber = string.Empty,
-                Notes = $"Simple electricity bill entry for {billDate:MMMM yyyy}"
+                IsPaid = _currentBill?.IsPaid ?? false,
+                PaidDate = _currentBill?.PaidDate,
+                PaymentMethod = _currentBill?.PaymentMethod,
+                TransactionId = _currentBill?.TransactionId ?? string.Empty,
+                BankName = _currentBill?.BankName ?? string.Empty,
+                ChequeNumber = _currentBill?.ChequeNumber ?? string.Empty,
+                Notes = _currentBill?.Notes ?? $"Simple electricity bill entry for {billDate:MMMM yyyy}"
             };
 
             if (_billId.HasValue)

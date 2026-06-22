@@ -238,6 +238,53 @@ await Section("7. User management lifecycle", async () =>
     Check("User count incremented by 1", await users.GetUserCountAsync() == before + 1);
 });
 
+// ----- 8. Regression tests for the audited bug fixes -----
+await Section("8. Bug-fix regressions", async () =>
+{
+    var calc = sp.GetRequiredService<FeeCalculationService>();
+    // Discount larger than the bill must NOT create a refund bigger than what was paid
+    var over = calc.CalculatePayment(amountPaid: 100, discount: 70000, lateFee: 0, previousBalance: 0, totalFeeAmount: 60000);
+    Check("FeeCalc: oversized discount floors owed at 0 (no negative)", over.RemainingBalance == 0, $"{over.RemainingBalance}");
+    Check("FeeCalc: overpayment refund never exceeds amount paid", over.OverpaymentAmount <= 100, $"{over.OverpaymentAmount}");
+
+    var words = sp.GetRequiredService<AmountToWordsService>();
+    Check("AmountToWords: negative renders as 'Minus ...'", words.ConvertToWords(-5.50m).StartsWith("Minus"), words.ConvertToWords(-5.50m));
+    Check("AmountToWords: 0.01 -> includes 'One Paisa'", words.ConvertToWords(0.01m).Contains("One Paisa"), words.ConvertToWords(0.01m));
+    Check("AmountToWords: 1.999 rounds cleanly (no 'Hundred Paise')", !words.ConvertToWords(1.999m).Contains("Hundred Paise"), words.ConvertToWords(1.999m));
+
+    // Student admission academic year is now persisted (was silently dropped)
+    var ss = sp.GetRequiredService<StudentService>();
+    var newStudent = await ss.AddStudentAsync(new StudentDto
+    {
+        SerialNo = 99001, Standard = "Class 1", ClassDivision = "A", FirstName = "QA", FatherName = "Father",
+        Surname = "Student", DateOfBirth = new DateTime(2015, 1, 1), Gender = "Male", MotherName = "Mother",
+        StudentNumber = "QA9001", AdmissionDate = new DateTime(2024, 6, 1), ClassId = 1, AdmissionAcademicYearId = 3
+    });
+    var ctx2 = sp.GetRequiredService<ApplicationDbContext>();
+    var persisted = await ctx2.Students.FindAsync(newStudent.Id);
+    Check("Student.AdmissionAcademicYearId is persisted on Add", persisted != null && persisted.AdmissionAcademicYearId == 3,
+          $"{persisted?.AdmissionAcademicYearId}");
+
+    // Academic year: setting an invalid id must throw and NOT wipe the current year
+    var ayRepo = sp.GetRequiredService<IAcademicYearRepository>();
+    bool threw = false;
+    try { await ayRepo.SetCurrentAcademicYearAsync(99999); } catch { threw = true; }
+    Check("AcademicYear: setting invalid id throws (does not wipe current)", threw);
+    var stillCurrent = await ayRepo.GetCurrentAcademicYearAsync();
+    Check("AcademicYear: a current year still exists after the failed set", stillCurrent != null && stillCurrent.Year == "2024-25", stillCurrent?.Year ?? "none");
+
+    // Pending-fees filter now excludes fully-paid students
+    var studentRepo = sp.GetRequiredService<IStudentRepository>();
+    var pending = (await studentRepo.GetStudentsWithPendingFeesAsync(1)).ToList();
+    Check("Pending-fees filter returns only students with a balance (not whole class)", pending.Count < 20 && pending.All(s => s.FeePayments.Any(fp => fp.RemainingBalance > 0)),
+          $"{pending.Count} of 20");
+
+    // Username lookups are null-safe (was a login crash)
+    var users2 = sp.GetRequiredService<UserService>();
+    var nullUser = await users2.AuthenticateAsync(null, "x");
+    Check("Auth with null username returns null (no crash)", nullUser == null);
+});
+
 // ----- Summary -----
 Console.WriteLine();
 Console.WriteLine("============================================================");

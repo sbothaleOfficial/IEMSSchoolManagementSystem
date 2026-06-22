@@ -19,10 +19,16 @@ public partial class AddEditStudentWindow : Window
         _classService = classService;
         _studentToEdit = studentToEdit;
 
-        AsyncHelper.SafeFireAndForget(LoadClassesAsync, "Load Classes Error");
-        LoadStudentData();
-
         Title = studentToEdit == null ? "Add Student" : "Edit Student";
+        // Populate fields only AFTER classes load, otherwise cmbClass.SelectedValue is set
+        // before its ItemsSource exists and the class selection is lost on edit.
+        AsyncHelper.SafeFireAndForget(InitializeAsync, "Load Classes Error");
+    }
+
+    private async Task InitializeAsync()
+    {
+        await LoadClassesAsync();
+        LoadStudentData();
     }
 
     private async Task LoadClassesAsync()
@@ -212,6 +218,26 @@ public partial class AddEditStudentWindow : Window
             MessageBox.Show("Parent mobile number is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             txtParentMobile.Focus();
             return false;
+        }
+
+        // Validate mobile format (10 digits starting 6-9), consistent with Teacher/Staff forms
+        if (!System.Text.RegularExpressions.Regex.IsMatch(txtParentMobile.Text.Trim(), @"^[6-9]\d{9}$"))
+        {
+            MessageBox.Show("Parent mobile number must be a valid 10-digit number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            txtParentMobile.Focus();
+            return false;
+        }
+
+        // Validate Aadhaar if provided (12 digits, dashes optional)
+        if (!string.IsNullOrWhiteSpace(txtAadhaarNumber.Text))
+        {
+            var aadhaar = txtAadhaarNumber.Text.Trim().Replace("-", "").Replace(" ", "");
+            if (!System.Text.RegularExpressions.Regex.IsMatch(aadhaar, @"^\d{12}$"))
+            {
+                MessageBox.Show("Aadhaar number must be 12 digits (dashes optional).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                txtAadhaarNumber.Focus();
+                return false;
+            }
         }
 
         if (cmbClass.SelectedValue == null)
