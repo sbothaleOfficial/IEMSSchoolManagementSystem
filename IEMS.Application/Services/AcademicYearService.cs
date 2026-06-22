@@ -2,6 +2,7 @@ using IEMS.Core.Entities;
 using IEMS.Core.Interfaces;
 using IEMS.Application.DTOs;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace IEMS.Application.Services;
 
@@ -111,7 +112,18 @@ public class AcademicYearService
         if (academicYear.IsCurrent)
             throw new InvalidOperationException("Cannot delete the current academic year. Set another year as current first.");
 
-        await _academicYearRepository.DeleteAsync(id);
+        try
+        {
+            await _academicYearRepository.DeleteAsync(id);
+        }
+        catch (DbUpdateException)
+        {
+            // Students, fee payments, fee structures and promotion history reference an academic
+            // year with DeleteBehavior.Restrict. Surface a clear message instead of a raw DB error.
+            throw new InvalidOperationException(
+                "Cannot delete this academic year because related records exist (students, fee payments, " +
+                "fee structures or promotion history). Please remove or reassign those records first.");
+        }
     }
 
     public async Task SetCurrentAcademicYearAsync(int academicYearId)

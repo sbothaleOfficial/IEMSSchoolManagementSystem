@@ -384,6 +384,15 @@ await Section("9. FK & delete-guard integrity", async () =>
             await fss.CreateFeeStructureAsync(new CreateFeeStructureDto { ClassId = newClass.Id, FeeType = FeeType.LIBRARY, Amount = 100, AcademicYearId = 3, AcademicYear = "2024-25", Description = "guard-test" });
             await cs.DeleteClassAsync(newClass.Id); // class has no students but has a fee structure -> must throw friendly
         }));
+    Check("Cannot delete a non-current academic year that has fee structures (friendly guard, not raw DB error)",
+        await Throws(async s =>
+        {
+            var fss = s.GetRequiredService<FeeStructureService>();
+            var ays = s.GetRequiredService<AcademicYearService>();
+            // Year 4 (2025-26) is non-current; attach a fee structure so the FK Restrict blocks deletion.
+            await fss.CreateFeeStructureAsync(new CreateFeeStructureDto { ClassId = 1, FeeType = FeeType.LIBRARY, Amount = 100, AcademicYearId = 4, AcademicYear = "2025-26", Description = "ay-guard-test" });
+            await ays.DeleteAcademicYearAsync(4);
+        }));
 });
 
 // ----- 10. Referential integrity (no orphaned rows) -----
