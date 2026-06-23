@@ -35,6 +35,21 @@ public partial class App : System.Windows.Application
         // QuestPDF Community licence is free for organisations under the revenue threshold (a school
         // qualifies). Required before any PDF is generated.
         QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
+        // Register a few system fonts with QuestPDF so the ID cards can use a proper serif
+        // (Georgia) for the school name/headings. These ship with every Windows install.
+        try
+        {
+            var fontsDir = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
+            foreach (var f in new[] { "georgia.ttf", "georgiab.ttf", "georgiai.ttf", "georgiaz.ttf", "segoeui.ttf", "segoeuib.ttf" })
+            {
+                var p = Path.Combine(fontsDir, f);
+                if (File.Exists(p))
+                    using (var fs = File.OpenRead(p)) QuestPDF.Drawing.FontManager.RegisterFont(fs);
+            }
+        }
+        catch (Exception fx) { Log.Warning(fx, "Could not register card fonts"); }
+
         Log.Information("IEMS application starting");
 
         try

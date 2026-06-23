@@ -859,8 +859,7 @@ public partial class StudentsManagementWindow : Window
                     }
                     catch { /* a bad photo shouldn't block the card */ }
 
-                    var barcode = IEMS.WPF.Pdf.Barcode128.RenderPng(r.StudentNumber, 600, 120);
-                    cards.Add(r with { Photo = norm, PhotoRounded = rounded, Barcode = barcode });
+                    cards.Add(r with { Photo = norm, PhotoRounded = rounded });
                 }
 
                 var document = new IEMS.WPF.Pdf.StudentIdCardDocument(cards, school, logo, frontBg, backBg, includeBack, theSize);

@@ -12,8 +12,9 @@ namespace IEMS.WPF.Pdf
     /// </summary>
     public static class CardArt
     {
-        public static readonly Color Navy = Color.FromRgb(0x14, 0x23, 0x5B);
-        public static readonly Color NavyDark = Color.FromRgb(0x0E, 0x19, 0x44);
+        // Matched to the school logo's blue (#0070D0); the footer uses a deeper shade of the same hue.
+        public static readonly Color Navy = Color.FromRgb(0x00, 0x70, 0xD0);
+        public static readonly Color NavyDark = Color.FromRgb(0x0A, 0x4C, 0x96);
         public static readonly Color Gold = Color.FromRgb(0xF0, 0xB4, 0x29);
 
         private const double Px = 12.0; // pixels per millimetre (~305 DPI)

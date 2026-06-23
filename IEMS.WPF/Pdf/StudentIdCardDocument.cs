@@ -45,9 +45,8 @@ namespace IEMS.WPF.Pdf
         public string Address { get; init; } = string.Empty;
         public byte[]? Photo { get; init; }
 
-        // Pre-rendered assets (built on the UI thread by the caller).
+        // Pre-rendered photo (rounded corners), built on the UI thread by the caller.
         public byte[]? PhotoRounded { get; init; }
-        public byte[]? Barcode { get; init; }
     }
 
     /// <summary>
@@ -59,7 +58,12 @@ namespace IEMS.WPF.Pdf
     public class StudentIdCardDocument : IDocument
     {
         private const float RefHeightMm = 85.6f;
-        private static string Navy => Colors.Blue.Darken4;
+
+        // Theme colours, matched to the school logo's blue (#0070D0).
+        private const string BandBlue = "#0070D0";  // header/footer bands and the T&C pill
+        private const string InkBlue = "#0A4C96";   // text & borders on white
+        private const string Gold = "#F0B429";
+        private const string Serif = "Georgia";     // registered at startup; falls back gracefully
 
         private readonly IReadOnlyList<IdCardData> _cards;
         private readonly SchoolInfo _school;
@@ -125,27 +129,26 @@ namespace IEMS.WPF.Pdf
                 // Content (leaves room at the bottom for the footer overlay).
                 layers.PrimaryLayer().PaddingBottom(footerH).Column(col =>
                 {
-                    // ---- Header (over the navy panel) ----
-                    col.Item().Height(CardH * 0.185f).PaddingHorizontal(4 * s).PaddingTop(3.5f * s).Row(row =>
+                    // ---- Header (logo blends onto the matching blue band) ----
+                    col.Item().Height(CardH * 0.17f).PaddingHorizontal(5 * s).PaddingTop(3 * s).Row(row =>
                     {
                         if (_logo != null && _logo.Length > 0)
-                            row.ConstantItem(32 * s).AlignMiddle().Background(Colors.White).Padding(2 * s)
-                                .Height(28 * s).Image(_logo).FitArea();
+                            row.ConstantItem(28 * s).AlignMiddle().Height(26 * s).Image(_logo).FitArea();
                         row.RelativeItem().PaddingLeft(4 * s).AlignMiddle().Column(c =>
                         {
                             c.Item().Text(_school.Name.ToUpperInvariant())
-                                .FontColor(Colors.White).Bold().FontSize(7.5f * s).LineHeight(1.05f);
+                                .FontFamily(Serif).FontColor(Colors.White).Bold().FontSize(7 * s).LineHeight(1.05f);
                             if (!string.IsNullOrWhiteSpace(_school.Tagline))
                                 c.Item().PaddingTop(1 * s).Text(_school.Tagline)
-                                    .FontColor(CardArtGold).FontSize(5f * s).LineHeight(1f);
+                                    .FontColor(Gold).FontSize(4.8f * s).LineHeight(1f);
                         });
                     });
 
                     // ---- Photo ----
-                    col.Item().PaddingTop(2.5f * s).AlignCenter()
-                        .Width(26 * s, Unit.Millimetre).Height(32 * s, Unit.Millimetre)
+                    col.Item().PaddingTop(2 * s).AlignCenter()
+                        .Width(25 * s, Unit.Millimetre).Height(30 * s, Unit.Millimetre)
                         .Background(Colors.White).Padding(1.3f * s)
-                        .Border(1.1f * s).BorderColor(Navy)
+                        .Border(1.3f * s).BorderColor(InkBlue)
                         .Element(box =>
                         {
                             var photo = card.PhotoRounded ?? card.Photo;
@@ -157,31 +160,26 @@ namespace IEMS.WPF.Pdf
                         });
 
                     // ---- Name ----
-                    col.Item().PaddingTop(2.5f * s).AlignCenter().Text(card.StudentName.ToUpperInvariant())
-                        .Bold().FontSize(9 * s).FontColor(Navy);
+                    col.Item().PaddingTop(2 * s).AlignCenter().Text(card.StudentName.ToUpperInvariant())
+                        .FontFamily(Serif).Bold().FontSize(9 * s).FontColor(InkBlue);
+                    col.Item().PaddingTop(1 * s).PaddingHorizontal(22 * s).LineHorizontal(0.6f * s).LineColor(Gold);
 
                     // ---- Details ----
-                    col.Item().PaddingTop(2.5f * s).PaddingHorizontal(7 * s).Column(c =>
+                    col.Item().PaddingTop(2 * s).PaddingHorizontal(7 * s).Column(c =>
                     {
-                        c.Spacing(1.8f * s);
+                        c.Spacing(1.5f * s);
                         Field(c, "Student ID", card.StudentNumber, s);
                         Field(c, "Class", card.ClassName, s);
                         Field(c, "Date of Birth", card.DateOfBirth, s);
                         Field(c, "Blood Group", string.IsNullOrWhiteSpace(card.BloodGroup) ? "-" : card.BloodGroup, s);
+                        if (!string.IsNullOrWhiteSpace(card.Address))
+                            Field(c, "Address", card.Address, s);
                     });
-
-                    // ---- Barcode (pushed to the bottom, just above the footer) ----
-                    col.Item().ExtendVertical().PaddingHorizontal(9 * s).PaddingTop(2 * s).AlignBottom().AlignCenter()
-                        .Element(b =>
-                        {
-                            if (card.Barcode != null && card.Barcode.Length > 0)
-                                b.Height(8.5f * s).Image(card.Barcode).FitHeight();
-                        });
                 });
 
-                // ---- Footer overlay (sits on the navy band at the very bottom) ----
+                // ---- Footer overlay (sits on the blue band at the very bottom) ----
                 layers.Layer().AlignBottom().Height(footerH).AlignMiddle().AlignCenter().PaddingHorizontal(6 * s)
-                    .Text(FooterText()).FontColor(Colors.White).FontSize(6.5f * s);
+                    .Text(FooterText()).FontColor(Colors.White).SemiBold().FontSize(6.5f * s);
             });
         }
 
@@ -195,41 +193,43 @@ namespace IEMS.WPF.Pdf
 
                 layers.PrimaryLayer().PaddingBottom(footerH).Column(col =>
                 {
-                    // Header (over navy panel)
-                    col.Item().Height(CardH * 0.21f).PaddingHorizontal(6 * s).AlignMiddle()
-                        .Text(_school.Name.ToUpperInvariant()).FontColor(Colors.White).Bold().FontSize(8.5f * s).LineHeight(1.05f);
+                    // Header (centred, over the blue band)
+                    col.Item().Height(CardH * 0.21f).PaddingHorizontal(6 * s).AlignMiddle().AlignCenter()
+                        .Text(_school.Name.ToUpperInvariant())
+                        .FontFamily(Serif).FontColor(Colors.White).Bold().FontSize(8.5f * s).LineHeight(1.1f);
 
-                    // Terms & conditions heading
-                    col.Item().PaddingTop(1 * s).PaddingHorizontal(8 * s).AlignCenter()
-                        .Background(Navy).PaddingVertical(2 * s).PaddingHorizontal(6 * s)
-                        .Text("TERMS & CONDITIONS").FontColor(Colors.White).Bold().FontSize(7 * s);
+                    // Terms & conditions heading (centred pill)
+                    col.Item().PaddingTop(3 * s).AlignCenter()
+                        .Background(BandBlue).PaddingVertical(2.5f * s).PaddingHorizontal(9 * s)
+                        .Text("TERMS & CONDITIONS").FontFamily(Serif).FontColor(Colors.White).Bold().FontSize(7 * s);
 
-                    col.Item().PaddingTop(4 * s).PaddingHorizontal(8 * s).Column(c =>
+                    // Bullets (consistent hanging indent, left-aligned)
+                    col.Item().PaddingTop(4 * s).PaddingHorizontal(9 * s).Column(c =>
                     {
                         c.Spacing(3 * s);
                         foreach (var term in _school.Terms)
                             c.Item().Row(r =>
                             {
-                                r.ConstantItem(8 * s).Text("•").FontColor(Navy).Bold().FontSize(7 * s);
-                                r.RelativeItem().Text(term).FontSize(6.5f * s).FontColor(Colors.Grey.Darken3).LineHeight(1.15f);
+                                r.ConstantItem(9 * s).PaddingTop(0.5f * s).Text("•").FontColor(BandBlue).Bold().FontSize(8 * s);
+                                r.RelativeItem().Text(term).FontSize(6.5f * s).FontColor(Colors.Grey.Darken3).LineHeight(1.2f);
                             });
                     });
 
                     // Signature pinned to the bottom of the white area (above the footer overlay)
-                    col.Item().ExtendVertical().PaddingHorizontal(14 * s).PaddingBottom(4 * s).AlignBottom().Column(c =>
+                    col.Item().ExtendVertical().PaddingHorizontal(16 * s).PaddingBottom(4 * s).AlignBottom().Column(c =>
                     {
-                        c.Item().PaddingBottom(1 * s).LineHorizontal(0.6f * s).LineColor(Colors.Grey.Medium);
-                        c.Item().AlignCenter().Text("Principal").Bold().FontSize(7 * s).FontColor(Navy);
+                        c.Item().AlignCenter().PaddingBottom(1.5f * s).Width(50 * s).LineHorizontal(0.6f * s).LineColor(Colors.Grey.Medium);
+                        c.Item().AlignCenter().Text("Principal").FontFamily(Serif).Bold().FontSize(7.5f * s).FontColor(InkBlue);
                     });
                 });
 
-                // ---- Footer contacts overlay (on the navy band) ----
-                layers.Layer().AlignBottom().Height(footerH).PaddingHorizontal(8 * s).PaddingBottom(4 * s).AlignMiddle().Column(c =>
+                // ---- Footer contacts overlay (left-aligned with aligned labels, on the blue band) ----
+                layers.Layer().AlignBottom().Height(footerH).PaddingHorizontal(9 * s).PaddingBottom(5 * s).AlignMiddle().Column(c =>
                 {
-                    c.Spacing(2f * s);
-                    if (!string.IsNullOrWhiteSpace(_school.Phone)) Contact(c, "Tel", _school.Phone, s);
+                    c.Spacing(2.2f * s);
+                    if (!string.IsNullOrWhiteSpace(_school.Phone)) Contact(c, "Phone", _school.Phone, s);
                     if (!string.IsNullOrWhiteSpace(_school.Email)) Contact(c, "Email", _school.Email, s);
-                    if (!string.IsNullOrWhiteSpace(_school.Address)) Contact(c, "Addr", _school.Address, s);
+                    if (!string.IsNullOrWhiteSpace(_school.Address)) Contact(c, "Address", _school.Address, s);
                 });
             });
         }
@@ -238,18 +238,18 @@ namespace IEMS.WPF.Pdf
         {
             c.Item().Row(row =>
             {
-                row.ConstantItem(58 * s).Text(label).SemiBold().FontSize(6.8f * s).FontColor(Colors.Blue.Darken4);
-                row.ConstantItem(6 * s).Text(":").FontSize(6.8f * s).FontColor(Colors.Blue.Darken4);
+                row.ConstantItem(56 * s).Text(label).SemiBold().FontSize(6.8f * s).FontColor(InkBlue);
+                row.ConstantItem(6 * s).Text(":").FontSize(6.8f * s).FontColor(InkBlue);
                 row.RelativeItem().Text(string.IsNullOrWhiteSpace(value) ? "-" : value).FontSize(6.8f * s).FontColor(Colors.Grey.Darken4);
             });
         }
 
         private static void Contact(ColumnDescriptor c, string label, string value, float s)
         {
-            c.Item().Text(t =>
+            c.Item().Row(row =>
             {
-                t.Span($"{label}: ").FontColor(CardArtGold).SemiBold().FontSize(6 * s);
-                t.Span(value).FontColor(Colors.White).FontSize(6 * s);
+                row.ConstantItem(42 * s).Text(label).FontColor(Gold).SemiBold().FontSize(6 * s);
+                row.RelativeItem().Text(value).FontColor(Colors.White).FontSize(6 * s).LineHeight(1.1f);
             });
         }
 
@@ -259,8 +259,5 @@ namespace IEMS.WPF.Pdf
             if (!string.IsNullOrWhiteSpace(_school.Phone)) return "Tel: " + _school.Phone;
             return _school.Name;
         }
-
-        // Gold accent colour matching CardArt.Gold (#F0B429).
-        private static string CardArtGold => "#F0B429";
     }
 }
