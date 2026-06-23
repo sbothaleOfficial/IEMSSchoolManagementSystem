@@ -109,3 +109,6 @@ CODE_REVIEW_REPORT.md
 ## Application runtime files
 remember_me.json
 login_debug.log
+
+## Installer build output (compiled by Inno Setup; do not commit the ~70MB exe)
+installer/Output/
