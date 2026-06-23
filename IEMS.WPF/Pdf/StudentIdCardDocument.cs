@@ -11,11 +11,13 @@ namespace IEMS.WPF.Pdf
         public override string ToString() => DisplayName;
 
         // Standard plastic-card sizes (portrait). CR80 is the universal default.
+        public static readonly IdCardSize CompactCr79 = new("Compact — CR79 (51 × 84 mm)", 51f, 83.9f);
         public static readonly IdCardSize StandardCr80 = new("Standard — CR80 (54 × 86 mm)", 54f, 85.6f);
         public static readonly IdCardSize LargeCr100 = new("Large — CR100 (67 × 99 mm)", 67f, 98.5f);
-        public static readonly IdCardSize CompactCr79 = new("Compact — CR79 (51 × 84 mm)", 51f, 83.9f);
+        public static readonly IdCardSize BadgeA7 = new("Badge — A7 (74 × 105 mm)", 74f, 105f);
 
-        public static readonly IReadOnlyList<IdCardSize> Presets = new[] { StandardCr80, LargeCr100, CompactCr79 };
+        // CR80 is listed first so it is the default selection.
+        public static readonly IReadOnlyList<IdCardSize> Presets = new[] { StandardCr80, CompactCr79, LargeCr100, BadgeA7 };
     }
 
     /// <summary>Resolved, display-ready fields for one student ID card.</summary>

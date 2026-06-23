@@ -1,0 +1,40 @@
+<Window x:Class="IEMS.WPF.CustomCardSizeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Custom Card Size" Width="380" SizeToContent="Height"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Background="{StaticResource SurfaceBrush}">
+    <StackPanel Margin="22">
+        <TextBlock Text="Enter the printed ID card size (portrait), in millimetres."
+                   TextWrapping="Wrap" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Width (mm):" VerticalAlignment="Center" Margin="0,0,0,8"/>
+            <TextBox x:Name="txtWidth" Grid.Row="0" Grid.Column="1" Height="30" Margin="0,0,0,8" VerticalContentAlignment="Center"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Height (mm):" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtHeight" Grid.Row="1" Grid.Column="1" Height="30" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <TextBlock Text="Tip: a standard CR80 card is 54 × 86 mm. Allowed range 35–150 mm wide, 45–200 mm tall."
+                   FontSize="11" TextWrapping="Wrap" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,10,0,0"/>
+
+        <TextBlock x:Name="txtError" Foreground="Red" TextWrapping="Wrap" Visibility="Collapsed" Margin="0,10,0,0"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="Use this size" Width="120" Height="34" Margin="0,0,10,0"
+                    Click="Ok_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+            <Button Content="Cancel" Width="90" Height="34" IsCancel="True"
+                    Click="Cancel_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

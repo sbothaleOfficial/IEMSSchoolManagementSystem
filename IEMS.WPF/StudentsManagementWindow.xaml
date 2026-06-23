@@ -550,7 +550,8 @@
                                       SelectionChanged="CmbIdCardTabClass_SelectionChanged"/>
                             <TextBlock Text="Card size:" VerticalAlignment="Center" Margin="15,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
                             <ComboBox x:Name="cmbIdCardSize" Width="210" Height="28" VerticalContentAlignment="Center"
-                                      ToolTip="Choose the printed ID card size (CR80 is the standard default)"/>
+                                      SelectionChanged="CmbIdCardSize_SelectionChanged"
+                                      ToolTip="Choose a standard ID card size (CR80 is the default), or pick Custom size…"/>
                         </StackPanel>
 
                         <DataGrid x:Name="dgIdCardStudents" Grid.Row="1" AutoGenerateColumns="False"

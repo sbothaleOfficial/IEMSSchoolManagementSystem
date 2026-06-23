@@ -861,12 +861,14 @@ public partial class StudentsManagementWindow : Window
 
     private void RefreshIdCardTab()
     {
-        // Card-size options (CR80 default). Populate once.
+        // Card-size options (CR80 default) + a "Custom size…" entry. Populate once.
         if (cmbIdCardSize.Items.Count == 0)
         {
             foreach (var sz in IEMS.WPF.Pdf.IdCardSize.Presets)
                 cmbIdCardSize.Items.Add(sz);
+            cmbIdCardSize.Items.Add(CustomSizeLabel);
             cmbIdCardSize.SelectedIndex = 0; // Standard CR80
+            _lastIdCardSize = IEMS.WPF.Pdf.IdCardSize.StandardCr80;
         }
 
         // Class filter
@@ -973,8 +975,50 @@ public partial class StudentsManagementWindow : Window
         }
     }
 
+    private const string CustomSizeLabel = "Custom size…";
+    private IEMS.WPF.Pdf.IdCardSize _lastIdCardSize = IEMS.WPF.Pdf.IdCardSize.StandardCr80;
+    private IEMS.WPF.Pdf.IdCardSize? _customIdCardSize;
+    private bool _suppressSizeChange;
+
     private IEMS.WPF.Pdf.IdCardSize GetSelectedIdCardSize()
         => cmbIdCardSize.SelectedItem as IEMS.WPF.Pdf.IdCardSize ?? IEMS.WPF.Pdf.IdCardSize.StandardCr80;
+
+    private void CmbIdCardSize_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        if (_suppressSizeChange) return;
+
+        if (cmbIdCardSize.SelectedItem is IEMS.WPF.Pdf.IdCardSize sz)
+        {
+            _lastIdCardSize = sz;
+            return;
+        }
+
+        // The "Custom size…" entry: ask for dimensions, then add the result as a selectable item.
+        if (cmbIdCardSize.SelectedItem as string == CustomSizeLabel)
+        {
+            var dlg = new CustomCardSizeWindow(_lastIdCardSize.WidthMm, _lastIdCardSize.HeightMm) { Owner = this };
+            if (dlg.ShowDialog() == true)
+            {
+                var custom = new IEMS.WPF.Pdf.IdCardSize(
+                    $"Custom — {dlg.WidthMm:0.#} × {dlg.HeightMm:0.#} mm", (float)dlg.WidthMm, (float)dlg.HeightMm);
+
+                _suppressSizeChange = true;
+                if (_customIdCardSize != null) cmbIdCardSize.Items.Remove(_customIdCardSize);
+                _customIdCardSize = custom;
+                cmbIdCardSize.Items.Insert(cmbIdCardSize.Items.IndexOf(CustomSizeLabel), custom);
+                cmbIdCardSize.SelectedItem = custom;
+                _lastIdCardSize = custom;
+                _suppressSizeChange = false;
+            }
+            else
+            {
+                // Cancelled: revert to the previous real size.
+                _suppressSizeChange = true;
+                cmbIdCardSize.SelectedItem = _lastIdCardSize;
+                _suppressSizeChange = false;
+            }
+        }
+    }
 
     private void BtnIdCardRemovePhoto_Click(object sender, RoutedEventArgs e)
     {
