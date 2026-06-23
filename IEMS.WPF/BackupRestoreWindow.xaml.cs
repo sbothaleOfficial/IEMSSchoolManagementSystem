@@ -412,49 +412,13 @@ namespace IEMS.WPF
 
                 if (result.Success)
                 {
-                    RestoreStatusText.Text = $"✅ Database restored successfully!\n" +
-                                            $"Safety backup saved at: {result.SafetyBackupPath}\n" +
-                                            $"The application will now restart...";
-
-                    // FIXED BUG #14: Handle automatic restart failure properly
-                    var exePath = Environment.ProcessPath ?? Process.GetCurrentProcess().MainModule?.FileName;
-
-                    if (!string.IsNullOrEmpty(exePath))
-                    {
-                        MessageBox.Show(
-                            "Database restored successfully!\n\n" +
-                            "The application will now restart to load the restored data.",
-                            "Restore Complete",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-
-                        try
-                        {
-                            Process.Start(exePath);
-                            System.Windows.Application.Current.Shutdown();
-                        }
-                        catch (Exception restartEx)
-                        {
-                            MessageBox.Show(
-                                "Database restored successfully, but automatic restart failed.\n\n" +
-                                $"Error: {restartEx.Message}\n\n" +
-                                "Please manually restart the application to load the restored data.",
-                                "Manual Restart Required",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-                            System.Windows.Application.Current.Shutdown();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show(
-                            "Database restored successfully!\n\n" +
-                            "Please manually restart the application to load the restored data.",
-                            "Manual Restart Required",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Warning);
-                        System.Windows.Application.Current.Shutdown();
-                    }
+                    RestoreStatusText.Text = "✅ Database restored successfully! Restarting…";
+                    MessageBox.Show(
+                        "Database restored successfully!\n\n" +
+                        (string.IsNullOrEmpty(result.SafetyBackupPath) ? "" : $"Safety backup of the previous data:\n{result.SafetyBackupPath}\n\n") +
+                        "The application will now restart to load the restored data.",
+                        "Restore Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                    RestartApplication();
                 }
                 else if (result.RequiresConfirmation)
                 {
@@ -466,51 +430,21 @@ namespace IEMS.WPF
 
                     if (overwriteResult == MessageBoxResult.Yes)
                     {
-                        // FIXED BUG #6: Force restore should ALWAYS create safety backup for data protection
-                        result = await _backupService.RestoreBackupAsync(_selectedBackupPath, validateChecksum: true, skipSafetyBackup: false);
+                        // FIXED BUG #6: Force restore should ALWAYS create safety backup for data protection.
+                        // force: true bypasses the "current DB is newer" guard the user just confirmed past.
+                        result = await _backupService.RestoreBackupAsync(_selectedBackupPath, validateChecksum: true, skipSafetyBackup: false, force: true);
                         if (result.Success)
                         {
-                            // FIXED BUG #14: Handle automatic restart failure properly
-                            var exePath = Environment.ProcessPath ?? Process.GetCurrentProcess().MainModule?.FileName;
-
-                            if (!string.IsNullOrEmpty(exePath))
-                            {
-                                MessageBox.Show(
-                                    "Database restored successfully!\n\n" +
-                                    $"Safety backup saved at: {result.SafetyBackupPath}\n\n" +
-                                    "The application will now restart to load the restored data.",
-                                    "Restore Complete",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
-
-                                try
-                                {
-                                    Process.Start(exePath);
-                                    System.Windows.Application.Current.Shutdown();
-                                }
-                                catch (Exception restartEx)
-                                {
-                                    MessageBox.Show(
-                                        "Database restored successfully, but automatic restart failed.\n\n" +
-                                        $"Error: {restartEx.Message}\n\n" +
-                                        "Please manually restart the application to load the restored data.",
-                                        "Manual Restart Required",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Warning);
-                                    System.Windows.Application.Current.Shutdown();
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show(
-                                    "Database restored successfully!\n\n" +
-                                    $"Safety backup saved at: {result.SafetyBackupPath}\n\n" +
-                                    "Please manually restart the application to load the restored data.",
-                                    "Manual Restart Required",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Warning);
-                                System.Windows.Application.Current.Shutdown();
-                            }
+                            MessageBox.Show(
+                                "Database restored successfully!\n\n" +
+                                (string.IsNullOrEmpty(result.SafetyBackupPath) ? "" : $"Safety backup of the previous data:\n{result.SafetyBackupPath}\n\n") +
+                                "The application will now restart to load the restored data.",
+                                "Restore Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                            RestartApplication();
+                        }
+                        else
+                        {
+                            ShowError(result.Message);
                         }
                     }
                 }
@@ -613,6 +547,126 @@ namespace IEMS.WPF
                 SetupGoogleDriveButton.IsEnabled = true;
                 ShowError($"Could not set up Google Drive backup: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// One-click recovery (ideal on a new PC): find the newest backup in the Google Drive
+        /// "IEMS Backups" folder and restore it, with the same safety backup + restart as a normal
+        /// restore. Falls back to the configured Backup.BackupPath (e.g. a OneDrive folder).
+        /// </summary>
+        private async void RestoreFromGoogleDriveButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Find the cloud backups folder: Google Drive first, then the configured backup path.
+                string? backupsDir = null;
+                var driveFolder = IEMS.WPF.Helpers.GoogleDriveLocator.FindMyDriveFolder();
+                if (driveFolder != null)
+                {
+                    var candidate = Path.Combine(driveFolder, "IEMS Backups");
+                    if (Directory.Exists(candidate)) backupsDir = candidate;
+                }
+                if (backupsDir == null)
+                {
+                    var settings = _services.GetRequiredService<IEMS.Application.Interfaces.ISystemSettingsService>();
+                    var configured = await settings.GetSettingValueAsync("Backup.BackupPath");
+                    if (!string.IsNullOrWhiteSpace(configured) && Directory.Exists(configured))
+                        backupsDir = configured;
+                }
+
+                if (backupsDir == null)
+                {
+                    MessageBox.Show(
+                        "No Google Drive backups folder was found on this PC.\n\n" +
+                        "Install Google Drive for Desktop, sign in, and wait for it to finish syncing your " +
+                        "\"IEMS Backups\" folder — then try again.\n\n" +
+                        "(You can also use \"Select Backup File\" on the Restore tab to pick a backup file manually.)",
+                        "No Google Drive backups", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var latest = new DirectoryInfo(backupsDir).GetFiles("school_backup_*.db")
+                    .OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                if (latest == null)
+                {
+                    MessageBox.Show(
+                        $"Found the folder:\n{backupsDir}\n\n" +
+                        "…but there are no backups in it yet (or Google Drive hasn't finished downloading them). " +
+                        "Wait for syncing to complete and try again.",
+                        "No backups found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var confirm = MessageBox.Show(
+                    "Restore the most recent backup from Google Drive?\n\n" +
+                    $"File: {latest.Name}\n" +
+                    $"Date: {latest.LastWriteTime:G}\n" +
+                    $"Size: {FormatFileSize(latest.Length)}\n\n" +
+                    "This REPLACES all current data with the backup (a safety backup of the current data " +
+                    "is created first), and the application will restart.\n\nContinue?",
+                    "Restore from Google Drive", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (confirm != MessageBoxResult.Yes) return;
+
+                RestoreGoogleDriveButton.IsEnabled = false;
+                RestoreStatusText.Text = $"Restoring from {latest.FullName}...";
+                await RestoreThenRestartAsync(latest.FullName);
+                RestoreGoogleDriveButton.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                RestoreGoogleDriveButton.IsEnabled = true;
+                ShowError($"Could not restore from Google Drive: {ex.Message}");
+            }
+        }
+
+        /// <summary>Restores a backup (handling the "current data is newer" re-confirm) then restarts the app.</summary>
+        private async Task RestoreThenRestartAsync(string backupPath)
+        {
+            var result = await _backupService.RestoreBackupAsync(backupPath);
+
+            if (!result.Success && result.RequiresConfirmation)
+            {
+                var ow = MessageBox.Show(result.Message + "\n\nDo you want to proceed anyway?",
+                    "Confirmation Required", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (ow != MessageBoxResult.Yes) return;
+                result = await _backupService.RestoreBackupAsync(backupPath, validateChecksum: true, skipSafetyBackup: false, force: true);
+            }
+
+            if (!result.Success)
+            {
+                ShowError(result.Message);
+                return;
+            }
+
+            MessageBox.Show(
+                "Database restored successfully!\n\n" +
+                (string.IsNullOrEmpty(result.SafetyBackupPath) ? "" : $"Safety backup of the previous data:\n{result.SafetyBackupPath}\n\n") +
+                "The application will now restart to load the restored data.",
+                "Restore Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            RestartApplication();
+        }
+
+        /// <summary>
+        /// Launches a fresh copy of the app and HARD-exits this one. A restore must restart cleanly:
+        /// Application.Current.Shutdown() can't reliably stop the Generic Host's background services,
+        /// which left the old process alive (two instances after a restore). Environment.Exit guarantees
+        /// the old process is gone; the new instance opens the just-restored database.
+        /// </summary>
+        private void RestartApplication()
+        {
+            var exePath = Environment.ProcessPath ?? Process.GetCurrentProcess().MainModule?.FileName;
+            if (!string.IsNullOrEmpty(exePath))
+            {
+                try { Process.Start(exePath); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not restart automatically: {ex.Message}\n\nPlease open IEMS again manually.",
+                        "Manual Restart Needed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            Serilog.Log.CloseAndFlush();
+            Environment.Exit(0);
         }
 
         private async void SaveScheduleButton_Click(object sender, RoutedEventArgs e)

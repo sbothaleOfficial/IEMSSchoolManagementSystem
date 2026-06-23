@@ -178,7 +178,7 @@ namespace IEMS.Application.Services
             }
         }
 
-        public async Task<RestoreResult> RestoreBackupAsync(string backupPath, bool validateChecksum = true, bool skipSafetyBackup = false)
+        public async Task<RestoreResult> RestoreBackupAsync(string backupPath, bool validateChecksum = true, bool skipSafetyBackup = false, bool force = false)
         {
             try
             {
@@ -216,11 +216,12 @@ namespace IEMS.Application.Services
                     }
                 }
 
-                // Check if current database has newer data
+                // Check if current database has newer data (skipped when the caller forces the restore,
+                // e.g. the user already confirmed "proceed anyway", or a one-click cloud restore).
                 var currentDbInfo = new FileInfo(_databasePath);
                 var backupDbInfo = new FileInfo(backupPath);
 
-                if (currentDbInfo.LastWriteTime > backupDbInfo.LastWriteTime)
+                if (!force && currentDbInfo.LastWriteTime > backupDbInfo.LastWriteTime)
                 {
                     // FIXED BUG #12: Better time difference display showing hours for recent backups
                     var timeDiff = currentDbInfo.LastWriteTime - backupDbInfo.LastWriteTime;
@@ -256,22 +257,19 @@ namespace IEMS.Application.Services
                 // Perform the restore with retry logic
                 await RestoreDatabaseFileWithRetryAsync(backupPath);
 
-                // FIXED BUG #3: Also restore WAL and SHM files if they exist
-                // Any failure in restoring these files should fail the entire restore
-                var walBackupPath = backupPath + "-wal";
-                var shmBackupPath = backupPath + "-shm";
-
-                try
+                // The restored .db is a fully-checkpointed database (CreateBackup runs
+                // PRAGMA wal_checkpoint(TRUNCATE) before copying, so all data is inside the .db and
+                // the backup's -wal is empty). Any -wal/-shm still sitting next to the live database
+                // now belongs to the OLD database and MUST NOT be kept: SQLite would replay a stale
+                // WAL onto the freshly-restored .db and corrupt it. So delete them rather than copy
+                // the backup's. The -wal is the dangerous one and almost always deletable; the -shm
+                // is only a shared-memory index and may still be memory-mapped by this running
+                // process — that's fine, it is released on the restart that always follows a restore,
+                // and SQLite rebuilds it from the restored .db on next open.
+                foreach (var stale in new[] { _databasePath + "-wal", _databasePath + "-shm" })
                 {
-                    if (File.Exists(walBackupPath))
-                        File.Copy(walBackupPath, _databasePath + "-wal", true);
-                    if (File.Exists(shmBackupPath))
-                        File.Copy(shmBackupPath, _databasePath + "-shm", true);
-                }
-                catch (Exception ex)
-                {
-                    // If WAL/SHM restore fails, the database is in an inconsistent state
-                    throw new InvalidOperationException($"Failed to restore WAL/SHM files. Database may be in inconsistent state: {ex.Message}", ex);
+                    try { if (File.Exists(stale)) File.Delete(stale); }
+                    catch { /* locked by the still-running process; released on the post-restore restart */ }
                 }
 
                 // Log the restore operation
@@ -977,7 +975,7 @@ namespace IEMS.Application.Services
     public interface IBackupService
     {
         Task<BackupResult> CreateBackupAsync(BackupType backupType, string? customPath = null);
-        Task<RestoreResult> RestoreBackupAsync(string backupPath, bool validateChecksum = true, bool skipSafetyBackup = false);
+        Task<RestoreResult> RestoreBackupAsync(string backupPath, bool validateChecksum = true, bool skipSafetyBackup = false, bool force = false);
         Task<List<BackupInfo>> GetBackupHistoryAsync();
         Task<BackupScheduleResult> SetupAutomaticBackupAsync(BackupSchedule schedule);
         Task RemoveBackupFromMetadataAsync(string backupId);

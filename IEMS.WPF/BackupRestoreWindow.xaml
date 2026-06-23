@@ -155,12 +155,21 @@
                                            Text="Save backups into your Google Drive folder so they upload to the cloud automatically. Requires Google Drive for Desktop (drive.google.com/download)."
                                            TextWrapping="Wrap" Foreground="#5F6368" Margin="0,4,0,0"/>
                             </StackPanel>
-                            <Button Grid.Column="1" x:Name="SetupGoogleDriveButton"
-                                    Content="☁️ Set up Google Drive backup"
-                                    Style="{StaticResource ActionButtonStyle}"
-                                    Background="#1A73E8" Foreground="White"
-                                    VerticalAlignment="Center" Margin="15,0,0,0"
-                                    Click="SetupGoogleDriveButton_Click"/>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="15,0,0,0">
+                                <Button x:Name="SetupGoogleDriveButton"
+                                        Content="☁️ Set up Google Drive backup"
+                                        Style="{StaticResource ActionButtonStyle}"
+                                        Background="#1A73E8" Foreground="White"
+                                        Width="250" Margin="0,0,0,6"
+                                        Click="SetupGoogleDriveButton_Click"/>
+                                <Button x:Name="RestoreGoogleDriveButton"
+                                        Content="⬇️ Restore from Google Drive"
+                                        Style="{StaticResource ActionButtonStyle}"
+                                        Background="#34A853" Foreground="White"
+                                        Width="250"
+                                        Click="RestoreFromGoogleDriveButton_Click"
+                                        ToolTip="Restore the most recent backup from your Google Drive (use this to recover data on a new PC)"/>
+                            </StackPanel>
                         </Grid>
                     </Border>
 
