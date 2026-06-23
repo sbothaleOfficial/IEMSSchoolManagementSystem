@@ -753,67 +753,93 @@ public partial class StudentsManagementWindow : Window
 
     private void BtnGenerateIdCard_Click(object sender, RoutedEventArgs e)
     {
-        AsyncHelper.SafeFireAndForget(async () =>
+        var selected = dgBonafideStudents.SelectedItems.OfType<StudentDto>().ToList();
+        AsyncHelper.SafeFireAndForget(
+            () => GenerateIdCardsForAsync(selected,
+                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null),
+            "ID Card Error");
+    }
+
+    private void BtnClassIdCards_Click(object sender, RoutedEventArgs e)
+    {
+        var className = cmbIdCardClass.SelectedItem as string;
+        if (string.IsNullOrWhiteSpace(className) || className == "(Select class)")
         {
-            try
+            toastNotification.Message = "Pick a class to print all its ID cards.";
+            toastNotification.ToastType = ToastType.Warning;
+            toastNotification.Show();
+            return;
+        }
+
+        var classStudents = _allStudents.Where(s => s.ClassWithDivision == className).ToList();
+        var safeName = className.Replace(" ", "_").Replace("(", "").Replace(")", "");
+        AsyncHelper.SafeFireAndForget(
+            () => GenerateIdCardsForAsync(classStudents,
+                $"No students found in {className}.", suggestedName: $"IDCards_Class_{safeName}"),
+            "Class ID Card Error");
+    }
+
+    /// <summary>Builds and exports an A4 ID-card sheet for the given students (loads photos by id).</summary>
+    private async Task GenerateIdCardsForAsync(IReadOnlyList<StudentDto> students, string warnIfEmpty, string? suggestedName)
+    {
+        try
+        {
+            if (students.Count == 0)
             {
-                var selected = dgBonafideStudents.SelectedItems.OfType<StudentDto>().ToList();
-                if (selected.Count == 0)
-                {
-                    toastNotification.Message = "Select one or more students (Ctrl/Shift-click) to print ID cards.";
-                    toastNotification.ToastType = ToastType.Warning;
-                    toastNotification.Show();
-                    return;
-                }
-
-                var cards = new List<IEMS.WPF.Pdf.IdCardData>();
-                foreach (var dto in selected.OrderBy(s => s.SerialNo))
-                {
-                    // Load the full entity so we get the photo BLOB (not carried on list DTOs).
-                    var student = await _studentService.GetStudentEntityByIdAsync(dto.Id);
-                    if (student == null) continue;
-
-                    cards.Add(new IEMS.WPF.Pdf.IdCardData
-                    {
-                        StudentName = student.FullName,
-                        FatherName = student.FatherName,
-                        ClassName = student.ClassWithDivision,
-                        StudentNumber = string.IsNullOrWhiteSpace(student.StudentNumber) ? "-" : student.StudentNumber,
-                        DateOfBirth = student.DateOfBirth.ToString("dd/MM/yyyy"),
-                        BloodGroup = student.BloodGroup ?? string.Empty,
-                        ParentMobile = student.ParentMobileNumber,
-                        Address = student.CityVillage,
-                        Photo = student.Photo
-                    });
-                }
-
-                if (cards.Count == 0)
-                {
-                    toastNotification.Message = "Selected student(s) not found.";
-                    toastNotification.ToastType = ToastType.Error;
-                    toastNotification.Show();
-                    return;
-                }
-
-                var document = new IEMS.WPF.Pdf.StudentIdCardDocument(
-                    cards,
-                    "Inspire English Medium School, Mardi",
-                    "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
-                    BonafideCertificateWindow.LoadSchoolLogoBytes());
-
-                var suggested = cards.Count == 1
-                    ? $"IDCard_{cards[0].StudentName.Replace(' ', '_')}"
-                    : $"IDCards_{cards.Count}_students";
-
-                Dispatcher.Invoke(() => IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, suggested));
+                toastNotification.Message = warnIfEmpty;
+                toastNotification.ToastType = ToastType.Warning;
+                toastNotification.Show();
+                return;
             }
-            catch (Exception ex)
+
+            var cards = new List<IEMS.WPF.Pdf.IdCardData>();
+            foreach (var dto in students.OrderBy(s => s.SerialNo))
             {
-                toastNotification.Message = $"Error generating ID card(s): {ex.Message}";
+                // Load the full entity so we get the photo BLOB (not carried on list DTOs).
+                var student = await _studentService.GetStudentEntityByIdAsync(dto.Id);
+                if (student == null) continue;
+
+                cards.Add(new IEMS.WPF.Pdf.IdCardData
+                {
+                    StudentName = student.FullName,
+                    FatherName = student.FatherName,
+                    ClassName = student.ClassWithDivision,
+                    StudentNumber = string.IsNullOrWhiteSpace(student.StudentNumber) ? "-" : student.StudentNumber,
+                    DateOfBirth = student.DateOfBirth.ToString("dd/MM/yyyy"),
+                    BloodGroup = student.BloodGroup ?? string.Empty,
+                    ParentMobile = student.ParentMobileNumber,
+                    Address = student.CityVillage,
+                    Photo = student.Photo
+                });
+            }
+
+            if (cards.Count == 0)
+            {
+                toastNotification.Message = "Student(s) not found.";
                 toastNotification.ToastType = ToastType.Error;
                 toastNotification.Show();
+                return;
             }
-        });
+
+            var document = new IEMS.WPF.Pdf.StudentIdCardDocument(
+                cards,
+                "Inspire English Medium School, Mardi",
+                "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
+                BonafideCertificateWindow.LoadSchoolLogoBytes());
+
+            var suggested = suggestedName
+                ?? (cards.Count == 1
+                    ? $"IDCard_{cards[0].StudentName.Replace(' ', '_')}"
+                    : $"IDCards_{cards.Count}_students");
+
+            Dispatcher.Invoke(() => IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, suggested));
+        }
+        catch (Exception ex)
+        {
+            toastNotification.Message = $"Error generating ID card(s): {ex.Message}";
+            toastNotification.ToastType = ToastType.Error;
+            toastNotification.Show();
+        }
     }
 
     private void BtnRefreshBonafide_Click(object sender, RoutedEventArgs e)
@@ -828,6 +854,17 @@ public partial class StudentsManagementWindow : Window
             // Use the same student data as the main students tab
             dgBonafideStudents.ItemsSource = _allStudents;
             lblStatus.Text = $"Loaded {_allStudents.Count} students for Bonafide certificates";
+
+            // Populate the class picker for "print all ID cards in a class".
+            var selectedClass = cmbIdCardClass.SelectedItem as string;
+            cmbIdCardClass.Items.Clear();
+            cmbIdCardClass.Items.Add("(Select class)");
+            foreach (var c in _allStudents.Select(s => s.ClassWithDivision)
+                         .Where(c => !string.IsNullOrWhiteSpace(c))
+                         .Distinct().OrderBy(c => c))
+                cmbIdCardClass.Items.Add(c);
+            cmbIdCardClass.SelectedItem = selectedClass != null && cmbIdCardClass.Items.Contains(selectedClass)
+                ? selectedClass : "(Select class)";
         }
         catch (Exception ex)
         {

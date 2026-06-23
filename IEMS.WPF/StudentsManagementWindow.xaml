@@ -533,7 +533,12 @@
                         <Button x:Name="btnGenerateBonafide" Content="Generate Certificate" Width="130" Height="35" Margin="0,0,10,0"
                                 Click="BtnGenerateBonafide_Click" Style="{StaticResource SuccessButtonStyle}"/>
                         <Button x:Name="btnGenerateIdCard" Content="ID Card (PDF)" Width="130" Height="35" Margin="0,0,10,0"
-                                Click="BtnGenerateIdCard_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                Click="BtnGenerateIdCard_Click" Style="{StaticResource PrimaryButtonStyle}"
+                                ToolTip="Generate ID cards for the selected students (Ctrl/Shift-click to multi-select)"/>
+                        <ComboBox x:Name="cmbIdCardClass" Width="130" Height="35" Margin="0,0,6,0" VerticalContentAlignment="Center"
+                                  ToolTip="Pick a class to print all its ID cards"/>
+                        <Button x:Name="btnClassIdCards" Content="Class ID Cards" Width="130" Height="35" Margin="0,0,10,0"
+                                Click="BtnClassIdCards_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                         <Button x:Name="btnRefreshBonafide" Content="Refresh" Width="130" Height="35" Margin="0,0,10,0"
                                 Click="BtnRefreshBonafide_Click" Style="{StaticResource SecondaryButtonStyle}"/>
                         <Separator Width="20"/>
