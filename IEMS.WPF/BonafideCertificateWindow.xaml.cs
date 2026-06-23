@@ -210,7 +210,7 @@ namespace IEMS.WPF
             };
             var logoImage = new System.Windows.Controls.Image
             {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/IEMS.WPF;component/Exact_color_logo.png")),
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("Exact_color_logo.png", UriKind.Relative)),
                 Stretch = Stretch.Uniform
             };
             logoViewbox.Child = logoImage;
@@ -408,8 +408,10 @@ namespace IEMS.WPF
         {
             try
             {
-                var uri = new Uri("pack://application:,,,/IEMS.WPF;component/Exact_color_logo.png");
-                var resource = System.Windows.Application.GetResourceStream(uri);
+                // Use a RELATIVE resource URI so it resolves against the running assembly regardless of
+                // its name. (The assembly is named "IEMS", not "IEMS.WPF", so an explicit
+                // "/IEMS.WPF;component/..." pack URI returns null and the logo silently goes missing.)
+                var resource = System.Windows.Application.GetResourceStream(new Uri("Exact_color_logo.png", UriKind.Relative));
                 if (resource == null) return null;
                 using var stream = resource.Stream;
                 using var ms = new System.IO.MemoryStream();
@@ -418,7 +420,7 @@ namespace IEMS.WPF
             }
             catch
             {
-                return null; // Logo is decorative; the certificate is still valid without it.
+                return null; // Logo is decorative; the document is still valid without it.
             }
         }
 
