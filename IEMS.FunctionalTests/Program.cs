@@ -55,6 +55,8 @@ services.AddScoped<IAcademicYearRepository, AcademicYearRepository>();
 services.AddScoped<IUserRepository, UserRepository>();
 services.AddScoped<ISystemSettingRepository, SystemSettingRepository>();
 services.AddScoped<IStudentPromotionRepository, StudentPromotionRepository>();
+services.AddScoped<IStudentDocumentRepository, StudentDocumentRepository>();
+services.AddScoped<StudentDocumentService>();
 services.AddScoped<FeeCalculationService>();
 services.AddScoped<AmountToWordsService>();
 services.AddScoped<PasswordHashingService>();
@@ -691,6 +693,31 @@ await Section("17. Audit trail interceptor (who changed what)", async () =>
         userEdit.Action == "Modified" && userEdit.EntityType == "User"
             && userEdit.Summary == "Changed: FullName",
         userEdit.Summary ?? "null");
+});
+
+await Section("18. Student documents (store / list / open / delete)", async () =>
+{
+    using var scope = provider.CreateScope();
+    var docs = scope.ServiceProvider.GetRequiredService<StudentDocumentService>();
+    var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var studentId = await ctx.Students.Select(s => s.Id).FirstAsync();
+
+    var before = (await docs.GetDocumentsAsync(studentId)).Count;
+    var payload = System.Text.Encoding.UTF8.GetBytes("%PDF-1.4 fake document bytes for testing");
+
+    var added = await docs.AddDocumentAsync(studentId, "Birth Certificate", "birth.pdf", "application/pdf", payload, "harness-user");
+    Check("Documents: add returns metadata", added.Id > 0 && added.DocumentType == "Birth Certificate" && added.FileSize == payload.Length);
+
+    var list = await docs.GetDocumentsAsync(studentId);
+    Check("Documents: appears in the student's list", list.Count == before + 1 && list.Any(d => d.Id == added.Id));
+    Check("Documents: list metadata is correct", list.First(d => d.Id == added.Id).FileName == "birth.pdf");
+
+    var file = await docs.GetFileAsync(added.Id);
+    Check("Documents: stored bytes round-trip exactly",
+        file != null && file.Data.SequenceEqual(payload) && file.ContentType == "application/pdf", $"{file?.Data.Length}");
+
+    await docs.DeleteDocumentAsync(added.Id);
+    Check("Documents: delete removes it", (await docs.GetDocumentsAsync(studentId)).Count == before);
 });
 
 // ----- Summary -----

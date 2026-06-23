@@ -23,11 +23,16 @@ public sealed class PhoneUploadServer : IDisposable
     public string Token { get; } = Guid.NewGuid().ToString("N").Substring(0, 8);
     public string Url { get; private set; } = string.Empty;
     public string StudentName { get; }
+    private readonly bool _documentMode;
 
-    /// <summary>Raised (on a background thread) when a photo has been received.</summary>
-    public event Action<byte[]>? PhotoReceived;
+    /// <summary>Raised (on a background thread) when a file has been received.</summary>
+    public event Action<UploadedFile>? FileReceived;
 
-    public PhoneUploadServer(string studentName) => StudentName = studentName;
+    public PhoneUploadServer(string studentName, bool documentMode = false)
+    {
+        StudentName = studentName;
+        _documentMode = documentMode;
+    }
 
     /// <summary>Starts listening and returns the URL the phone should open. Throws if no LAN IP.</summary>
     public string Start()
@@ -100,7 +105,7 @@ public sealed class PhoneUploadServer : IDisposable
                 if (method == "POST")
                 {
                     int contentLength = ParseContentLength(header);
-                    if (contentLength <= 0 || contentLength > 12 * 1024 * 1024)
+                    if (contentLength <= 0 || contentLength > 25 * 1024 * 1024)
                     {
                         await WriteAsync(stream, "400 Bad Request", "text/plain", "Invalid upload");
                         return;
@@ -116,7 +121,10 @@ public sealed class PhoneUploadServer : IDisposable
                     }
                     if (read == contentLength)
                     {
-                        PhotoReceived?.Invoke(body);
+                        var contentType = ParseHeader(header, "Content-Type") ?? "application/octet-stream";
+                        var fileName = ParseHeader(header, "X-Filename");
+                        fileName = string.IsNullOrWhiteSpace(fileName) ? "upload" : WebUtility.UrlDecode(fileName);
+                        FileReceived?.Invoke(new UploadedFile(body, fileName!, contentType));
                         await WriteAsync(stream, "200 OK", "text/plain", "OK");
                     }
                     else
@@ -133,15 +141,18 @@ public sealed class PhoneUploadServer : IDisposable
     }
 
     private static int ParseContentLength(string header)
+        => int.TryParse(ParseHeader(header, "Content-Length"), out var len) ? len : -1;
+
+    private static string? ParseHeader(string header, string name)
     {
+        var prefix = name + ":";
         foreach (var line in header.Split('\n'))
         {
             var l = line.Trim();
-            if (l.StartsWith("Content-Length:", StringComparison.OrdinalIgnoreCase)
-                && int.TryParse(l.Substring("Content-Length:".Length).Trim(), out var len))
-                return len;
+            if (l.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                return l.Substring(prefix.Length).Trim();
         }
-        return -1;
+        return null;
     }
 
     private static async Task WriteAsync(NetworkStream stream, string status, string contentType, string body)
@@ -157,36 +168,40 @@ public sealed class PhoneUploadServer : IDisposable
     private string BuildPage()
     {
         var safeName = System.Net.WebUtility.HtmlEncode(StudentName);
+        var heading = _documentMode ? "Student Document" : "Student Photo";
+        var accept = _documentMode ? "image/*,application/pdf" : "image/*";
+        var picHint = _documentMode ? "Take a photo of the document or choose a file (image or PDF)." : "Take or choose a passport photo.";
         return $@"<!doctype html><html><head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>Upload Photo</title>
+<title>{heading}</title>
 <style>
  body{{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f2f4f8;margin:0;padding:24px;color:#13235b}}
  .card{{max-width:420px;margin:0 auto;background:#fff;border-radius:14px;padding:22px;box-shadow:0 4px 16px rgba(0,0,0,.1)}}
- h2{{margin:0 0 4px}} .sub{{color:#667;font-size:14px;margin-bottom:18px}}
+ h2{{margin:0 0 4px}} .sub{{color:#667;font-size:14px;margin-bottom:6px}} .hint{{color:#889;font-size:13px;margin-bottom:14px}}
  input[type=file]{{display:block;width:100%;margin:14px 0;font-size:16px}}
  button{{width:100%;padding:14px;font-size:17px;border:0;border-radius:10px;background:#0070D0;color:#fff;font-weight:600}}
  button:disabled{{background:#9bbbe0}}
  #s{{margin-top:14px;font-weight:600;text-align:center}}
  img#pv{{max-width:100%;border-radius:10px;margin-top:12px;display:none}}
 </style></head><body><div class='card'>
-<h2>Student Photo</h2>
+<h2>{heading}</h2>
 <div class='sub'>For <b>{safeName}</b></div>
-<input type='file' accept='image/*' id='f' onchange='prev()'>
+<div class='hint'>{picHint}</div>
+<input type='file' accept='{accept}' id='f' onchange='prev()'>
 <img id='pv'>
 <button id='b' onclick='up()'>Upload to school PC</button>
 <p id='s'></p>
 </div>
 <script>
-function prev(){{var f=document.getElementById('f').files[0];if(!f)return;var img=document.getElementById('pv');img.src=URL.createObjectURL(f);img.style.display='block';}}
+function prev(){{var f=document.getElementById('f').files[0];if(!f)return;var img=document.getElementById('pv');if(f.type&&f.type.indexOf('image')===0){{img.src=URL.createObjectURL(f);img.style.display='block';}}else{{img.style.display='none';}}}}
 async function up(){{
  var f=document.getElementById('f').files[0];
- if(!f){{alert('Please choose or take a photo first.');return;}}
+ if(!f){{alert('Please choose or take a file first.');return;}}
  var b=document.getElementById('b'); b.disabled=true;
  document.getElementById('s').innerText='Uploading…';
  try{{
   var buf=await f.arrayBuffer();
-  var r=await fetch(location.pathname+'/photo',{{method:'POST',headers:{{'Content-Type':'application/octet-stream'}},body:buf}});
+  var r=await fetch(location.pathname+'/photo',{{method:'POST',headers:{{'Content-Type':f.type||'application/octet-stream','X-Filename':encodeURIComponent(f.name||'upload')}},body:buf}});
   document.getElementById('s').innerText = r.ok ? '✓ Sent! You can close this page.' : 'Upload failed, please try again.';
   if(!r.ok) b.disabled=false;
  }}catch(e){{document.getElementById('s').innerText='Upload failed: '+e; b.disabled=false;}}
@@ -234,3 +249,6 @@ async function up(){{
         _cts?.Dispose();
     }
 }
+
+/// <summary>A file received from a phone: its bytes, original name and MIME type.</summary>
+public record UploadedFile(byte[] Data, string FileName, string ContentType);

@@ -24,10 +24,26 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<StudentPromotionHistory> StudentPromotionHistory { get; set; }
     public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<StudentDocument> StudentDocuments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<StudentDocument>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.DocumentType).IsRequired().HasMaxLength(60);
+            entity.Property(e => e.FileName).IsRequired().HasMaxLength(260);
+            entity.Property(e => e.ContentType).HasMaxLength(120);
+            entity.Property(e => e.UploadedBy).HasMaxLength(100);
+            entity.HasIndex(e => e.StudentId);
+            // Deleting a student removes their documents.
+            entity.HasOne(e => e.Student)
+                  .WithMany()
+                  .HasForeignKey(e => e.StudentId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
 
         modelBuilder.Entity<AuditLog>(entity =>
         {

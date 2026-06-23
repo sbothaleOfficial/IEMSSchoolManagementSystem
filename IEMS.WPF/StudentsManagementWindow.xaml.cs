@@ -24,12 +24,13 @@ public partial class StudentsManagementWindow : Window
     private readonly FeeStructureService _feeStructureService;
     private readonly BulkPromotionService? _bulkPromotionService;
     private readonly AcademicYearService? _academicYearService;
+    private readonly StudentDocumentService? _documentService;
     private List<StudentDto> _allStudents = new List<StudentDto>();
     private List<FeePaymentDto> _allFeePayments = new List<FeePaymentDto>();
     private List<ClassDto> _allClasses = new List<ClassDto>();
     private List<FeeStructureDto> _allFeeStructures = new List<FeeStructureDto>();
 
-    public StudentsManagementWindow(StudentService studentService, ClassService classService, TeacherService teacherService, FeePaymentService feePaymentService, FeeStructureService feeStructureService, BulkPromotionService? bulkPromotionService = null, AcademicYearService? academicYearService = null)
+    public StudentsManagementWindow(StudentService studentService, ClassService classService, TeacherService teacherService, FeePaymentService feePaymentService, FeeStructureService feeStructureService, BulkPromotionService? bulkPromotionService = null, AcademicYearService? academicYearService = null, StudentDocumentService? documentService = null)
     {
         InitializeComponent();
         _studentService = studentService;
@@ -39,6 +40,7 @@ public partial class StudentsManagementWindow : Window
         _feeStructureService = feeStructureService;
         _bulkPromotionService = bulkPromotionService;
         _academicYearService = academicYearService;
+        _documentService = documentService;
         AsyncHelper.SafeFireAndForget(LoadStudentsAsync);
         AsyncHelper.SafeFireAndForget(LoadClassesAsync);
         AsyncHelper.SafeFireAndForget(LoadFeePaymentsAsync);
@@ -163,6 +165,21 @@ public partial class StudentsManagementWindow : Window
             () => GenerateIdCardsForAsync(selected,
                 "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null),
             "ID Card Error");
+    }
+
+    private void BtnStudentDocuments_Click(object sender, RoutedEventArgs e)
+    {
+        if (dgStudents.SelectedItem is not StudentDto selected)
+        {
+            MessageBox.Show("Please select a student to manage their documents.", "No Selection",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+        if (_documentService == null) return;
+
+        var user = LoginWindow.CurrentUser?.Username ?? "admin";
+        var win = new StudentDocumentsWindow(selected, _documentService, user) { Owner = this };
+        win.ShowDialog();
     }
 
     private void BtnDeleteStudent_Click(object sender, RoutedEventArgs e)

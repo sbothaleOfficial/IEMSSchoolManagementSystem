@@ -211,6 +211,9 @@
                         <Button x:Name="btnStudentIdCard" Content="ID Card (PDF)" Width="130" Height="35" Margin="0,0,10,0"
                                 Click="BtnStudentIdCard_Click" Style="{StaticResource PrimaryButtonStyle}"
                                 ToolTip="Generate an ID card PDF for the selected student(s) — Ctrl/Shift-click to select several"/>
+                        <Button x:Name="btnStudentDocuments" Content="📁 Documents" Width="130" Height="35" Margin="0,0,10,0"
+                                Click="BtnStudentDocuments_Click" Style="{StaticResource PrimaryButtonStyle}"
+                                ToolTip="View and upload the selected student's documents (Aadhaar, certificates, etc.)"/>
                         <Button x:Name="btnRefreshStudents" Content="Refresh" Width="130" Height="35" Margin="0,0,10,0"
                                 Click="BtnRefreshStudents_Click" Style="{StaticResource SecondaryButtonStyle}"/>
                         <Button x:Name="btnExportToExcel" Content="📊 Export to Excel" Width="150" Height="35" Margin="0,0,10,0"

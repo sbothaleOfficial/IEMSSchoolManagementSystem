@@ -88,7 +88,8 @@ public partial class MainWindow : Window
         sp.GetRequiredService<FeePaymentService>(),
         sp.GetRequiredService<FeeStructureService>(),
         sp.GetRequiredService<BulkPromotionService>(),
-        sp.GetRequiredService<AcademicYearService>()), name);
+        sp.GetRequiredService<AcademicYearService>(),
+        sp.GetRequiredService<StudentDocumentService>()), name);
 
     private void BtnTransportManagement_Click(object sender, RoutedEventArgs e) => OpenTransport("Transport Management");
     private void BtnBusesModule_Click(object sender, RoutedEventArgs e) => OpenTransport("Transport Management");

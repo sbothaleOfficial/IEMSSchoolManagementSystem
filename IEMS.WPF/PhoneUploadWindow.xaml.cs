@@ -12,15 +12,19 @@ public partial class PhoneUploadWindow : Window
     private readonly PhoneUploadServer _server;
     private bool _received;
 
-    /// <summary>The photo bytes received from the phone (set when DialogResult == true).</summary>
-    public byte[]? ReceivedPhoto { get; private set; }
+    /// <summary>The file received from the phone (set when DialogResult == true).</summary>
+    public UploadedFile? ReceivedFile { get; private set; }
 
-    public PhoneUploadWindow(string studentName)
+    /// <summary>Convenience for the photo flow.</summary>
+    public byte[]? ReceivedPhoto => ReceivedFile?.Data;
+
+    public PhoneUploadWindow(string studentName, bool documentMode = false)
     {
         InitializeComponent();
+        Title = documentMode ? "Upload Document from Phone" : "Upload Photo from Phone";
         lblFor.Text = $"For {studentName}";
-        _server = new PhoneUploadServer(studentName);
-        _server.PhotoReceived += OnPhotoReceived;
+        _server = new PhoneUploadServer(studentName, documentMode);
+        _server.FileReceived += OnFileReceived;
 
         Loaded += (_, _) => Start();
         Closed += (_, _) => _server.Dispose();
@@ -41,16 +45,16 @@ public partial class PhoneUploadWindow : Window
         }
     }
 
-    private void OnPhotoReceived(byte[] bytes)
+    private void OnFileReceived(UploadedFile file)
     {
         // Raised on a background thread — marshal to the UI thread.
         Dispatcher.Invoke(() =>
         {
             if (_received) return;
             _received = true;
-            ReceivedPhoto = bytes;
+            ReceivedFile = file;
             lblStatus.Foreground = System.Windows.Media.Brushes.Green;
-            lblStatus.Text = "✓ Photo received!";
+            lblStatus.Text = "✓ Received!";
             DialogResult = true;
             Close();
         });
