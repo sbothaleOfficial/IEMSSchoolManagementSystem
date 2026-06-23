@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>IEMS School Management — User Guide</title>
+<style>
+  :root { --blue:#0070D0; --ink:#0A4C96; --grey:#5f6368; --light:#eef4fc; --line:#d7e3f4; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color:#1f2933; margin:0; font-size:12.5px; line-height:1.5; }
+  .page { padding: 26px 34px; }
+  h1,h2,h3 { color: var(--ink); margin: 0 0 6px; }
+  h2 { font-size: 20px; border-bottom: 3px solid var(--blue); padding-bottom:6px; margin-top: 6px; }
+  h3 { font-size: 15px; color: var(--blue); margin-top: 18px; }
+  p { margin: 6px 0; }
+  .muted { color: var(--grey); }
+  .shot { width:100%; border:1px solid #bcd; border-radius:6px; margin:10px 0 4px; display:block; }
+  .cap { font-size:11px; color:var(--grey); margin:0 0 8px; font-style:italic; }
+  ol.callouts { margin:6px 0 12px; padding-left:0; counter-reset: c; list-style:none; }
+  ol.callouts li { counter-increment:c; position:relative; padding:3px 0 3px 30px; }
+  ol.callouts li:before { content: counter(c); position:absolute; left:0; top:3px; width:20px; height:20px;
+        background:var(--blue); color:#fff; border-radius:50%; text-align:center; line-height:20px; font-size:11px; font-weight:bold; }
+  .step { background:var(--light); border-left:4px solid var(--blue); padding:8px 12px; margin:8px 0; border-radius:0 6px 6px 0; }
+  .step b { color:var(--ink); }
+  .note { background:#fff8e1; border-left:4px solid #f0b429; padding:8px 12px; margin:10px 0; border-radius:0 6px 6px 0; }
+  .tip  { background:#e8f5e9; border-left:4px solid #34a853; padding:8px 12px; margin:10px 0; border-radius:0 6px 6px 0; }
+  .cover { text-align:center; padding-top: 150px; }
+  .cover .logo { font-size:54px; }
+  .cover h1 { font-size:34px; color:var(--ink); margin:14px 0 4px; border:none; }
+  .cover .sub { font-size:18px; color:var(--blue); }
+  .cover .school { font-size:15px; color:#1f2933; margin-top:30px; font-weight:bold; }
+  .cover .meta { color:var(--grey); margin-top:6px; }
+  .credbox { display:inline-block; text-align:left; background:var(--light); border:1px solid var(--line); border-radius:8px; padding:14px 22px; margin-top:30px; }
+  .credbox b { color:var(--ink); }
+  table.toc { width:100%; border-collapse:collapse; margin-top:10px; }
+  table.toc td { padding:5px 8px; border-bottom:1px dotted #ccd; }
+  table.toc td:last-child { text-align:right; color:var(--grey); width:60px; }
+  .grid { display:flex; gap:14px; flex-wrap:wrap; }
+  .kv { width:100%; border-collapse:collapse; margin:8px 0; }
+  .kv td { border:1px solid var(--line); padding:6px 10px; vertical-align:top; }
+  .kv td:first-child { background:var(--light); font-weight:bold; color:var(--ink); width:34%; }
+  .pagebreak { page-break-before: always; }
+  @page { size: A4; margin: 12mm 10mm; }
+  @media print { .page { padding: 0; } a { color: inherit; text-decoration:none; } }
+  .foot { text-align:center; color:var(--grey); font-size:10px; margin-top:24px; border-top:1px solid var(--line); padding-top:8px; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="page cover">
+  <div class="logo">🎓</div>
+  <h1>IEMS — School Management System</h1>
+  <div class="sub">Complete User Guide</div>
+  <div class="school">Inspire English Medium School, Mardi</div>
+  <div class="meta">Tah. Maregaon, Dist. Yavatmal (Maharashtra) – 445303</div>
+  <div class="credbox">
+    <div>First-time login &nbsp; → &nbsp; Username: <b>admin</b> &nbsp; Password: <b>admin123</b></div>
+    <div style="margin-top:6px;">You will be asked to set your own password on the first login.</div>
+  </div>
+  <div class="meta" style="margin-top:40px;">A step-by-step guide for everyday use — from logging in to entering data and printing documents.</div>
+</div>
+
+<!-- ============ TOC ============ -->
+<div class="page pagebreak">
+  <h2>What's in this guide</h2>
+  <table class="toc">
+    <tr><td><b>Part 1 — Getting started</b></td><td></td></tr>
+    <tr><td>1.1 &nbsp; Logging in for the first time</td><td>3</td></tr>
+    <tr><td>1.2 &nbsp; The main dashboard</td><td>4</td></tr>
+    <tr><td><b>Part 2 — Everyday tasks, step by step</b></td><td></td></tr>
+    <tr><td>2.1 &nbsp; Add a new student</td><td>5</td></tr>
+    <tr><td>2.2 &nbsp; Record a fee payment &amp; print the receipt</td><td>7</td></tr>
+    <tr><td>2.3 &nbsp; Make a student ID card</td><td>8</td></tr>
+    <tr><td>2.4 &nbsp; Bonafide &amp; Leaving certificates</td><td>9</td></tr>
+    <tr><td>2.5 &nbsp; Send any document to a phone (QR)</td><td>10</td></tr>
+    <tr><td><b>Part 3 — Every module explained</b></td><td></td></tr>
+    <tr><td>3.1 &nbsp; Staff &amp; Teachers (with ID cards &amp; payslips)</td><td>11</td></tr>
+    <tr><td>3.2 &nbsp; Finance Management</td><td>12</td></tr>
+    <tr><td>3.3 &nbsp; Transport Management</td><td>12</td></tr>
+    <tr><td>3.4 &nbsp; School Documents</td><td>13</td></tr>
+    <tr><td>3.5 &nbsp; Backup &amp; Restore (with Google Drive)</td><td>14</td></tr>
+    <tr><td>3.6 &nbsp; System Settings</td><td>15</td></tr>
+    <tr><td>3.7 &nbsp; Audit Trail &amp; Users</td><td>15</td></tr>
+    <tr><td><b>Part 4 — Keeping your data safe</b></td><td>16</td></tr>
+  </table>
+  <div class="note"><b>How to read this guide:</b> each screen has a picture, and the blue numbers
+    <b>①②③</b> in the picture description tell you what each button or box does. Boxes marked
+    <span style="background:#eef4fc;">Step</span> walk you through a task one action at a time.</div>
+</div>
+
+<!-- ============ PART 1 ============ -->
+<div class="page pagebreak">
+  <h2>Part 1 — Getting started</h2>
+
+  <h3>1.1 Logging in for the first time</h3>
+  <p>Double-click the <b>IEMS School Management</b> icon on the desktop (or Start menu). The login screen appears.</p>
+  <img class="shot" src="img/01_login.png">
+  <p class="cap">The login screen.</p>
+  <ol class="callouts">
+    <li><b>Username</b> — type <b>admin</b> (all lowercase).</li>
+    <li><b>Password</b> — type <b>admin123</b> the very first time.</li>
+    <li><b>Sign In</b> — click to log in.</li>
+  </ol>
+  <div class="step"><b>Step — set your own password:</b> the first time you log in, the app asks you to
+    create a new password. It must be at least 8 characters and include a CAPITAL letter, a small letter,
+    a number and a special character — for example <b>Mardi@2026</b>. Write it down and keep it safe:
+    there is no online "forgot password".</div>
+  <div class="note"><b>Important:</b> keep your password private. Anyone with it can see and change all
+    school data. You can change it later or add more users from <b>User Management</b>.</div>
+
+  <h3>1.2 The main dashboard</h3>
+  <p>After logging in you reach the dashboard — your home screen. Every part of the app is opened from a card here.</p>
+  <img class="shot" src="img/03b_dashboard_all.png">
+  <p class="cap">The dashboard — one card per module. Click the blue button on a card to open it.</p>
+  <ol class="callouts">
+    <li><b>Students Management</b> — students, classes, fees, ID cards, certificates.</li>
+    <li><b>Transport Management</b> — buses, routes and transport expenses.</li>
+    <li><b>Staff Management</b> — teachers, support staff, ID cards and payslips.</li>
+    <li><b>Finance Management</b> — electricity bills, other expenses and analytics.</li>
+    <li><b>Backup &amp; Restore</b> — save and recover your data (local or Google Drive).</li>
+    <li><b>System Settings</b> — school name, contact details and preferences.</li>
+    <li><b>User Management</b> — add staff log-ins (Admin only).</li>
+    <li><b>Academic Year Management</b> — set up school years/sessions.</li>
+    <li><b>Audit Trail</b> — see who changed what and when (Admin only).</li>
+    <li><b>School Documents</b> — store the school's own papers (affiliation, circulars…).</li>
+  </ol>
+  <div class="tip"><b>Tip:</b> the top bar always shows your school name and details, and a <b>Logout</b>
+    button on the right. To leave any module and come back here, click <b>← Back</b>.</div>
+</div>
+
+<!-- ============ PART 2 ============ -->
+<div class="page pagebreak">
+  <h2>Part 2 — Everyday tasks, step by step</h2>
+  <p class="muted">This part follows a real example from start to finish: add a student, take their fee,
+    print the receipt, make an ID card and a certificate.</p>
+
+  <h3>2.1 Add a new student</h3>
+  <p>From the dashboard click <b>Manage Students</b>. The Students module opens on its <b>Dashboard</b> tab,
+    which shows totals at a glance.</p>
+  <img class="shot" src="img/04_students_overview.png">
+  <p class="cap">Students module — the Dashboard tab (overview of totals, classes and breakdowns).</p>
+  <ol class="callouts">
+    <li><b>Tabs</b> — Dashboard, <b>Students</b>, Classes, Fee Management, ID Cards, Bonafide, Leaving Certificate, Bulk Promotion.</li>
+    <li><b>School Overview cards</b> — total students, boys, girls and classes.</li>
+    <li><b>Detailed Breakdown</b> — students per class and a religion-wise split.</li>
+  </ol>
+  <p>Now click the <b>Students</b> tab to see the list of all students and the action buttons.</p>
+  <img class="shot" src="img/05_students_list.png">
+  <p class="cap">The Students tab — the full student list with all actions on top.</p>
+  <ol class="callouts">
+    <li><b>+ Add Student</b> — open a blank form to add a new student.</li>
+    <li><b>Edit Student</b> — change the selected student's details.</li>
+    <li><b>Delete Student</b> — remove the selected student.</li>
+    <li><b>ID Card (PDF)</b> — make an ID card for the selected student.</li>
+    <li><b>Documents</b> — store scans (Aadhaar, birth certificate…) for the selected student.</li>
+    <li><b>Export to Excel</b> — save the whole list as an Excel file.</li>
+    <li><b>View Fees</b> — see the selected student's fee history.</li>
+    <li><b>Class filter / row list</b> — narrow the list to one class; click a row to select a student.</li>
+  </ol>
+  <div class="step"><b>Step 1:</b> click <b>+ Add Student</b>. The form below opens.</div>
+  <img class="shot" src="img/06_add_student.png">
+  <p class="cap">The Add Student form.</p>
+  <ol class="callouts">
+    <li><b>Basic Information</b> — Serial No, Standard, Class Division, Student Number, First Name, Surname, Date of Birth, Gender and Class.</li>
+    <li><b>Family Information</b> — Father's Name, Mother's Name, Parent Mobile, Aadhaar Number and Blood Group.</li>
+    <li>Scroll down for address and other details, then <b>Save</b>.</li>
+  </ol>
+  <div class="step"><b>Step 2:</b> fill the boxes (at least the required ones), pick the <b>Class</b> from the drop-down, then click <b>Save</b>. The new student appears in the list immediately.</div>
+  <div class="tip"><b>Tip:</b> to change a student later, click their row once to select it, then click <b>Edit Student</b>.</div>
+</div>
+
+<div class="page pagebreak">
+  <h3>2.2 Record a fee payment &amp; print the receipt</h3>
+  <p>In the Students module, open the <b>Fee Management</b> tab.</p>
+  <img class="shot" src="img/07_fees.png">
+  <p class="cap">Fee Management — the Fee Payments tab.</p>
+  <ol class="callouts">
+    <li><b>Fee Payments / Fee Structure</b> — switch between recording payments and setting up fee amounts per class.</li>
+    <li><b>+ Record Payment</b> — enter a new fee payment for a student.</li>
+    <li><b>View Receipt</b> — open the receipt for the selected payment.</li>
+    <li><b>Print Receipt</b> — send the selected receipt straight to a printer.</li>
+    <li><b>Search</b> — find a payment by student or receipt number.</li>
+    <li><b>Payments list</b> — receipt no, student, class, fee type, amount, method, date and remaining balance.</li>
+  </ol>
+  <div class="step"><b>Step 1:</b> click <b>+ Record Payment</b>, choose the student, fee type and amount, the payment method (Cash / Cheque / Online), then <b>Save</b>.</div>
+  <div class="step"><b>Step 2:</b> select the new payment and click <b>View Receipt</b>. A printable receipt opens with three buttons:
+    <b>Print</b> (to a printer), <b>Export PDF</b> (save as a PDF file), and <b>Send to Phone</b> (show a QR code — see 2.5).</div>
+  <div class="note"><b>Before you can record fees</b> for a class, set the fee amounts once under the
+    <b>Fee Structure</b> tab (for each class / fee type / academic year).</div>
+
+  <h3>2.3 Make a student ID card</h3>
+  <p>Open the <b>ID Cards</b> tab in the Students module.</p>
+  <img class="shot" src="img/08_idcards.png">
+  <p class="cap">The ID Cards tab — search a student, add a photo, choose a size and print.</p>
+  <ol class="callouts">
+    <li><b>Search / Class</b> — find the student(s) you want.</li>
+    <li><b>Card size</b> — Standard CR80 is the default; you can also pick a custom size.</li>
+    <li><b>Student list</b> — tick the student(s); use Ctrl/Shift-click to pick several.</li>
+    <li><b>Photo panel (right)</b> — add the student's photo from a <b>file</b>, a <b>scanner</b>, or a <b>phone</b> (QR), or remove it.</li>
+    <li><b>Generate ID Card</b> / <b>Print Whole Class</b> — make one card, the selected ones, or a whole class on an A4 sheet. Tick <b>Include back side</b> for terms &amp; contact on the back.</li>
+  </ol>
+  <div class="step"><b>Step:</b> click a student → on the right click <b>Upload Photo (file)</b> (or Scan / phone QR) → choose the card size → click <b>Generate ID Card (selected)</b>. Save the PDF and print it.</div>
+</div>
+
+<div class="page pagebreak">
+  <h3>2.4 Bonafide &amp; Leaving certificates</h3>
+  <p>The <b>Bonafide</b> tab makes a bonafide certificate for any student.</p>
+  <img class="shot" src="img/09_bonafide.png">
+  <p class="cap">The Bonafide tab.</p>
+  <ol class="callouts">
+    <li><b>Generate Certificate</b> — select a student in the list, then click to create the certificate.</li>
+    <li><b>Search</b> — find a student by name, number or class.</li>
+    <li><b>Student list</b> — click the row of the student you want.</li>
+  </ol>
+  <p>The <b>Leaving Certificate</b> tab produces a school leaving certificate with a live preview.</p>
+  <img class="shot" src="img/10_leaving.png">
+  <p class="cap">The Leaving Certificate tab — fill the form on the left; the certificate preview is on the right.</p>
+  <ol class="callouts">
+    <li><b>Select Student</b> — the form fills automatically from their record.</li>
+    <li><b>Certificate Details</b> — Date of Leaving, Reason, Conduct, Last Class, etc.</li>
+    <li><b>Buttons</b> — <b>Generate Certificate</b> (build the preview), <b>Print Certificate</b>, <b>Export to PDF</b>, and <b>Send to Phone</b> (QR).</li>
+  </ol>
+
+  <h3>2.5 Send any document to a phone (QR)</h3>
+  <p>Every document the app makes — ID card, bonafide, fee receipt, leaving certificate — and every stored
+    document has a <b>Send to Phone (QR)</b> button. Click it and a QR code appears.</p>
+  <div class="step"><b>Step:</b> click <b>Send to Phone</b> → a QR code shows on the PC → on a phone that is on the
+    <b>same Wi-Fi</b>, open the camera and point it at the QR code → tap the link → the document opens on the phone, where it can be saved or shared.</div>
+  <div class="tip"><b>Tip:</b> nothing is uploaded to the internet — the file goes straight from the PC to the
+    phone over your local Wi-Fi. The first time, Windows may ask to "Allow" IEMS through the firewall — click Allow.</div>
+</div>
+
+<!-- ============ PART 3 ============ -->
+<div class="page pagebreak">
+  <h2>Part 3 — Every module explained</h2>
+
+  <h3>3.1 Staff &amp; Teachers</h3>
+  <p>From the dashboard click <b>Manage Staff</b>.</p>
+  <img class="shot" src="img/11_staff.png">
+  <p class="cap">Staff Management — the Teachers tab.</p>
+  <ol class="callouts">
+    <li><b>Tabs</b> — Teachers, Other Staff, <b>ID Cards</b>, Payslip Generation, Dashboard.</li>
+    <li><b>Add / Edit / Delete Teacher</b> — manage teacher records.</li>
+    <li><b>Search / Clear</b> — find a person quickly.</li>
+    <li><b>List</b> — Employee ID, name, phone, address, salary, bank/Aadhaar/PAN.</li>
+  </ol>
+  <p>The <b>ID Cards</b> tab makes ID cards for teachers and staff, just like students.</p>
+  <img class="shot" src="img/12_staff_idcards.png">
+  <p class="cap">Staff ID Cards — choose Teachers or Other Staff, add a photo and blood group, then generate.</p>
+  <ol class="callouts">
+    <li><b>Show</b> — pick <b>Teachers</b> or <b>Other Staff</b>.</li>
+    <li><b>List</b> — Employee ID, Name and Designation (teachers show "Teacher"; staff show their position).</li>
+    <li><b>Photo + Blood group (right)</b> — add a photo (file / scanner / phone) and choose a blood group.</li>
+    <li><b>Generate</b> — make one card, the selected ones, or everyone shown.</li>
+  </ol>
+  <div class="tip"><b>Payslips:</b> the <b>Payslip Generation</b> tab creates a monthly salary slip for any teacher or staff member.</div>
+
+  <h3>3.2 Finance Management</h3>
+  <img class="shot" src="img/13_finance.png">
+  <p class="cap">Finance Management &amp; Analytics — Electricity Bills tab.</p>
+  <ol class="callouts">
+    <li><b>Tabs</b> — Electricity Bills, Other Expenses, Expense Analytics.</li>
+    <li><b>Academic Year</b> — switch the year you are viewing.</li>
+    <li><b>Add / Edit / Delete Bill</b> — record monthly electricity bills (units, amount, due/paid status).</li>
+  </ol>
+
+  <h3>3.3 Transport Management</h3>
+  <img class="shot" src="img/18_transport.png">
+  <p class="cap">Transport Management — buses, routes and transport expenses.</p>
+  <p>Use this module to record the school's vehicles and their running expenses. Add, edit and delete entries with the buttons on each tab.</p>
+</div>
+
+<div class="page pagebreak">
+  <h3>3.4 School Documents</h3>
+  <p>From the dashboard click <b>Manage School Documents</b>. This is a safe place for the school's own papers
+    (affiliation/recognition, U-DISE, circulars, government letters, audit reports…).</p>
+  <img class="shot" src="img/14_school_documents.png">
+  <p class="cap">School Documents window.</p>
+  <ol class="callouts">
+    <li><b>Category</b> — choose the type of document before uploading.</li>
+    <li><b>Upload File</b> — add a document (image or PDF) from this PC.</li>
+    <li><b>Upload from Phone</b> — show a QR code; a phone on the same Wi-Fi uploads a photo/scan.</li>
+    <li><b>Open</b> — view the selected document.</li>
+    <li><b>Send to Phone</b> — show a QR code to open the document on a phone.</li>
+    <li><b>Delete / Search</b> — remove a document, or filter the list by name/category.</li>
+  </ol>
+  <div class="tip"><b>Good to know:</b> documents are stored inside the database, so they are included automatically in every backup.</div>
+
+  <h3>3.5 Backup &amp; Restore (with Google Drive)</h3>
+  <p>From the dashboard click <b>Manage Backups</b>. <b>This is the most important screen for keeping your data safe.</b></p>
+  <img class="shot" src="img/15_backup.png">
+  <p class="cap">Backup &amp; Restore — Manual Backup tab.</p>
+  <ol class="callouts">
+    <li><b>Backup to Desktop</b> — save a backup file onto this PC's Desktop.</li>
+    <li><b>Backup to Custom Location</b> — save a backup to any folder (e.g. a USB drive).</li>
+    <li><b>Set up Google Drive backup</b> — one click: saves backups into your Google Drive folder and turns on a daily auto-backup (needs Google Drive for Desktop installed and signed in).</li>
+    <li><b>Restore from Google Drive</b> — one click: brings back the latest backup from Google Drive (ideal on a new PC).</li>
+    <li><b>Other tabs</b> — <b>Restore</b> (from a file), <b>Automatic Backup</b> (daily/weekly schedule) and <b>Backup History</b>.</li>
+  </ol>
+  <div class="step"><b>Recommended one-time setup:</b> install <b>Google Drive for Desktop</b> and sign in with the
+    school's Gmail → in IEMS click <b>Set up Google Drive backup</b>. From then on, a backup is made daily and uploaded to the cloud automatically.</div>
+  <div class="note"><b>Restoring replaces all current data</b> with the backup. IEMS always makes a safety copy of the
+    current data first, then restarts. On a brand-new PC, install IEMS, sign into Google Drive, then click <b>Restore from Google Drive</b>.</div>
+</div>
+
+<div class="page pagebreak">
+  <h3>3.6 System Settings</h3>
+  <p>From the dashboard click <b>System Settings</b>. Here you change the school's own details and preferences.</p>
+  <img class="shot" src="img/16_settings.png">
+  <p class="cap">System Settings.</p>
+  <ol class="callouts">
+    <li><b>All Categories</b> — filter settings by group (Backup, School…).</li>
+    <li><b>Backup Settings</b> — turn auto-backup on/off, set the backup folder and how many days to keep backups.</li>
+    <li><b>School Settings</b> — school name, address, U-DISE code, accreditation number, phone and <b>email</b>.</li>
+    <li><b>Save All Changes</b> — apply your edits. <b>Reset Category</b> restores defaults for a group.</li>
+  </ol>
+  <div class="tip"><b>Your school email and phone</b> printed on receipts and ID cards come from here — edit them any time.</div>
+
+  <h3>3.7 Audit Trail &amp; Users</h3>
+  <p>The <b>Audit Trail</b> (Admin only) records every change made in the app.</p>
+  <img class="shot" src="img/17_audit.png">
+  <p class="cap">Audit Trail — who changed what and when.</p>
+  <ol class="callouts">
+    <li><b>Search / Entity / Action filters</b> — narrow the log, then click <b>Apply</b>.</li>
+    <li><b>Log</b> — date/time, user, action, what was changed and a short summary.</li>
+    <li><b>Export CSV</b> — save the log to a spreadsheet.</li>
+  </ol>
+  <p><b>User Management</b> (dashboard → Manage Users, Admin only) lets you add more log-ins for office staff,
+    each with their own password, and remove them when no longer needed. <b>Academic Year Management</b> lets you
+    add and switch school years/sessions.</p>
+</div>
+
+<!-- ============ PART 4 ============ -->
+<div class="page pagebreak">
+  <h2>Part 4 — Keeping your data safe</h2>
+  <table class="kv">
+    <tr><td>Where is my data?</td><td>In a file named <b>school.db</b> next to the program. All students, fees, staff, documents and settings live there.</td></tr>
+    <tr><td>Daily safety</td><td>Set up <b>Google Drive backup</b> once (Backup &amp; Restore → Set up Google Drive backup). A backup is then made daily and uploaded to the cloud automatically.</td></tr>
+    <tr><td>Manual backup</td><td>Any time, click <b>Backup to Desktop</b> or <b>Backup to Custom Location</b> (e.g. a USB drive) and keep the file safe.</td></tr>
+    <tr><td>Reinstalling / updating</td><td>Installing a newer version <b>never deletes your data</b> — and a safety copy is made before every install. Your students and fees stay exactly as they were.</td></tr>
+    <tr><td>Moving to a new PC</td><td>Install IEMS, sign into Google Drive for Desktop, then click <b>Restore from Google Drive</b>. (Or copy the <b>school.db</b> file across, or restore a backup file.)</td></tr>
+    <tr><td>Forgot password?</td><td>There is no online reset. Keep your password safe. An Admin can reset another user's password from <b>User Management</b>.</td></tr>
+  </table>
+
+  <div class="tip" style="margin-top:18px;"><b>Three simple habits keep you safe:</b>
+    1) keep Google Drive backup switched on; 2) take a manual backup to a USB drive before big changes;
+    3) never share your password.</div>
+
+  <h3 style="margin-top:24px;">Need help?</h3>
+  <p>Contact the Administrator — <b>Suraj Bothale</b>, phone <b>+91 6361986696</b>.<br>
+     School email: <b>inspiremardi@gmail.com</b></p>
+
+  <div class="foot">IEMS — School Management System &nbsp;•&nbsp; Inspire English Medium School, Mardi &nbsp;•&nbsp; User Guide
+    &nbsp;•&nbsp; Screens shown with example data.</div>
+</div>
+
+</body>
+</html>
