@@ -636,6 +636,51 @@ await Section("16. Aggregate & analytics consistency", async () =>
     Check("Transport vehicle-1 total (service) == DB sum", svcVeh1 == dbVeh1, $"{svcVeh1} vs {dbVeh1}");
 });
 
+await Section("17. Audit trail interceptor (who changed what)", async () =>
+{
+    // A context wired exactly like the WPF app: SaveChanges writes audit rows automatically.
+    var interceptor = new AuditSaveChangesInterceptor(new HarnessUser());
+    var opts = new DbContextOptionsBuilder<ApplicationDbContext>()
+        .UseSqlite(connString).AddInterceptors(interceptor).Options;
+    using var actx = new ApplicationDbContext(opts);
+
+    var before = await actx.AuditLogs.CountAsync();
+    var classId = await actx.Classes.Select(c => c.Id).FirstAsync();
+
+    // INSERT
+    var s = new IEMS.Core.Entities.Student
+    {
+        SerialNo = 99999, Standard = "Audit", ClassDivision = "A", FirstName = "Aud", FatherName = "F",
+        Surname = "It", DateOfBirth = new DateTime(2015, 1, 1), Gender = "Male", MotherName = "M",
+        StudentNumber = "AUD-AUDIT-1", AdmissionDate = new DateTime(2024, 6, 1), CasteCategory = "Open",
+        Religion = "NA", Address = "x", CityVillage = "y", ParentMobileNumber = "9000000000", ClassId = classId
+    };
+    actx.Students.Add(s);
+    await actx.SaveChangesAsync();
+
+    var ins = await actx.AuditLogs.OrderByDescending(a => a.Id).FirstAsync();
+    Check("Audit: insert recorded as Added/Student", ins.Action == "Added" && ins.EntityType == "Student", $"{ins.Action}/{ins.EntityType}");
+    Check("Audit: insert attributed to current user", ins.UserName == "harness-user", ins.UserName);
+    Check("Audit: insert primary key back-filled", ins.EntityId == s.Id.ToString(), ins.EntityId);
+
+    // UPDATE
+    s.FirstName = "AudChanged";
+    await actx.SaveChangesAsync();
+    var upd = await actx.AuditLogs.OrderByDescending(a => a.Id).FirstAsync();
+    Check("Audit: update recorded as Modified", upd.Action == "Modified" && upd.EntityType == "Student", $"{upd.Action}/{upd.EntityType}");
+    Check("Audit: update lists the changed field", upd.Summary != null && upd.Summary.Contains("FirstName"), upd.Summary ?? "null");
+
+    // DELETE
+    actx.Students.Remove(s);
+    await actx.SaveChangesAsync();
+    var del = await actx.AuditLogs.OrderByDescending(a => a.Id).FirstAsync();
+    Check("Audit: delete recorded as Deleted", del.Action == "Deleted" && del.EntityType == "Student", $"{del.Action}/{del.EntityType}");
+
+    var after = await actx.AuditLogs.CountAsync();
+    Check("Audit: exactly 3 rows for insert/update/delete", after - before == 3, $"{after - before}");
+    Check("Audit: audit rows are never self-audited", await actx.AuditLogs.CountAsync(a => a.EntityType == "AuditLog") == 0);
+});
+
 // ----- Summary -----
 Console.WriteLine();
 Console.WriteLine("============================================================");
@@ -647,3 +692,9 @@ if (failed > 0)
 }
 Console.WriteLine("============================================================");
 return failed == 0 ? 0 : 1;
+
+// Stub current-user provider so the audit interceptor can attribute changes in the harness.
+sealed class HarnessUser : IEMS.Core.Interfaces.ICurrentUserProvider
+{
+    public string UserName => "harness-user";
+}

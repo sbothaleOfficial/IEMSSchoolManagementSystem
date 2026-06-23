@@ -22,10 +22,11 @@ public partial class MainWindow : Window
         {
             txtWelcomeUser.Text = $"Welcome, {LoginWindow.CurrentUser.FullName}";
 
-            // Show User Management only for Admin role (case-insensitive)
+            // Show User Management and the Audit Trail only for Admin role (case-insensitive)
             if (!string.Equals(LoginWindow.CurrentUser.Role, "Admin", StringComparison.OrdinalIgnoreCase))
             {
                 cardUserManagement.Visibility = Visibility.Collapsed;
+                cardAuditTrail.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -126,6 +127,9 @@ public partial class MainWindow : Window
 
     private void BtnUserManagement_Click(object sender, RoutedEventArgs e) =>
         OpenModule(sp => new UserManagementWindow(sp.GetRequiredService<UserService>()), "User Management");
+
+    private void BtnAuditTrail_Click(object sender, RoutedEventArgs e) =>
+        OpenModule(sp => new AuditLogWindow(sp.GetRequiredService<AuditLogService>()), "Audit Trail");
 
     private void BtnAcademicYearManagement_Click(object sender, RoutedEventArgs e) =>
         OpenModule(sp => new AcademicYearManagementWindow(sp.GetRequiredService<AcademicYearService>()), "Academic Year Management");

@@ -43,8 +43,14 @@ public partial class App : System.Windows.Application
                 .UseSerilog()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddDbContext<ApplicationDbContext>(options =>
-                        options.UseSqlite(DatabaseLocation.ConnectionString));
+                    // Audit trail: the interceptor needs the current user; the DbContext options are
+                    // built per-scope so the scoped interceptor is attached to every context.
+                    services.AddSingleton<ICurrentUserProvider, IEMS.WPF.Services.CurrentUserProvider>();
+                    services.AddScoped<AuditSaveChangesInterceptor>();
+
+                    services.AddDbContext<ApplicationDbContext>((sp, options) =>
+                        options.UseSqlite(DatabaseLocation.ConnectionString)
+                               .AddInterceptors(sp.GetRequiredService<AuditSaveChangesInterceptor>()));
 
                     services.AddScoped<IStudentRepository, StudentRepository>();
                     services.AddScoped<IClassRepository, ClassRepository>();
@@ -60,6 +66,7 @@ public partial class App : System.Windows.Application
                     services.AddScoped<IUserRepository, UserRepository>();
                     services.AddScoped<ISystemSettingRepository, SystemSettingRepository>();
                     services.AddScoped<IStudentPromotionRepository, StudentPromotionRepository>();
+                    services.AddScoped<IAuditLogRepository, AuditLogRepository>();
 
                     // Configuration
                     var bulkPromotionConfig = new BulkPromotionConfiguration
@@ -103,6 +110,7 @@ public partial class App : System.Windows.Application
                     services.AddScoped<BulkPromotionService>();
                     services.AddScoped<IBackupService, BackupService>();
                     services.AddScoped<ISystemSettingsService, SystemSettingsService>();
+                    services.AddScoped<AuditLogService>();
                     services.AddScoped<UserService>();
                     services.AddHostedService<AutomaticBackupService>();
 

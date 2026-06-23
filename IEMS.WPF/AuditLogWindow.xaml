@@ -1,0 +1,64 @@
+<Window x:Class="IEMS.WPF.AuditLogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Audit Trail" Height="640" Width="1000"
+        WindowStartupLocation="CenterOwner" Background="{StaticResource BackgroundBrush}">
+    <Border Style="{StaticResource CardStyle}" Margin="10">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Audit Trail" FontSize="22" FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,10"/>
+
+            <!-- Filter bar -->
+            <WrapPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Search:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="txtSearch" Width="200" Height="28" VerticalContentAlignment="Center"
+                         ToolTip="Search by user, record id or summary"/>
+
+                <TextBlock Text="Entity:" VerticalAlignment="Center" Margin="15,0,5,0"/>
+                <ComboBox x:Name="cmbEntityType" Width="150" Height="28"/>
+
+                <TextBlock Text="Action:" VerticalAlignment="Center" Margin="15,0,5,0"/>
+                <ComboBox x:Name="cmbAction" Width="120" Height="28">
+                    <ComboBoxItem Content="(All)" IsSelected="True"/>
+                    <ComboBoxItem Content="Added"/>
+                    <ComboBoxItem Content="Modified"/>
+                    <ComboBoxItem Content="Deleted"/>
+                </ComboBox>
+
+                <Button x:Name="btnApply" Content="Apply" Width="90" Height="30" Margin="15,0,8,0"
+                        Click="BtnApply_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                <Button x:Name="btnReset" Content="Reset" Width="90" Height="30"
+                        Click="BtnReset_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+            </WrapPanel>
+
+            <DataGrid x:Name="dgAudit" Grid.Row="2" AutoGenerateColumns="False"
+                      CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                      GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                      AlternatingRowBackground="{StaticResource SurfaceBrush}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="When" Binding="{Binding FormattedTimestamp}" Width="150"/>
+                    <DataGridTextColumn Header="User" Binding="{Binding UserName}" Width="120"/>
+                    <DataGridTextColumn Header="Action" Binding="{Binding Action}" Width="90"/>
+                    <DataGridTextColumn Header="Entity" Binding="{Binding EntityType}" Width="130"/>
+                    <DataGridTextColumn Header="Record Id" Binding="{Binding EntityId}" Width="90"/>
+                    <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock x:Name="lblStatus" VerticalAlignment="Center"
+                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                <Button x:Name="btnClose" Content="Close" Width="100" Height="32" Margin="20,0,0,0"
+                        HorizontalAlignment="Left" Click="BtnClose_Click"
+                        Style="{StaticResource SecondaryButtonStyle}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -23,10 +23,24 @@ public class ApplicationDbContext : DbContext
     public DbSet<SystemSetting> SystemSettings { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<StudentPromotionHistory> StudentPromotionHistory { get; set; }
+    public DbSet<AuditLog> AuditLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<AuditLog>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserName).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Action).IsRequired().HasMaxLength(20);
+            entity.Property(e => e.EntityType).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.EntityId).HasMaxLength(100);
+            entity.Property(e => e.Summary).HasMaxLength(2000);
+            // Most queries filter/sort by time and entity type.
+            entity.HasIndex(e => e.Timestamp);
+            entity.HasIndex(e => e.EntityType);
+        });
 
         modelBuilder.Entity<Student>(entity =>
         {
