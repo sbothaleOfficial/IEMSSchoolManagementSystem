@@ -10,7 +10,7 @@
 
 #define MyAppName "IEMS School Management"
 #define MyAppShortName "IEMS"
-#define MyAppVersion "1.1.8"
+#define MyAppVersion "1.1.9"
 #define MyAppPublisher "Inspire English Medium School, Mardi"
 #define MyAppExeName "IEMS.exe"
 #define MyPublishDir "..\publish"
@@ -62,3 +62,38 @@ Type: filesandordirs; Name: "{app}\logs"
 
 ; NOTE: school.db is intentionally never deleted on uninstall so the school's
 ; student/fee data is preserved across reinstalls and upgrades.
+
+[Code]
+{ DATA SAFETY ON REINSTALL / UPGRADE
+  Three layers protect the school's data so a reinstall can never lose it:
+   1. school.db (+ -wal/-shm) is excluded from the installer payload (see [Files]),
+      so installing over an existing copy never overwrites the live database.
+   2. school.db is never deleted on uninstall (see [UninstallDelete]).
+   3. As a final safety net, before any file is copied we take a timestamped
+      backup of the existing database into Documents\IEMS_Backups\PreInstall.
+  So even if a copy were interrupted or corrupted, a recoverable copy always exists. }
+
+procedure BackupExisting(const SrcFile, DestDir, DestName: string);
+begin
+  if FileExists(SrcFile) then
+    CopyFile(SrcFile, DestDir + '\' + DestName, False);
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+  AppDir, BackupDir, Stamp: string;
+begin
+  if CurStep = ssInstall then
+  begin
+    AppDir := ExpandConstant('{app}');
+    if FileExists(AppDir + '\school.db') then
+    begin
+      Stamp := GetDateTimeString('yyyymmdd_hhnnss', #0, #0);
+      BackupDir := ExpandConstant('{userdocs}\IEMS_Backups\PreInstall');
+      ForceDirectories(BackupDir);
+      BackupExisting(AppDir + '\school.db',     BackupDir, 'school_' + Stamp + '.db');
+      BackupExisting(AppDir + '\school.db-wal', BackupDir, 'school_' + Stamp + '.db-wal');
+      BackupExisting(AppDir + '\school.db-shm', BackupDir, 'school_' + Stamp + '.db-shm');
+    end;
+  end;
+end;
