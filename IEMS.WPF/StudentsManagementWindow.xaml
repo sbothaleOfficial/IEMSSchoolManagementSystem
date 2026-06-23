@@ -850,6 +850,11 @@
                                             Background="{StaticResource PrimaryBrush}" Foreground="White"
                                             Padding="15,10" Margin="10,0,0,0" FontWeight="Bold"
                                             Click="BtnExportLeavingCertPDF_Click"/>
+                                    <Button x:Name="btnSendLeavingCertPhone" Content="Send to Phone"
+                                            Background="{StaticResource PrimaryBrush}" Foreground="White"
+                                            Padding="15,10" Margin="10,0,0,0" FontWeight="Bold"
+                                            Click="BtnSendLeavingCertPhone_Click"
+                                            ToolTip="Show a QR code to open this certificate on a phone (same Wi-Fi)"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

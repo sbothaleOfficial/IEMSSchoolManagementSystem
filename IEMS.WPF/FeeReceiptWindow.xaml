@@ -18,6 +18,10 @@
             <Button x:Name="btnExportPdf" Content="Export PDF" Width="110" Height="35"
                     Margin="5" Click="BtnExportPdf_Click"
                     Style="{StaticResource PrimaryButtonStyle}"/>
+            <Button x:Name="btnSendPhone" Content="Send to Phone" Width="130" Height="35"
+                    Margin="5" Click="BtnSendPhone_Click"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    ToolTip="Show a QR code to open this receipt on a phone (same Wi-Fi)"/>
             <Button x:Name="btnClose" Content="Close" Width="100" Height="35"
                     Margin="5" Click="BtnClose_Click"
                     Style="{StaticResource SecondaryButtonStyle}"/>

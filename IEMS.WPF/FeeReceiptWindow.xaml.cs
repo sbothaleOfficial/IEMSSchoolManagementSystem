@@ -185,6 +185,22 @@ public partial class FeeReceiptWindow : Window
         IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, $"FeeReceipt_{_receipt.ReceiptNumber}");
     }
 
+    private void BtnSendPhone_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var bytes = QuestPDF.Fluent.GenerateExtensions.GeneratePdf(new IEMS.WPF.Pdf.FeeReceiptDocument(_receipt));
+            IEMS.WPF.Services.PhoneTransfer.Send(this, bytes,
+                $"FeeReceipt_{_receipt.ReceiptNumber}.pdf", "application/pdf",
+                $"Fee Receipt {_receipt.ReceiptNumber}");
+        }
+        catch (System.Exception ex)
+        {
+            MessageBox.Show($"Could not prepare the receipt for sending: {ex.Message}",
+                "Send to Phone", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
     private void BtnClose_Click(object sender, RoutedEventArgs e)
     {
         Close();

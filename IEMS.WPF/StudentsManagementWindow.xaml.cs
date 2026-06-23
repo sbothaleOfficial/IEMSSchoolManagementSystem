@@ -1848,42 +1848,12 @@ public partial class StudentsManagementWindow : Window
                 // First generate the certificate if not already done
                 BtnGenerateLeavingCert_Click(sender, e);
 
-                // Create save file dialog - offering both XPS and PDF options
-                var saveFileDialog = new SaveFileDialog
-                {
-                    Filter = "XPS Document (*.xps)|*.xps|PDF files (*.pdf)|*.pdf",
-                    DefaultExt = "xps",
-                    FilterIndex = 1,
-                    FileName = $"School_Leaving_Certificate_{selectedStudent.FullName.Replace(" ", "_")}_{DateTime.Now:yyyyMMdd}"
-                };
-
-                if (saveFileDialog.ShowDialog() == true)
-                {
-                    var extension = Path.GetExtension(saveFileDialog.FileName).ToLower();
-
-                    if (extension == ".xps")
-                    {
-                        // Direct XPS export (native Windows format)
-                        ExportCertificateToXPS(LeavingCertificateBorder, saveFileDialog.FileName);
-
-                        toastNotification.Message = "Certificate exported to XPS successfully!\n\nYou can view this in Windows or print to PDF.";
-                        toastNotification.ToastType = ToastType.Success;
-                        toastNotification.Show();
-
-                        lblStatus.Text = "Certificate exported to XPS";
-                    }
-                    else
-                    {
-                        // PDF export (requires conversion)
-                        ExportCertificateToPDF(LeavingCertificateBorder, saveFileDialog.FileName);
-
-                        toastNotification.Message = "Certificate export initiated. Follow the on-screen instructions.";
-                        toastNotification.ToastType = ToastType.Info;
-                        toastNotification.Show();
-
-                        lblStatus.Text = "Certificate export initiated";
-                    }
-                }
+                // Render the on-screen certificate to a real PDF and route it through the shared
+                // exporter (which then offers Open / Send to Phone).
+                var png = IEMS.WPF.Pdf.VisualPdfDocument.RenderToPng(LeavingCertificateBorder);
+                var suggested = $"LeavingCertificate_{selectedStudent.FullName.Replace(" ", "_")}_{DateTime.Now:yyyyMMdd}";
+                IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(new IEMS.WPF.Pdf.VisualPdfDocument(png), suggested);
+                lblStatus.Text = "Leaving certificate exported";
             }
             else
             {
@@ -1900,160 +1870,33 @@ public partial class StudentsManagementWindow : Window
         }
     }
 
-    private void ExportCertificateToPDF(FrameworkElement element, string filePath)
+    private void BtnSendLeavingCertPhone_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Save as XPS first (which can be opened in Windows or printed to PDF)
-            var xpsPath = Path.ChangeExtension(filePath, ".xps");
-            ExportCertificateToXPS(element, xpsPath);
-
-            // Inform the user
-            MessageBox.Show(
-                $"Certificate saved as: {xpsPath}\n\n" +
-                "To convert to PDF:\n" +
-                "1. Open the XPS file\n" +
-                "2. Press Ctrl+P to print\n" +
-                "3. Select 'Microsoft Print to PDF'\n" +
-                "4. Save as PDF",
-                "Certificate Exported",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Failed to export certificate: {ex.Message}", ex);
-        }
-    }
-
-    private void ConvertXpsToPdf(string xpsFilePath, string pdfFilePath)
-    {
-        try
-        {
-            // Try to use Microsoft Print to PDF for conversion
-            var printDialog = new PrintDialog();
-
-            // Get all print queues and find a PDF printer
-            var printServer = new System.Printing.LocalPrintServer();
-            System.Printing.PrintQueue pdfPrintQueue = null;
-
-            // Try to find Microsoft Print to PDF or any other PDF printer
-            var pdfPrinters = new[] { "Microsoft Print to PDF", "Microsoft XPS Document Writer", "Adobe PDF" };
-
-            foreach (var printerName in pdfPrinters)
+            if (cmbLeavingCertStudent.SelectedItem is StudentDto selectedStudent)
             {
-                try
-                {
-                    pdfPrintQueue = printServer.GetPrintQueue(printerName);
-                    if (pdfPrintQueue != null)
-                        break;
-                }
-                catch
-                {
-                    continue;
-                }
+                // Make sure the preview reflects the current inputs, then send it to the phone as a PDF.
+                BtnGenerateLeavingCert_Click(sender, e);
+
+                var png = IEMS.WPF.Pdf.VisualPdfDocument.RenderToPng(LeavingCertificateBorder);
+                var bytes = QuestPDF.Fluent.GenerateExtensions.GeneratePdf(new IEMS.WPF.Pdf.VisualPdfDocument(png));
+                var name = $"LeavingCertificate_{selectedStudent.FullName.Replace(" ", "_")}.pdf";
+                IEMS.WPF.Services.PhoneTransfer.Send(this, bytes, name, "application/pdf",
+                    $"Leaving Certificate — {selectedStudent.FullName}");
             }
-
-            if (pdfPrintQueue == null)
+            else
             {
-                // Fallback: Copy XPS file as is (Windows can view XPS files natively)
-                var xpsOutputPath = Path.ChangeExtension(pdfFilePath, ".xps");
-                File.Copy(xpsFilePath, xpsOutputPath, true);
-                throw new Exception($"No PDF printer found. Certificate saved as XPS file instead: {xpsOutputPath}\n\nYou can open this file in Windows or convert it to PDF using 'Microsoft Print to PDF' from your print dialog.");
-            }
-
-            // Load the XPS document
-            using (var xpsDocument = new System.Windows.Xps.Packaging.XpsDocument(xpsFilePath, FileAccess.Read))
-            {
-                var documentPaginator = xpsDocument.GetFixedDocumentSequence().DocumentPaginator;
-
-                // Set the print queue
-                printDialog.PrintQueue = pdfPrintQueue;
-
-                // For Microsoft Print to PDF, we need to set the output file
-                if (pdfPrintQueue.Name.Contains("Microsoft Print to PDF"))
-                {
-                    // Use reflection to set the output file path for Microsoft Print to PDF
-                    var printTicket = printDialog.PrintTicket;
-                    printDialog.PrintDocument(documentPaginator, Path.GetFileNameWithoutExtension(pdfFilePath));
-
-                    // Since PrintDialog doesn't directly support file output path,
-                    // we'll use a workaround: save as XPS and let user print to PDF manually
-                    var xpsOutputPath = Path.ChangeExtension(pdfFilePath, ".xps");
-                    File.Copy(xpsFilePath, xpsOutputPath, true);
-
-                    // Also copy to the desired PDF path as XPS for now
-                    // User can manually print to PDF from Windows
-                    File.Copy(xpsFilePath, pdfFilePath + ".xps", true);
-
-                    throw new Exception($"Certificate saved as XPS file: {pdfFilePath}.xps\n\nTo convert to PDF:\n1. Open the XPS file\n2. Press Ctrl+P to print\n3. Select 'Microsoft Print to PDF'\n4. Save to {pdfFilePath}");
-                }
+                toastNotification.Message = "Please select a student and generate certificate first.";
+                toastNotification.ToastType = ToastType.Warning;
+                toastNotification.Show();
             }
         }
         catch (Exception ex)
         {
-            throw new Exception($"XPS to PDF conversion failed: {ex.Message}", ex);
-        }
-    }
-
-    private void ExportCertificateToXPS(FrameworkElement element, string filePath)
-    {
-        try
-        {
-            // Ensure the element is measured and arranged
-            element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            element.Arrange(new Rect(element.DesiredSize));
-            element.UpdateLayout();
-
-            // Create a FixedDocument for the certificate
-            var fixedDocument = new System.Windows.Documents.FixedDocument();
-            var pageContent = new System.Windows.Documents.PageContent();
-            var fixedPage = new System.Windows.Documents.FixedPage
-            {
-                Width = 793.7,  // A4 width at 96 DPI
-                Height = 1122.5 // A4 height at 96 DPI
-            };
-
-            // Calculate scale to fit A4 page while maintaining aspect ratio
-            var scaleX = fixedPage.Width / element.ActualWidth;
-            var scaleY = fixedPage.Height / element.ActualHeight;
-            var scale = Math.Min(scaleX, scaleY);
-
-            // Create a visual brush from the certificate
-            var visualBrush = new VisualBrush(element)
-            {
-                Stretch = Stretch.Uniform,
-                TileMode = TileMode.None
-            };
-
-            // Create a rectangle to hold the visual
-            var rectangle = new System.Windows.Shapes.Rectangle
-            {
-                Width = element.ActualWidth * scale,
-                Height = element.ActualHeight * scale,
-                Fill = visualBrush
-            };
-
-            // Center the content on the page
-            System.Windows.Documents.FixedPage.SetLeft(rectangle, (fixedPage.Width - rectangle.Width) / 2);
-            System.Windows.Documents.FixedPage.SetTop(rectangle, (fixedPage.Height - rectangle.Height) / 2);
-
-            fixedPage.Children.Add(rectangle);
-            pageContent.Child = fixedPage;
-            fixedDocument.Pages.Add(pageContent);
-
-            // Create XPS document using Package API
-            using (var package = System.IO.Packaging.Package.Open(filePath, FileMode.Create))
-            using (var xpsDocument = new System.Windows.Xps.Packaging.XpsDocument(package))
-            {
-                var xpsWriter = System.Windows.Xps.Packaging.XpsDocument.CreateXpsDocumentWriter(xpsDocument);
-                xpsWriter.Write(fixedDocument);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Failed to export certificate to XPS: {ex.Message}", ex);
+            toastNotification.Message = $"Could not send the certificate: {ex.Message}";
+            toastNotification.ToastType = ToastType.Error;
+            toastNotification.Show();
         }
     }
 
