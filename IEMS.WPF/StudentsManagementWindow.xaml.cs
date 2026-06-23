@@ -962,6 +962,7 @@ public partial class StudentsManagementWindow : Window
             imgIdCardPhoto.Source = null;
             btnIdCardChoosePhoto.IsEnabled = false;
             btnIdCardScanPhoto.IsEnabled = false;
+            btnIdCardPhonePhoto.IsEnabled = false;
             btnIdCardRemovePhoto.IsEnabled = false;
             return;
         }
@@ -978,6 +979,7 @@ public partial class StudentsManagementWindow : Window
             imgIdCardPhoto.Source = PhotoHelper.Decode(full.Photo);
             btnIdCardChoosePhoto.IsEnabled = true;
             btnIdCardScanPhoto.IsEnabled = true;
+            btnIdCardPhonePhoto.IsEnabled = true;
             btnIdCardRemovePhoto.IsEnabled = full.Photo != null && full.Photo.Length > 0;
         }, "Load Student Error");
     }
@@ -1011,6 +1013,22 @@ public partial class StudentsManagementWindow : Window
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message, "Scanner", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    private void BtnIdCardPhonePhoto_Click(object sender, RoutedEventArgs e)
+    {
+        if (_idCardSelected == null) return;
+        try
+        {
+            var win = new PhoneUploadWindow(_idCardSelected.FullName) { Owner = this };
+            if (win.ShowDialog() == true && win.ReceivedPhoto != null)
+                SaveIdCardPhoto(PhotoHelper.NormalizeForCard(win.ReceivedPhoto));
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Could not receive the phone photo: {ex.Message}", "Upload from Phone",
+                MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 

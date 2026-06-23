@@ -601,6 +601,9 @@
                             <Button x:Name="btnIdCardScanPhoto" Content="Scan from Scanner" Height="38" Margin="0,0,0,8"
                                     Click="BtnIdCardScanPhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"
                                     ToolTip="Scan a hard-copy passport photo from a connected scanner"/>
+                            <Button x:Name="btnIdCardPhonePhoto" Content="Upload from Phone (QR)" Height="38" Margin="0,0,0,8"
+                                    Click="BtnIdCardPhonePhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"
+                                    ToolTip="Show a QR code; scan it with a phone on the same Wi-Fi to take/upload a photo"/>
                             <Button x:Name="btnIdCardRemovePhoto" Content="Remove Photo" Height="38"
                                     Click="BtnIdCardRemovePhoto_Click" Style="{StaticResource SecondaryButtonStyle}" IsEnabled="False"/>
                         </StackPanel>
