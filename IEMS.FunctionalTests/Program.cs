@@ -679,6 +679,18 @@ await Section("17. Audit trail interceptor (who changed what)", async () =>
     var after = await actx.AuditLogs.CountAsync();
     Check("Audit: exactly 3 rows for insert/update/delete", after - before == 3, $"{after - before}");
     Check("Audit: audit rows are never self-audited", await actx.AuditLogs.CountAsync(a => a.EntityType == "AuditLog") == 0);
+
+    // Repository "merge update" path: updating a DETACHED entity must mark ONLY the changed
+    // column as modified (DbSet.Update() used to mark every column, flooding the audit trail).
+    var detached = await actx.Users.AsNoTracking().FirstAsync();
+    detached.FullName = detached.FullName + " (edited)";
+    await actx.MergeUpdateAsync(detached, detached.Id);
+    await actx.SaveChangesAsync();
+    var userEdit = await actx.AuditLogs.OrderByDescending(a => a.Id).FirstAsync();
+    Check("Audit: merge-update logs only the changed field (no column flood)",
+        userEdit.Action == "Modified" && userEdit.EntityType == "User"
+            && userEdit.Summary == "Changed: FullName",
+        userEdit.Summary ?? "null");
 });
 
 // ----- Summary -----

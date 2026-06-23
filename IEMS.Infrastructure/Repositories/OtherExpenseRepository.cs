@@ -34,7 +34,7 @@ public class OtherExpenseRepository : IOtherExpenseRepository
 
     public async Task UpdateAsync(OtherExpense entity)
     {
-        _context.OtherExpenses.Update(entity);
+        await _context.MergeUpdateAsync(entity, entity.Id);
         await _context.SaveChangesAsync();
     }
 

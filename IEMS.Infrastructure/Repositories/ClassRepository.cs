@@ -37,7 +37,7 @@ public class ClassRepository : IClassRepository
 
     public async Task UpdateAsync(Class entity)
     {
-        _context.Classes.Update(entity);
+        await _context.MergeUpdateAsync(entity, entity.Id);
         await _context.SaveChangesAsync();
     }
 

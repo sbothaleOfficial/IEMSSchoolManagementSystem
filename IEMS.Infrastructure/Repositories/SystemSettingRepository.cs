@@ -48,7 +48,7 @@ namespace IEMS.Infrastructure.Repositories
         {
             try
             {
-                _context.SystemSettings.Update(setting);
+                await _context.MergeUpdateAsync(setting, setting.Key);
                 await _context.SaveChangesAsync();
                 return true;
             }

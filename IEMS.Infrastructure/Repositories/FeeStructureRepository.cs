@@ -130,7 +130,7 @@ public class FeeStructureRepository : IFeeStructureRepository
     public async Task UpdateAsync(FeeStructure feeStructure)
     {
         feeStructure.UpdatedAt = DateTime.UtcNow;
-        _context.FeeStructures.Update(feeStructure);
+        await _context.MergeUpdateAsync(feeStructure, feeStructure.Id);
         await _context.SaveChangesAsync();
     }
 

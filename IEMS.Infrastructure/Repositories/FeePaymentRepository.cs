@@ -109,7 +109,7 @@ public class FeePaymentRepository : IFeePaymentRepository
     public async Task UpdateAsync(FeePayment feePayment)
     {
         feePayment.UpdatedAt = DateTime.UtcNow;
-        _context.FeePayments.Update(feePayment);
+        await _context.MergeUpdateAsync(feePayment, feePayment.Id);
         await _context.SaveChangesAsync();
     }
 

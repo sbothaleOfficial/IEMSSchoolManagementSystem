@@ -56,7 +56,7 @@ namespace IEMS.Infrastructure.Repositories
 
         public async Task UpdateAsync(User user)
         {
-            _context.Users.Update(user);
+            await _context.MergeUpdateAsync(user, user.Id);
             await _context.SaveChangesAsync();
         }
 

@@ -36,7 +36,7 @@ public class StaffRepository : IStaffRepository
 
     public async Task UpdateAsync(Staff entity)
     {
-        _context.Staff.Update(entity);
+        await _context.MergeUpdateAsync(entity, entity.Id);
         await _context.SaveChangesAsync();
     }
 

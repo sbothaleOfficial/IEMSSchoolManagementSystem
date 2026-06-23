@@ -35,7 +35,7 @@ public class AcademicYearRepository : IAcademicYearRepository
 
     public async Task UpdateAsync(AcademicYear entity)
     {
-        _context.AcademicYears.Update(entity);
+        await _context.MergeUpdateAsync(entity, entity.Id);
         await _context.SaveChangesAsync();
     }
 

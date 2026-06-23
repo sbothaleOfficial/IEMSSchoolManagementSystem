@@ -37,7 +37,7 @@ public class TeacherRepository : ITeacherRepository
 
     public async Task UpdateAsync(Teacher entity)
     {
-        _context.Teachers.Update(entity);
+        await _context.MergeUpdateAsync(entity, entity.Id);
         await _context.SaveChangesAsync();
     }
 

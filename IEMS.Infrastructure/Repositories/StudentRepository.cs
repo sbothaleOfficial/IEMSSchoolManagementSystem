@@ -37,7 +37,7 @@ public class StudentRepository : IStudentRepository
 
     public async Task UpdateAsync(Student entity)
     {
-        _context.Students.Update(entity);
+        await _context.MergeUpdateAsync(entity, entity.Id);
         await _context.SaveChangesAsync();
     }
 

@@ -33,7 +33,7 @@ public class ElectricityBillRepository : IElectricityBillRepository
 
     public async Task UpdateAsync(ElectricityBill entity)
     {
-        _context.ElectricityBills.Update(entity);
+        await _context.MergeUpdateAsync(entity, entity.Id);
         await _context.SaveChangesAsync();
     }
 
