@@ -163,6 +163,103 @@
                 </Grid>
             </TabItem>
 
+            <!-- ID Cards Tab -->
+            <TabItem Header="ID Cards" FontSize="14" Padding="15,10">
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="340"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left: type + search + people list + generate buttons -->
+                    <Grid Grid.Column="0" Margin="0,0,12,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="Show:" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <ComboBox x:Name="cmbIdcType" Width="130" Height="28" VerticalContentAlignment="Center"
+                                      SelectionChanged="CmbIdcType_SelectionChanged">
+                                <ComboBoxItem Content="Teachers" IsSelected="True"/>
+                                <ComboBoxItem Content="Other Staff"/>
+                            </ComboBox>
+                            <TextBlock Text="Search:" VerticalAlignment="Center" Margin="15,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <TextBox x:Name="txtIdcSearch" Width="200" Height="28" VerticalContentAlignment="Center"
+                                     TextChanged="TxtIdcSearch_TextChanged"
+                                     ToolTip="Search by name, employee ID or designation"/>
+                            <TextBlock Text="Card size:" VerticalAlignment="Center" Margin="15,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <ComboBox x:Name="cmbIdcSize" Width="210" Height="28" VerticalContentAlignment="Center"
+                                      SelectionChanged="CmbIdcSize_SelectionChanged"
+                                      ToolTip="Choose a standard ID card size (CR80 is the default), or pick Custom size…"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="dgIdcPeople" Grid.Row="1" AutoGenerateColumns="False"
+                                  SelectionMode="Extended" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                                  GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                                  AlternatingRowBackground="{StaticResource SurfaceBrush}"
+                                  SelectionChanged="DgIdcPeople_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" Width="120"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Designation" Binding="{Binding Designation}" Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button x:Name="btnIdcGenerateSelected" Content="Generate ID Card (selected)" Width="220" Height="38" Margin="0,0,10,0"
+                                    Click="BtnIdcGenerateSelected_Click" Style="{StaticResource SuccessButtonStyle}"
+                                    ToolTip="Ctrl/Shift-click to select several people"/>
+                            <Button x:Name="btnIdcGenerateAll" Content="Print All (shown)" Width="160" Height="38"
+                                    Click="BtnIdcGenerateAll_Click" Style="{StaticResource PrimaryButtonStyle}"
+                                    ToolTip="Print ID cards for everyone currently listed"/>
+                            <CheckBox x:Name="chkIdcIncludeBack" Content="Include back side (terms &amp; contact)"
+                                      VerticalAlignment="Center" Margin="18,0,0,0"
+                                      Foreground="{StaticResource TextPrimaryBrush}"
+                                      ToolTip="Also print a back side with terms &amp; conditions, signature and school contact"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Right: selected person's photo + blood group + actions -->
+                    <Border Grid.Column="1" Background="{StaticResource SurfaceBrush}" CornerRadius="6" Padding="18">
+                        <StackPanel>
+                            <TextBlock x:Name="lblIdcName" Text="Select a person" FontSize="16" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimaryBrush}" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="lblIdcDesignation" Text="" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,14"/>
+
+                            <Border Width="170" Height="210" HorizontalAlignment="Center"
+                                    BorderBrush="#BDC3C7" BorderThickness="1" Background="White">
+                                <Image x:Name="imgIdcPhoto" Stretch="Uniform"/>
+                            </Border>
+
+                            <TextBlock Text="JPG or PNG, up to 2 MB" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"
+                                       HorizontalAlignment="Center" Margin="0,6,0,12"/>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12">
+                                <TextBlock Text="Blood group:" VerticalAlignment="Center" Margin="0,0,8,0"
+                                           Foreground="{StaticResource TextPrimaryBrush}"/>
+                                <ComboBox x:Name="cmbIdcBloodGroup" Width="90" Height="30" VerticalContentAlignment="Center"
+                                          IsEnabled="False" SelectionChanged="CmbIdcBloodGroup_SelectionChanged"/>
+                            </StackPanel>
+
+                            <Button x:Name="btnIdcChoosePhoto" Content="Upload Photo (file)" Height="38" Margin="0,0,0,8"
+                                    Click="BtnIdcChoosePhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"/>
+                            <Button x:Name="btnIdcScanPhoto" Content="Scan from Scanner" Height="38" Margin="0,0,0,8"
+                                    Click="BtnIdcScanPhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"
+                                    ToolTip="Scan a hard-copy passport photo from a connected scanner"/>
+                            <Button x:Name="btnIdcPhonePhoto" Content="Upload from Phone (QR)" Height="38" Margin="0,0,0,8"
+                                    Click="BtnIdcPhonePhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"
+                                    ToolTip="Show a QR code; scan it with a phone on the same Wi-Fi to take/upload a photo"/>
+                            <Button x:Name="btnIdcRemovePhoto" Content="Remove Photo" Height="38"
+                                    Click="BtnIdcRemovePhoto_Click" Style="{StaticResource SecondaryButtonStyle}" IsEnabled="False"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
             <!-- Payslip Generation Tab -->
             <TabItem Header="Payslip Generation" FontSize="14" Padding="15,10">
                 <Grid Margin="20">

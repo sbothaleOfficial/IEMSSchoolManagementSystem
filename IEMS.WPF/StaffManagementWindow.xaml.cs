@@ -47,6 +47,9 @@ public partial class StaffManagementWindow : Window
 
             // Then load dashboard data (depends on teachers and staff being loaded)
             await LoadDashboardDataAsync();
+
+            // The ID Cards tab draws from the same teacher/staff lists.
+            InitIdCardTab();
         }
         catch (Exception ex)
         {
@@ -62,6 +65,7 @@ public partial class StaffManagementWindow : Window
             _allTeachers = (await _teacherService.GetAllTeachersAsync()).ToList();
             _teachersLoaded = true;
             ApplyTeacherSearch();
+            if (ShowingTeachers) RefreshIdcPeople();
             lblStatus.Text = $"Loaded {_allTeachers.Count} teachers";
             CheckAndInitializePayslip();
         }
@@ -191,6 +195,7 @@ public partial class StaffManagementWindow : Window
             _staffLoaded = true;
             PopulateStaffPositions();
             ApplyStaffSearch();
+            if (!ShowingTeachers) RefreshIdcPeople();
             lblStatus.Text = $"Loaded {_allStaff.Count} staff members";
             CheckAndInitializePayslip();
         }

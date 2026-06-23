@@ -17,6 +17,10 @@ public class Staff
     public string? AadharNumber { get; set; }
     public string? PANNumber { get; set; }
 
+    // For the ID card: a passport photo (stored as a JPEG/PNG BLOB) and blood group.
+    public byte[]? Photo { get; set; }
+    public string? BloodGroup { get; set; }
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 

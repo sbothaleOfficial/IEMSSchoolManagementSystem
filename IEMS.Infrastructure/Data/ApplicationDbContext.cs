@@ -102,6 +102,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.LastName).IsRequired().HasMaxLength(50);
             entity.Property(e => e.EmployeeId).IsRequired().HasMaxLength(20);
             entity.Property(e => e.MonthlySalary).HasColumnType("decimal(18,2)");
+            entity.Property(e => e.BloodGroup).HasMaxLength(5);
             entity.HasIndex(e => e.EmployeeId).IsUnique();
         });
 
@@ -131,6 +132,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.BankAccountNumber).HasMaxLength(20);
             entity.Property(e => e.AadharNumber).HasMaxLength(12);
             entity.Property(e => e.PANNumber).HasMaxLength(10);
+            entity.Property(e => e.BloodGroup).HasMaxLength(5);
             entity.HasIndex(e => e.EmployeeId).IsUnique();
         });
 

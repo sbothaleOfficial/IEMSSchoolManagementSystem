@@ -131,4 +131,26 @@ public class TeacherService
     {
         return await _teacherRepository.GetAllAsync();
     }
+
+    /// <summary>Full entity (incl. Photo + BloodGroup) for the ID card.</summary>
+    public async Task<Teacher?> GetTeacherEntityByIdAsync(int id)
+    {
+        return await _teacherRepository.GetByIdAsync(id);
+    }
+
+    /// <summary>
+    /// Saves only the ID-card fields (photo + blood group) for one teacher, leaving every
+    /// other field untouched (merge-update logs just the changed columns).
+    /// </summary>
+    public async Task UpdateTeacherCardInfoAsync(int id, byte[]? photo, string? bloodGroup)
+    {
+        var teacher = await _teacherRepository.GetByIdAsync(id);
+        if (teacher == null) return;
+
+        teacher.Photo = photo;
+        teacher.BloodGroup = string.IsNullOrWhiteSpace(bloodGroup) ? null : bloodGroup;
+        teacher.UpdatedAt = DateTime.UtcNow;
+
+        await _teacherRepository.UpdateAsync(teacher);
+    }
 }

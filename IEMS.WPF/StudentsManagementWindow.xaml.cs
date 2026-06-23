@@ -801,9 +801,10 @@ public partial class StudentsManagementWindow : Window
                 raw.Add(new IEMS.WPF.Pdf.IdCardData
                 {
                     StudentName = student.FullName,
+                    IdLabel = "Student ID",
+                    StudentNumber = string.IsNullOrWhiteSpace(student.StudentNumber) ? "-" : student.StudentNumber,
                     FatherName = student.FatherName,
                     ClassName = student.ClassWithDivision,
-                    StudentNumber = string.IsNullOrWhiteSpace(student.StudentNumber) ? "-" : student.StudentNumber,
                     DateOfBirth = student.DateOfBirth.ToString("dd MMM yyyy"),
                     BloodGroup = student.BloodGroup ?? string.Empty,
                     ParentMobile = student.ParentMobileNumber,
@@ -851,7 +852,7 @@ public partial class StudentsManagementWindow : Window
                     cards.Add(r with { Photo = norm, PhotoRounded = rounded });
                 }
 
-                var document = new IEMS.WPF.Pdf.StudentIdCardDocument(cards, school, logo, frontBg, backBg, includeBack, theSize);
+                var document = new IEMS.WPF.Pdf.IdCardDocument(cards, school, logo, frontBg, backBg, includeBack, theSize);
                 IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, suggested);
             });
         }
@@ -863,23 +864,8 @@ public partial class StudentsManagementWindow : Window
         }
     }
 
-    /// <summary>School details for the ID card. (Matches the seeded School.* settings.)</summary>
-    private static IEMS.WPF.Pdf.SchoolInfo BuildSchoolInfo() => new()
-    {
-        Name = "Inspire English Medium School, Mardi",
-        Tagline = "Excellence in Education • Inspiring Future Leaders",
-        Address = "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
-        Phone = "8483949981",
-        Email = "inspire.mardi@gmail.com",
-        Website = "",
-        Terms = new[]
-        {
-            "This ID card is the property of the school.",
-            "This card is non-transferable.",
-            "If found, please return it to the school office.",
-            "The holder must carry this card in school every day."
-        }
-    };
+    /// <summary>School details for the ID card (shared with the staff/teacher cards).</summary>
+    private static IEMS.WPF.Pdf.SchoolInfo BuildSchoolInfo() => IEMS.WPF.Pdf.SchoolCardInfo.Default;
 
     // ---------- ID Cards tab ----------
 

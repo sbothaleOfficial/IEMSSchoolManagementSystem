@@ -32,15 +32,24 @@ namespace IEMS.WPF.Pdf
         public IReadOnlyList<string> Terms { get; init; } = new List<string>();
     }
 
-    /// <summary>Resolved, display-ready fields for one student ID card.</summary>
+    /// <summary>
+    /// Resolved, display-ready fields for one ID card. Used for students AND employees
+    /// (teachers / staff); the front shows whichever optional fields are non-empty.
+    /// </summary>
     public record IdCardData
     {
+        // Holder name + the primary identifier (label is configurable so the same card
+        // reads "Student ID" for students and "Employee ID" for staff/teachers).
         public string StudentName { get; init; } = string.Empty;
-        public string FatherName { get; init; } = string.Empty;
-        public string ClassName { get; init; } = string.Empty;
+        public string IdLabel { get; init; } = "Student ID";
         public string StudentNumber { get; init; } = string.Empty;
+
+        public string FatherName { get; init; } = string.Empty;
+        public string Designation { get; init; } = string.Empty;  // employees (e.g. "Teacher", "Cook")
+        public string ClassName { get; init; } = string.Empty;     // students
         public string DateOfBirth { get; init; } = string.Empty;
         public string BloodGroup { get; init; } = string.Empty;
+        public string Phone { get; init; } = string.Empty;         // employees
         public string ParentMobile { get; init; } = string.Empty;
         public string Address { get; init; } = string.Empty;
         public byte[]? Photo { get; init; }
@@ -50,12 +59,13 @@ namespace IEMS.WPF.Pdf
     }
 
     /// <summary>
-    /// Tiles portrait student ID cards across A4 pages (navy/gold theme) so a full sheet can be printed
-    /// and cut. The card size is selectable (CR80 default); the layout scales proportionally. The
-    /// decorative background and barcode are supplied as pre-rendered PNGs and composited behind/within
-    /// the vector content. An optional back side (terms, signature, contacts) follows each front.
+    /// Tiles portrait ID cards across A4 pages (logo-blue theme) so a full sheet can be printed
+    /// and cut. Works for students and employees (teachers / staff). The card size is selectable
+    /// (CR80 default); the layout scales proportionally. The decorative background is supplied as a
+    /// pre-rendered PNG and composited behind the vector content. An optional back side (terms,
+    /// signature, contacts) follows each front.
     /// </summary>
-    public class StudentIdCardDocument : IDocument
+    public class IdCardDocument : IDocument
     {
         private const float RefHeightMm = 85.6f;
 
@@ -74,7 +84,7 @@ namespace IEMS.WPF.Pdf
         private readonly IdCardSize _size;
         private readonly float _s;
 
-        public StudentIdCardDocument(IReadOnlyList<IdCardData> cards, SchoolInfo school, byte[]? logo,
+        public IdCardDocument(IReadOnlyList<IdCardData> cards, SchoolInfo school, byte[]? logo,
             byte[] frontBg, byte[]? backBg, bool includeBack, IdCardSize? size = null)
         {
             _cards = cards;
@@ -164,14 +174,21 @@ namespace IEMS.WPF.Pdf
                         .FontFamily(Serif).Bold().FontSize(9 * s).FontColor(InkBlue);
                     col.Item().PaddingTop(1 * s).PaddingHorizontal(22 * s).LineHorizontal(0.6f * s).LineColor(Gold);
 
-                    // ---- Details ----
+                    // ---- Details (only the fields that apply to this holder are shown) ----
                     col.Item().PaddingTop(2 * s).PaddingHorizontal(7 * s).Column(c =>
                     {
                         c.Spacing(1.5f * s);
-                        Field(c, "Student ID", card.StudentNumber, s);
-                        Field(c, "Class", card.ClassName, s);
-                        Field(c, "Date of Birth", card.DateOfBirth, s);
-                        Field(c, "Blood Group", string.IsNullOrWhiteSpace(card.BloodGroup) ? "-" : card.BloodGroup, s);
+                        Field(c, card.IdLabel, card.StudentNumber, s);
+                        if (!string.IsNullOrWhiteSpace(card.Designation))
+                            Field(c, "Designation", card.Designation, s);
+                        if (!string.IsNullOrWhiteSpace(card.ClassName))
+                            Field(c, "Class", card.ClassName, s);
+                        if (!string.IsNullOrWhiteSpace(card.DateOfBirth))
+                            Field(c, "Date of Birth", card.DateOfBirth, s);
+                        if (!string.IsNullOrWhiteSpace(card.BloodGroup))
+                            Field(c, "Blood Group", card.BloodGroup, s);
+                        if (!string.IsNullOrWhiteSpace(card.Phone))
+                            Field(c, "Phone", card.Phone, s);
                         if (!string.IsNullOrWhiteSpace(card.Address))
                             Field(c, "Address", card.Address, s);
                     });

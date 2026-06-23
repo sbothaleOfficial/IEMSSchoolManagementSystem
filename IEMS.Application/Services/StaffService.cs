@@ -137,6 +137,28 @@ public class StaffService
         return await _staffRepository.GetAllAsync();
     }
 
+    /// <summary>Full entity (incl. Photo + BloodGroup) for the ID card.</summary>
+    public async Task<Staff?> GetStaffEntityByIdAsync(int id)
+    {
+        return await _staffRepository.GetByIdAsync(id);
+    }
+
+    /// <summary>
+    /// Saves only the ID-card fields (photo + blood group) for one staff member, leaving every
+    /// other field untouched (merge-update logs just the changed columns).
+    /// </summary>
+    public async Task UpdateStaffCardInfoAsync(int id, byte[]? photo, string? bloodGroup)
+    {
+        var staff = await _staffRepository.GetByIdAsync(id);
+        if (staff == null) return;
+
+        staff.Photo = photo;
+        staff.BloodGroup = string.IsNullOrWhiteSpace(bloodGroup) ? null : bloodGroup;
+        staff.UpdatedAt = DateTime.UtcNow;
+
+        await _staffRepository.UpdateAsync(staff);
+    }
+
 
     private static StaffDto MapToDto(Staff staff)
     {

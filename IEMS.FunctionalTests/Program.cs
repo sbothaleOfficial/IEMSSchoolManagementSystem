@@ -720,6 +720,51 @@ await Section("18. Student documents (store / list / open / delete)", async () =
     Check("Documents: delete removes it", (await docs.GetDocumentsAsync(studentId)).Count == before);
 });
 
+// ----- 19. Teacher / Staff ID-card fields (photo + blood group) -----
+await Section("19. Teacher & Staff ID-card fields (photo + blood group)", async () =>
+{
+    using var scope = provider.CreateScope();
+    var teachers = scope.ServiceProvider.GetRequiredService<TeacherService>();
+    var staff = scope.ServiceProvider.GetRequiredService<StaffService>();
+    var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    var photo = new byte[] { 0xFF, 0xD8, 0xFF, 0xE0, 1, 2, 3, 4, 5 }; // pretend JPEG bytes
+
+    // --- Teacher ---
+    var teacherId = await ctx.Teachers.Select(t => t.Id).FirstAsync();
+    await teachers.UpdateTeacherCardInfoAsync(teacherId, photo, "B+");
+    var t1 = await teachers.GetTeacherEntityByIdAsync(teacherId);
+    Check("Teacher: photo persisted", t1 != null && t1.Photo != null && t1.Photo.SequenceEqual(photo), $"{t1?.Photo?.Length}");
+    Check("Teacher: blood group persisted", t1?.BloodGroup == "B+", t1?.BloodGroup ?? "null");
+
+    // Editing unrelated details must NOT wipe the photo/blood group.
+    var tdto = await teachers.GetTeacherByIdAsync(teacherId);
+    tdto!.Address = "New Address " + Guid.NewGuid().ToString("N").Substring(0, 6);
+    await teachers.UpdateTeacherAsync(tdto);
+    var t2 = await teachers.GetTeacherEntityByIdAsync(teacherId);
+    Check("Teacher: editing details keeps the photo", t2?.Photo != null && t2.Photo.SequenceEqual(photo));
+    Check("Teacher: editing details keeps the blood group", t2?.BloodGroup == "B+", t2?.BloodGroup ?? "null");
+
+    // Clearing the photo works.
+    await teachers.UpdateTeacherCardInfoAsync(teacherId, null, null);
+    var t3 = await teachers.GetTeacherEntityByIdAsync(teacherId);
+    Check("Teacher: photo can be removed", t3?.Photo == null && t3?.BloodGroup == null);
+
+    // --- Staff ---
+    var staffId = await ctx.Staff.Select(s => s.Id).FirstAsync();
+    await staff.UpdateStaffCardInfoAsync(staffId, photo, "O-");
+    var s1 = await staff.GetStaffEntityByIdAsync(staffId);
+    Check("Staff: photo persisted", s1 != null && s1.Photo != null && s1.Photo.SequenceEqual(photo), $"{s1?.Photo?.Length}");
+    Check("Staff: blood group persisted", s1?.BloodGroup == "O-", s1?.BloodGroup ?? "null");
+
+    var sdto = await staff.GetStaffByIdAsync(staffId);
+    sdto!.Address = "New Address " + Guid.NewGuid().ToString("N").Substring(0, 6);
+    await staff.UpdateStaffAsync(sdto);
+    var s2 = await staff.GetStaffEntityByIdAsync(staffId);
+    Check("Staff: editing details keeps the photo", s2?.Photo != null && s2.Photo.SequenceEqual(photo));
+    Check("Staff: editing details keeps the blood group", s2?.BloodGroup == "O-", s2?.BloodGroup ?? "null");
+});
+
 // ----- Summary -----
 Console.WriteLine();
 Console.WriteLine("============================================================");
