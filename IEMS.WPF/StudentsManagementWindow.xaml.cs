@@ -777,34 +777,6 @@ public partial class StudentsManagementWindow : Window
         });
     }
 
-    private void BtnGenerateIdCard_Click(object sender, RoutedEventArgs e)
-    {
-        var selected = dgBonafideStudents.SelectedItems.OfType<StudentDto>().ToList();
-        AsyncHelper.SafeFireAndForget(
-            () => GenerateIdCardsForAsync(selected,
-                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null),
-            "ID Card Error");
-    }
-
-    private void BtnClassIdCards_Click(object sender, RoutedEventArgs e)
-    {
-        var className = cmbIdCardClass.SelectedItem as string;
-        if (string.IsNullOrWhiteSpace(className) || className == "(Select class)")
-        {
-            toastNotification.Message = "Pick a class to print all its ID cards.";
-            toastNotification.ToastType = ToastType.Warning;
-            toastNotification.Show();
-            return;
-        }
-
-        var classStudents = _allStudents.Where(s => s.ClassWithDivision == className).ToList();
-        var safeName = className.Replace(" ", "_").Replace("(", "").Replace(")", "");
-        AsyncHelper.SafeFireAndForget(
-            () => GenerateIdCardsForAsync(classStudents,
-                $"No students found in {className}.", suggestedName: $"IDCards_Class_{safeName}"),
-            "Class ID Card Error");
-    }
-
     /// <summary>Builds and exports an A4 ID-card sheet for the given students (loads photos by id).</summary>
     private async Task GenerateIdCardsForAsync(IReadOnlyList<StudentDto> students, string warnIfEmpty, string? suggestedName,
         IEMS.WPF.Pdf.IdCardSize? size = null, bool includeBack = false)
@@ -1165,17 +1137,6 @@ public partial class StudentsManagementWindow : Window
             // Use the same student data as the main students tab
             dgBonafideStudents.ItemsSource = _allStudents;
             lblStatus.Text = $"Loaded {_allStudents.Count} students for Bonafide certificates";
-
-            // Populate the class picker for "print all ID cards in a class".
-            var selectedClass = cmbIdCardClass.SelectedItem as string;
-            cmbIdCardClass.Items.Clear();
-            cmbIdCardClass.Items.Add("(Select class)");
-            foreach (var c in _allStudents.Select(s => s.ClassWithDivision)
-                         .Where(c => !string.IsNullOrWhiteSpace(c))
-                         .Distinct().OrderBy(c => c))
-                cmbIdCardClass.Items.Add(c);
-            cmbIdCardClass.SelectedItem = selectedClass != null && cmbIdCardClass.Items.Contains(selectedClass)
-                ? selectedClass : "(Select class)";
 
             RefreshIdCardTab();
         }
