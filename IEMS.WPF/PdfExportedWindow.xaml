@@ -1,0 +1,20 @@
+<Window x:Class="IEMS.WPF.PdfExportedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PDF Exported" Width="380" SizeToContent="Height"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Background="{StaticResource SurfaceBrush}">
+    <StackPanel Margin="22">
+        <TextBlock Text="PDF saved successfully." FontSize="15" FontWeight="Bold"
+                   Foreground="{StaticResource TextPrimaryBrush}"/>
+        <TextBlock x:Name="lblFile" Text="" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"
+                   Margin="0,4,0,16" TextTrimming="CharacterEllipsis"/>
+
+        <Button Content="Open file" Height="36" Margin="0,0,0,8"
+                Click="Open_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+        <Button Content="Send to Phone (QR)" Height="36" Margin="0,0,0,8"
+                Click="Send_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+        <Button Content="Close" Height="34"
+                Click="Close_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+    </StackPanel>
+</Window>

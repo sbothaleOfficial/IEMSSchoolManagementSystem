@@ -24,9 +24,12 @@
                 <Button x:Name="btnUploadPhone" Content="Upload from Phone" Width="150" Height="32" Margin="0,0,8,0"
                         Click="BtnUploadPhone_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                 <Separator Width="14"/>
-                <Button x:Name="btnOpen" Content="Open" Width="90" Height="32" Margin="0,0,8,0"
+                <Button x:Name="btnOpen" Content="Open" Width="80" Height="32" Margin="0,0,8,0"
                         Click="BtnOpen_Click" Style="{StaticResource PrimaryButtonStyle}"/>
-                <Button x:Name="btnDelete" Content="Delete" Width="90" Height="32"
+                <Button x:Name="btnSendPhone" Content="Send to Phone" Width="120" Height="32" Margin="0,0,8,0"
+                        Click="BtnSendPhone_Click" Style="{StaticResource PrimaryButtonStyle}"
+                        ToolTip="Show a QR code to open this document on a phone (same Wi-Fi)"/>
+                <Button x:Name="btnDelete" Content="Delete" Width="80" Height="32"
                         Click="BtnDelete_Click" Style="{StaticResource DangerButtonStyle}"/>
             </WrapPanel>
 

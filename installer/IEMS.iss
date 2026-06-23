@@ -10,7 +10,7 @@
 
 #define MyAppName "IEMS School Management"
 #define MyAppShortName "IEMS"
-#define MyAppVersion "1.1.2"
+#define MyAppVersion "1.1.3"
 #define MyAppPublisher "Inspire English Medium School, Mardi"
 #define MyAppExeName "IEMS.exe"
 #define MyPublishDir "..\publish"

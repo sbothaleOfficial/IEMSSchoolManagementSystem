@@ -1038,9 +1038,9 @@ public partial class StudentsManagementWindow : Window
         if (_idCardSelected == null) return;
         try
         {
-            var win = new PhoneUploadWindow(_idCardSelected.FullName) { Owner = this };
-            if (win.ShowDialog() == true && win.ReceivedPhoto != null)
-                SaveIdCardPhoto(PhotoHelper.NormalizeForCard(win.ReceivedPhoto));
+            var file = IEMS.WPF.Services.PhoneTransfer.Capture(this, _idCardSelected.FullName, documentMode: false);
+            if (file != null)
+                SaveIdCardPhoto(PhotoHelper.NormalizeForCard(file.Data));
         }
         catch (Exception ex)
         {

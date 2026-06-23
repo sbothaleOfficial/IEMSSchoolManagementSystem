@@ -74,10 +74,9 @@ public partial class StudentDocumentsWindow : Window
     {
         try
         {
-            var win = new PhoneUploadWindow(_student.FullName, documentMode: true) { Owner = this };
-            if (win.ShowDialog() == true && win.ReceivedFile != null)
+            var f = IEMS.WPF.Services.PhoneTransfer.Capture(this, _student.FullName, documentMode: true);
+            if (f != null)
             {
-                var f = win.ReceivedFile;
                 var name = string.IsNullOrWhiteSpace(f.FileName) ? SuggestName(f.ContentType) : f.FileName;
                 AddDocument(name, f.ContentType, f.Data);
             }
@@ -87,6 +86,21 @@ public partial class StudentDocumentsWindow : Window
             MessageBox.Show($"Could not receive the phone upload: {ex.Message}", "Upload from Phone",
                 MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+    }
+
+    private void BtnSendPhone_Click(object sender, RoutedEventArgs e)
+    {
+        if (dgDocs.SelectedItem is not StudentDocumentDto dto)
+        {
+            MessageBox.Show("Select a document to send to a phone.", "No selection", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+        AsyncHelper.SafeFireAndForget(async () =>
+        {
+            var file = await _service.GetFileAsync(dto.Id);
+            if (file == null) return;
+            Dispatcher.Invoke(() => IEMS.WPF.Services.PhoneTransfer.Send(this, file.Data, file.FileName, file.ContentType, dto.FileName));
+        }, "Send Document Error");
     }
 
     private void AddDocument(string fileName, string contentType, byte[] bytes)
