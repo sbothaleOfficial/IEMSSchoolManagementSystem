@@ -548,6 +548,9 @@
                             <TextBlock Text="Class:" VerticalAlignment="Center" Margin="15,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
                             <ComboBox x:Name="cmbIdCardTabClass" Width="130" Height="28" VerticalContentAlignment="Center"
                                       SelectionChanged="CmbIdCardTabClass_SelectionChanged"/>
+                            <TextBlock Text="Card size:" VerticalAlignment="Center" Margin="15,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <ComboBox x:Name="cmbIdCardSize" Width="210" Height="28" VerticalContentAlignment="Center"
+                                      ToolTip="Choose the printed ID card size (CR80 is the standard default)"/>
                         </StackPanel>
 
                         <DataGrid x:Name="dgIdCardStudents" Grid.Row="1" AutoGenerateColumns="False"
@@ -588,8 +591,11 @@
                             <TextBlock Text="JPG or PNG, up to 2 MB" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"
                                        HorizontalAlignment="Center" Margin="0,6,0,14"/>
 
-                            <Button x:Name="btnIdCardChoosePhoto" Content="Add / Change Photo" Height="38" Margin="0,0,0,8"
+                            <Button x:Name="btnIdCardChoosePhoto" Content="Upload Photo (file)" Height="38" Margin="0,0,0,8"
                                     Click="BtnIdCardChoosePhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"/>
+                            <Button x:Name="btnIdCardScanPhoto" Content="Scan from Scanner" Height="38" Margin="0,0,0,8"
+                                    Click="BtnIdCardScanPhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"
+                                    ToolTip="Scan a hard-copy passport photo from a connected scanner"/>
                             <Button x:Name="btnIdCardRemovePhoto" Content="Remove Photo" Height="38"
                                     Click="BtnIdCardRemovePhoto_Click" Style="{StaticResource SecondaryButtonStyle}" IsEnabled="False"/>
                         </StackPanel>

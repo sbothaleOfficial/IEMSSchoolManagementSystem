@@ -789,7 +789,8 @@ public partial class StudentsManagementWindow : Window
     }
 
     /// <summary>Builds and exports an A4 ID-card sheet for the given students (loads photos by id).</summary>
-    private async Task GenerateIdCardsForAsync(IReadOnlyList<StudentDto> students, string warnIfEmpty, string? suggestedName)
+    private async Task GenerateIdCardsForAsync(IReadOnlyList<StudentDto> students, string warnIfEmpty, string? suggestedName,
+        IEMS.WPF.Pdf.IdCardSize? size = null)
     {
         try
         {
@@ -834,7 +835,8 @@ public partial class StudentsManagementWindow : Window
                 cards,
                 "Inspire English Medium School, Mardi",
                 "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
-                BonafideCertificateWindow.LoadSchoolLogoBytes());
+                BonafideCertificateWindow.LoadSchoolLogoBytes(),
+                size);
 
             var suggested = suggestedName
                 ?? (cards.Count == 1
@@ -859,6 +861,14 @@ public partial class StudentsManagementWindow : Window
 
     private void RefreshIdCardTab()
     {
+        // Card-size options (CR80 default). Populate once.
+        if (cmbIdCardSize.Items.Count == 0)
+        {
+            foreach (var sz in IEMS.WPF.Pdf.IdCardSize.Presets)
+                cmbIdCardSize.Items.Add(sz);
+            cmbIdCardSize.SelectedIndex = 0; // Standard CR80
+        }
+
         // Class filter
         var selectedClass = cmbIdCardTabClass.SelectedItem as string;
         cmbIdCardTabClass.Items.Clear();
@@ -910,6 +920,7 @@ public partial class StudentsManagementWindow : Window
             lblIdCardStudentClass.Text = string.Empty;
             imgIdCardPhoto.Source = null;
             btnIdCardChoosePhoto.IsEnabled = false;
+            btnIdCardScanPhoto.IsEnabled = false;
             btnIdCardRemovePhoto.IsEnabled = false;
             return;
         }
@@ -925,6 +936,7 @@ public partial class StudentsManagementWindow : Window
             lblIdCardStudentClass.Text = $"Class {full.ClassWithDivision}   •   Roll No {(string.IsNullOrWhiteSpace(full.StudentNumber) ? "-" : full.StudentNumber)}";
             imgIdCardPhoto.Source = PhotoHelper.Decode(full.Photo);
             btnIdCardChoosePhoto.IsEnabled = true;
+            btnIdCardScanPhoto.IsEnabled = true;
             btnIdCardRemovePhoto.IsEnabled = full.Photo != null && full.Photo.Length > 0;
         }, "Load Student Error");
     }
@@ -936,13 +948,33 @@ public partial class StudentsManagementWindow : Window
         {
             var bytes = PhotoHelper.Pick();
             if (bytes == null) return; // cancelled
-            SaveIdCardPhoto(bytes);
+            // Crop/resize to the card's passport aspect so it fills the box (no grey margins).
+            SaveIdCardPhoto(PhotoHelper.NormalizeForCard(bytes));
         }
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message, "Invalid Image", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
+
+    private void BtnIdCardScanPhoto_Click(object sender, RoutedEventArgs e)
+    {
+        if (_idCardSelected == null) return;
+        try
+        {
+            var bytes = PhotoHelper.ScanFromScanner();
+            if (bytes == null) return; // user cancelled the scan dialog
+            // Auto-crop the scanned page to passport size for the card.
+            SaveIdCardPhoto(PhotoHelper.NormalizeForCard(bytes));
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Scanner", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    private IEMS.WPF.Pdf.IdCardSize GetSelectedIdCardSize()
+        => cmbIdCardSize.SelectedItem as IEMS.WPF.Pdf.IdCardSize ?? IEMS.WPF.Pdf.IdCardSize.StandardCr80;
 
     private void BtnIdCardRemovePhoto_Click(object sender, RoutedEventArgs e)
     {
@@ -974,9 +1006,10 @@ public partial class StudentsManagementWindow : Window
     private void BtnIdCardGenerateSelected_Click(object sender, RoutedEventArgs e)
     {
         var selected = dgIdCardStudents.SelectedItems.OfType<StudentDto>().ToList();
+        var size = GetSelectedIdCardSize();
         AsyncHelper.SafeFireAndForget(
             () => GenerateIdCardsForAsync(selected,
-                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null),
+                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null, size),
             "ID Card Error");
     }
 
@@ -993,9 +1026,10 @@ public partial class StudentsManagementWindow : Window
 
         var classStudents = _allStudents.Where(s => s.ClassWithDivision == className).ToList();
         var safeName = className.Replace(" ", "_").Replace("(", "").Replace(")", "");
+        var size = GetSelectedIdCardSize();
         AsyncHelper.SafeFireAndForget(
             () => GenerateIdCardsForAsync(classStudents,
-                $"No students found in {className}.", suggestedName: $"IDCards_Class_{safeName}"),
+                $"No students found in {className}.", suggestedName: $"IDCards_Class_{safeName}", size),
             "Class ID Card Error");
     }
 
