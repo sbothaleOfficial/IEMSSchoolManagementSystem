@@ -247,7 +247,7 @@ public class FeePaymentService
         var schoolAddress = await _systemSettingsService.GetSettingValueAsync("School.AddressLine1") ?? "Tah. Maregaon, Dist. Yavatmal (Maharashtra)";
         var schoolPinCode = await _systemSettingsService.GetSettingValueAsync("School.PinCode") ?? "445303";
         var schoolPhone = await _systemSettingsService.GetSettingValueAsync("School.Phone") ?? "8483949981";
-        var schoolEmail = await _systemSettingsService.GetSettingValueAsync("School.Email") ?? "inspire.mardi@gmail.com";
+        var schoolEmail = await _systemSettingsService.GetSettingValueAsync("School.Email") ?? "inspiremardi@gmail.com";
 
         // Format school address with pin code
         var fullAddress = $"{schoolAddress} – {schoolPinCode}";

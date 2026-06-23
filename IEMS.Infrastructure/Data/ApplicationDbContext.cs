@@ -683,7 +683,7 @@ public class ApplicationDbContext : DbContext
             // School Contact Information
             new SystemSetting { Key = "School.Phone", Value = "8483949981", Description = "School primary phone number", Category = "School", DataType = "String", DefaultValue = "8483949981", IsReadOnly = false, CreatedAt = SeedDate },
             new SystemSetting { Key = "School.AlternatePhone", Value = "", Description = "School alternate phone number", Category = "School", DataType = "String", DefaultValue = "", IsReadOnly = false, CreatedAt = SeedDate },
-            new SystemSetting { Key = "School.Email", Value = "inspire.mardi@gmail.com", Description = "School official email address", Category = "School", DataType = "String", DefaultValue = "inspire.mardi@gmail.com", IsReadOnly = false, CreatedAt = SeedDate },
+            new SystemSetting { Key = "School.Email", Value = "inspiremardi@gmail.com", Description = "School official email address", Category = "School", DataType = "String", DefaultValue = "inspiremardi@gmail.com", IsReadOnly = false, CreatedAt = SeedDate },
             new SystemSetting { Key = "School.Website", Value = "", Description = "School website URL", Category = "School", DataType = "String", DefaultValue = "", IsReadOnly = false, CreatedAt = SeedDate }
         );
     }

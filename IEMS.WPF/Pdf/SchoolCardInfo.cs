@@ -12,7 +12,7 @@ namespace IEMS.WPF.Pdf
             Tagline = "Excellence in Education • Inspiring Future Leaders",
             Address = "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
             Phone = "8483949981",
-            Email = "inspire.mardi@gmail.com",
+            Email = "inspiremardi@gmail.com",
             Website = "",
             Terms = new[]
             {
