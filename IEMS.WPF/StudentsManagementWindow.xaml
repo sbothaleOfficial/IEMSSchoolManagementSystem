@@ -573,6 +573,10 @@
                             <Button x:Name="btnIdCardGenerateClass" Content="Print Whole Class" Width="160" Height="38"
                                     Click="BtnIdCardGenerateClass_Click" Style="{StaticResource PrimaryButtonStyle}"
                                     ToolTip="Print ID cards for every student in the class chosen above"/>
+                            <CheckBox x:Name="chkIncludeBack" Content="Include back side (terms &amp; contact)"
+                                      VerticalAlignment="Center" Margin="18,0,0,0"
+                                      Foreground="{StaticResource TextPrimaryBrush}"
+                                      ToolTip="Also print a back side with terms &amp; conditions, signature and school contact"/>
                         </StackPanel>
                     </Grid>
 

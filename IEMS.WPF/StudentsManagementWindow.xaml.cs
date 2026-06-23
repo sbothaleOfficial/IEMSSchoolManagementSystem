@@ -790,7 +790,7 @@ public partial class StudentsManagementWindow : Window
 
     /// <summary>Builds and exports an A4 ID-card sheet for the given students (loads photos by id).</summary>
     private async Task GenerateIdCardsForAsync(IReadOnlyList<StudentDto> students, string warnIfEmpty, string? suggestedName,
-        IEMS.WPF.Pdf.IdCardSize? size = null)
+        IEMS.WPF.Pdf.IdCardSize? size = null, bool includeBack = false)
     {
         try
         {
@@ -802,28 +802,28 @@ public partial class StudentsManagementWindow : Window
                 return;
             }
 
-            var cards = new List<IEMS.WPF.Pdf.IdCardData>();
+            // Load the full entities (with photo BLOB) on this background thread.
+            var raw = new List<IEMS.WPF.Pdf.IdCardData>();
             foreach (var dto in students.OrderBy(s => s.SerialNo))
             {
-                // Load the full entity so we get the photo BLOB (not carried on list DTOs).
                 var student = await _studentService.GetStudentEntityByIdAsync(dto.Id);
                 if (student == null) continue;
 
-                cards.Add(new IEMS.WPF.Pdf.IdCardData
+                raw.Add(new IEMS.WPF.Pdf.IdCardData
                 {
                     StudentName = student.FullName,
                     FatherName = student.FatherName,
                     ClassName = student.ClassWithDivision,
                     StudentNumber = string.IsNullOrWhiteSpace(student.StudentNumber) ? "-" : student.StudentNumber,
-                    DateOfBirth = student.DateOfBirth.ToString("dd/MM/yyyy"),
+                    DateOfBirth = student.DateOfBirth.ToString("dd MMM yyyy"),
                     BloodGroup = student.BloodGroup ?? string.Empty,
                     ParentMobile = student.ParentMobileNumber,
-                    Address = student.CityVillage,
+                    Address = string.IsNullOrWhiteSpace(student.Address) ? student.CityVillage : student.Address,
                     Photo = student.Photo
                 });
             }
 
-            if (cards.Count == 0)
+            if (raw.Count == 0)
             {
                 toastNotification.Message = "Student(s) not found.";
                 toastNotification.ToastType = ToastType.Error;
@@ -831,19 +831,41 @@ public partial class StudentsManagementWindow : Window
                 return;
             }
 
-            var document = new IEMS.WPF.Pdf.StudentIdCardDocument(
-                cards,
-                "Inspire English Medium School, Mardi",
-                "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
-                BonafideCertificateWindow.LoadSchoolLogoBytes(),
-                size);
-
+            var theSize = size ?? IEMS.WPF.Pdf.IdCardSize.StandardCr80;
             var suggested = suggestedName
-                ?? (cards.Count == 1
-                    ? $"IDCard_{cards[0].StudentName.Replace(' ', '_')}"
-                    : $"IDCards_{cards.Count}_students");
+                ?? (raw.Count == 1
+                    ? $"IDCard_{raw[0].StudentName.Replace(' ', '_')}"
+                    : $"IDCards_{raw.Count}_students");
 
-            Dispatcher.Invoke(() => IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, suggested));
+            // All image rendering (WPF) and PDF generation must happen on the UI thread.
+            Dispatcher.Invoke(() =>
+            {
+                var frontBg = IEMS.WPF.Pdf.CardArt.RenderFront(theSize.WidthMm, theSize.HeightMm);
+                var backBg = includeBack ? IEMS.WPF.Pdf.CardArt.RenderBack(theSize.WidthMm, theSize.HeightMm) : null;
+                var logo = BonafideCertificateWindow.LoadSchoolLogoBytes();
+                var school = BuildSchoolInfo();
+
+                var cards = new List<IEMS.WPF.Pdf.IdCardData>();
+                foreach (var r in raw)
+                {
+                    byte[]? norm = null, rounded = null;
+                    try
+                    {
+                        if (r.Photo != null && r.Photo.Length > 0)
+                        {
+                            norm = IEMS.WPF.Helpers.PhotoHelper.NormalizeForCard(r.Photo);
+                            rounded = IEMS.WPF.Pdf.CardArt.RoundPhoto(norm);
+                        }
+                    }
+                    catch { /* a bad photo shouldn't block the card */ }
+
+                    var barcode = IEMS.WPF.Pdf.Barcode128.RenderPng(r.StudentNumber, 600, 120);
+                    cards.Add(r with { Photo = norm, PhotoRounded = rounded, Barcode = barcode });
+                }
+
+                var document = new IEMS.WPF.Pdf.StudentIdCardDocument(cards, school, logo, frontBg, backBg, includeBack, theSize);
+                IEMS.WPF.Pdf.PdfExporter.SaveAndOpen(document, suggested);
+            });
         }
         catch (Exception ex)
         {
@@ -852,6 +874,24 @@ public partial class StudentsManagementWindow : Window
             toastNotification.Show();
         }
     }
+
+    /// <summary>School details for the ID card. (Matches the seeded School.* settings.)</summary>
+    private static IEMS.WPF.Pdf.SchoolInfo BuildSchoolInfo() => new()
+    {
+        Name = "Inspire English Medium School, Mardi",
+        Tagline = "Excellence in Education • Inspiring Future Leaders",
+        Address = "Tah. Maregaon, Dist. Yavatmal (MH) – 445303",
+        Phone = "8483949981",
+        Email = "inspire.mardi@gmail.com",
+        Website = "",
+        Terms = new[]
+        {
+            "This ID card is the property of the school.",
+            "This card is non-transferable.",
+            "If found, please return it to the school office.",
+            "The holder must carry this card in school every day."
+        }
+    };
 
     // ---------- ID Cards tab ----------
 
@@ -1051,9 +1091,10 @@ public partial class StudentsManagementWindow : Window
     {
         var selected = dgIdCardStudents.SelectedItems.OfType<StudentDto>().ToList();
         var size = GetSelectedIdCardSize();
+        bool includeBack = chkIncludeBack.IsChecked == true;
         AsyncHelper.SafeFireAndForget(
             () => GenerateIdCardsForAsync(selected,
-                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null, size),
+                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null, size, includeBack),
             "ID Card Error");
     }
 
@@ -1071,9 +1112,10 @@ public partial class StudentsManagementWindow : Window
         var classStudents = _allStudents.Where(s => s.ClassWithDivision == className).ToList();
         var safeName = className.Replace(" ", "_").Replace("(", "").Replace(")", "");
         var size = GetSelectedIdCardSize();
+        bool includeBack = chkIncludeBack.IsChecked == true;
         AsyncHelper.SafeFireAndForget(
             () => GenerateIdCardsForAsync(classStudents,
-                $"No students found in {className}.", suggestedName: $"IDCards_Class_{safeName}", size),
+                $"No students found in {className}.", suggestedName: $"IDCards_Class_{safeName}", size, includeBack),
             "Class ID Card Error");
     }
 
