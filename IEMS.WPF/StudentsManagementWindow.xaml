@@ -525,6 +525,78 @@
                 </TabControl>
             </TabItem>
 
+            <TabItem Header="ID Cards" FontSize="14">
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="340"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left: search + student list + generate buttons -->
+                    <Grid Grid.Column="0" Margin="0,0,12,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="Search:" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <TextBox x:Name="txtSearchIdCard" Width="220" Height="28" VerticalContentAlignment="Center"
+                                     TextChanged="TxtSearchIdCard_TextChanged"
+                                     ToolTip="Search by name, roll number or class"/>
+                            <TextBlock Text="Class:" VerticalAlignment="Center" Margin="15,0,5,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <ComboBox x:Name="cmbIdCardTabClass" Width="130" Height="28" VerticalContentAlignment="Center"
+                                      SelectionChanged="CmbIdCardTabClass_SelectionChanged"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="dgIdCardStudents" Grid.Row="1" AutoGenerateColumns="False"
+                                  SelectionMode="Extended" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                                  GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                                  AlternatingRowBackground="{StaticResource SurfaceBrush}"
+                                  SelectionChanged="DgIdCardStudents_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Roll No" Binding="{Binding StudentNumber}" Width="100"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="*"/>
+                                <DataGridTextColumn Header="Class" Binding="{Binding ClassWithDivision}" Width="120"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button x:Name="btnIdCardGenerateSelected" Content="Generate ID Card (selected)" Width="220" Height="38" Margin="0,0,10,0"
+                                    Click="BtnIdCardGenerateSelected_Click" Style="{StaticResource SuccessButtonStyle}"
+                                    ToolTip="Ctrl/Shift-click to select several students"/>
+                            <Button x:Name="btnIdCardGenerateClass" Content="Print Whole Class" Width="160" Height="38"
+                                    Click="BtnIdCardGenerateClass_Click" Style="{StaticResource PrimaryButtonStyle}"
+                                    ToolTip="Print ID cards for every student in the class chosen above"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Right: selected student's photo + actions -->
+                    <Border Grid.Column="1" Background="{StaticResource SurfaceBrush}" CornerRadius="6" Padding="18">
+                        <StackPanel>
+                            <TextBlock x:Name="lblIdCardStudentName" Text="Select a student" FontSize="16" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimaryBrush}" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="lblIdCardStudentClass" Text="" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,14"/>
+
+                            <Border Width="170" Height="210" HorizontalAlignment="Center"
+                                    BorderBrush="#BDC3C7" BorderThickness="1" Background="White">
+                                <Image x:Name="imgIdCardPhoto" Stretch="Uniform"/>
+                            </Border>
+
+                            <TextBlock Text="JPG or PNG, up to 2 MB" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"
+                                       HorizontalAlignment="Center" Margin="0,6,0,14"/>
+
+                            <Button x:Name="btnIdCardChoosePhoto" Content="Add / Change Photo" Height="38" Margin="0,0,0,8"
+                                    Click="BtnIdCardChoosePhoto_Click" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False"/>
+                            <Button x:Name="btnIdCardRemovePhoto" Content="Remove Photo" Height="38"
+                                    Click="BtnIdCardRemovePhoto_Click" Style="{StaticResource SecondaryButtonStyle}" IsEnabled="False"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
             <TabItem Header="Bonafide" FontSize="14">
                 <Grid>
                     <Grid.RowDefinitions>

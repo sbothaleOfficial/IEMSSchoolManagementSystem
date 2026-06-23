@@ -851,6 +851,154 @@ public partial class StudentsManagementWindow : Window
         }
     }
 
+    // ---------- ID Cards tab ----------
+
+    // Full DTO (incl. photo + blood group) of the student currently shown in the photo panel.
+    private StudentDto? _idCardSelected;
+    private byte[]? _idCardPhotoBytes;
+
+    private void RefreshIdCardTab()
+    {
+        // Class filter
+        var selectedClass = cmbIdCardTabClass.SelectedItem as string;
+        cmbIdCardTabClass.Items.Clear();
+        cmbIdCardTabClass.Items.Add("(All classes)");
+        foreach (var c in _allStudents.Select(s => s.ClassWithDivision)
+                     .Where(c => !string.IsNullOrWhiteSpace(c)).Distinct().OrderBy(c => c))
+            cmbIdCardTabClass.Items.Add(c);
+        cmbIdCardTabClass.SelectedItem = selectedClass != null && cmbIdCardTabClass.Items.Contains(selectedClass)
+            ? selectedClass : "(All classes)";
+
+        FilterIdCardStudents();
+    }
+
+    private void FilterIdCardStudents()
+    {
+        if (dgIdCardStudents == null) return;
+
+        IEnumerable<StudentDto> q = _allStudents;
+
+        var cls = cmbIdCardTabClass.SelectedItem as string;
+        if (!string.IsNullOrEmpty(cls) && cls != "(All classes)")
+            q = q.Where(s => s.ClassWithDivision == cls);
+
+        var search = txtSearchIdCard?.Text?.Trim();
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var s = search.ToLowerInvariant();
+            q = q.Where(x => x.FullName.ToLowerInvariant().Contains(s)
+                          || (x.StudentNumber ?? "").ToLowerInvariant().Contains(s)
+                          || (x.ClassWithDivision ?? "").ToLowerInvariant().Contains(s));
+        }
+
+        dgIdCardStudents.ItemsSource = q.OrderBy(s => s.SerialNo).ToList();
+    }
+
+    private void TxtSearchIdCard_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) => FilterIdCardStudents();
+
+    private void CmbIdCardTabClass_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) => FilterIdCardStudents();
+
+    private void DgIdCardStudents_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        // The photo panel edits a single student; use the most-recently focused row.
+        var dto = dgIdCardStudents.SelectedItem as StudentDto;
+        if (dto == null)
+        {
+            _idCardSelected = null;
+            _idCardPhotoBytes = null;
+            lblIdCardStudentName.Text = "Select a student";
+            lblIdCardStudentClass.Text = string.Empty;
+            imgIdCardPhoto.Source = null;
+            btnIdCardChoosePhoto.IsEnabled = false;
+            btnIdCardRemovePhoto.IsEnabled = false;
+            return;
+        }
+
+        AsyncHelper.SafeFireAndForget(async () =>
+        {
+            // Load the full record so saving the photo never wipes other fields (e.g. blood group).
+            var full = await _studentService.GetStudentByIdAsync(dto.Id);
+            if (full == null) return;
+            _idCardSelected = full;
+            _idCardPhotoBytes = full.Photo;
+            lblIdCardStudentName.Text = full.FullName;
+            lblIdCardStudentClass.Text = $"Class {full.ClassWithDivision}   •   Roll No {(string.IsNullOrWhiteSpace(full.StudentNumber) ? "-" : full.StudentNumber)}";
+            imgIdCardPhoto.Source = PhotoHelper.Decode(full.Photo);
+            btnIdCardChoosePhoto.IsEnabled = true;
+            btnIdCardRemovePhoto.IsEnabled = full.Photo != null && full.Photo.Length > 0;
+        }, "Load Student Error");
+    }
+
+    private void BtnIdCardChoosePhoto_Click(object sender, RoutedEventArgs e)
+    {
+        if (_idCardSelected == null) return;
+        try
+        {
+            var bytes = PhotoHelper.Pick();
+            if (bytes == null) return; // cancelled
+            SaveIdCardPhoto(bytes);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Invalid Image", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    private void BtnIdCardRemovePhoto_Click(object sender, RoutedEventArgs e)
+    {
+        if (_idCardSelected == null || _idCardPhotoBytes == null) return;
+        SaveIdCardPhoto(null);
+    }
+
+    private void SaveIdCardPhoto(byte[]? bytes)
+    {
+        var target = _idCardSelected;
+        if (target == null) return;
+
+        AsyncHelper.SafeFireAndForget(async () =>
+        {
+            target.Photo = bytes;
+            await _studentService.UpdateStudentAsync(target);
+            _idCardPhotoBytes = bytes;
+            imgIdCardPhoto.Source = PhotoHelper.Decode(bytes);
+            btnIdCardRemovePhoto.IsEnabled = bytes != null && bytes.Length > 0;
+
+            toastNotification.Message = bytes == null
+                ? $"Photo removed for {target.FullName}."
+                : $"Photo saved for {target.FullName}.";
+            toastNotification.ToastType = ToastType.Success;
+            toastNotification.Show();
+        }, "Save Photo Error");
+    }
+
+    private void BtnIdCardGenerateSelected_Click(object sender, RoutedEventArgs e)
+    {
+        var selected = dgIdCardStudents.SelectedItems.OfType<StudentDto>().ToList();
+        AsyncHelper.SafeFireAndForget(
+            () => GenerateIdCardsForAsync(selected,
+                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null),
+            "ID Card Error");
+    }
+
+    private void BtnIdCardGenerateClass_Click(object sender, RoutedEventArgs e)
+    {
+        var className = cmbIdCardTabClass.SelectedItem as string;
+        if (string.IsNullOrWhiteSpace(className) || className == "(All classes)")
+        {
+            toastNotification.Message = "Pick a specific class above to print the whole class.";
+            toastNotification.ToastType = ToastType.Warning;
+            toastNotification.Show();
+            return;
+        }
+
+        var classStudents = _allStudents.Where(s => s.ClassWithDivision == className).ToList();
+        var safeName = className.Replace(" ", "_").Replace("(", "").Replace(")", "");
+        AsyncHelper.SafeFireAndForget(
+            () => GenerateIdCardsForAsync(classStudents,
+                $"No students found in {className}.", suggestedName: $"IDCards_Class_{safeName}"),
+            "Class ID Card Error");
+    }
+
     private void BtnRefreshBonafide_Click(object sender, RoutedEventArgs e)
     {
         AsyncHelper.SafeFireAndForget(LoadBonafideStudentsAsync);
@@ -874,6 +1022,8 @@ public partial class StudentsManagementWindow : Window
                 cmbIdCardClass.Items.Add(c);
             cmbIdCardClass.SelectedItem = selectedClass != null && cmbIdCardClass.Items.Contains(selectedClass)
                 ? selectedClass : "(Select class)";
+
+            RefreshIdCardTab();
         }
         catch (Exception ex)
         {
