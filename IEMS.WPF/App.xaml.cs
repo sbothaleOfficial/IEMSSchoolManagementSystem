@@ -148,6 +148,12 @@ public partial class App : System.Windows.Application
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 MigrateDatabase(context);
 
+                // A fresh install seeds demo data so the app is easy to explore. On the very first
+                // launch, clear that demo data so the school starts on a clean slate — but only if it
+                // is still the exact untouched seed (never deletes real data). Settings, users and
+                // academic years are kept.
+                await ProductionDataInitializer.EnsureCleanStartAsync(context);
+
                 // Ensure default admin user exists
                 var userService = scope.ServiceProvider.GetRequiredService<UserService>();
                 await userService.EnsureDefaultAdminExistsAsync();

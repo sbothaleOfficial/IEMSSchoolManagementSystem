@@ -791,6 +791,50 @@ await Section("20. School documents (store / list / open / delete)", async () =>
     Check("School docs: delete removes it", (await docs.GetDocumentsAsync()).Count == before);
 });
 
+// ----- 21. Production clean-start (clears ONLY pristine demo data) -----
+await Section("21. Production clean-start (first-run demo data clear)", async () =>
+{
+    // Use a throwaway database so this destructive test never affects the others.
+    var tmpDb = Path.Combine(Path.GetTempPath(), $"iems_cleanstart_{Guid.NewGuid():N}.db");
+    var opts = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlite($"Data Source={tmpDb}").Options;
+    try
+    {
+        using var ctx = new ApplicationDbContext(opts);
+        await ctx.Database.MigrateAsync(); // applies migrations + seeds the demo data
+
+        Check("Clean-start: a fresh install is recognised as pristine demo data",
+            await IEMS.Infrastructure.Data.ProductionDataInitializer.IsPristineDemoSeedAsync(ctx));
+
+        await IEMS.Infrastructure.Data.ProductionDataInitializer.EnsureCleanStartAsync(ctx);
+
+        Check("Clean-start: students cleared", await ctx.Students.CountAsync() == 0, $"{await ctx.Students.CountAsync()}");
+        Check("Clean-start: teachers cleared", await ctx.Teachers.CountAsync() == 0);
+        Check("Clean-start: staff cleared", await ctx.Staff.CountAsync() == 0);
+        Check("Clean-start: classes cleared", await ctx.Classes.CountAsync() == 0);
+        Check("Clean-start: vehicles cleared", await ctx.Vehicles.CountAsync() == 0);
+        Check("Clean-start: fee payments cleared", await ctx.FeePayments.CountAsync() == 0);
+        Check("Clean-start: fee structures cleared", await ctx.FeeStructures.CountAsync() == 0);
+        Check("Clean-start: expenses cleared", await ctx.ElectricityBills.CountAsync() == 0 && await ctx.OtherExpenses.CountAsync() == 0);
+
+        Check("Clean-start: SETTINGS kept", await ctx.SystemSettings.CountAsync() == 14, $"{await ctx.SystemSettings.CountAsync()}");
+        Check("Clean-start: ACADEMIC YEARS kept", await ctx.AcademicYears.CountAsync() == 4, $"{await ctx.AcademicYears.CountAsync()}");
+        Check("Clean-start: ADMIN USER kept", await ctx.Users.CountAsync() == 1, $"{await ctx.Users.CountAsync()}");
+
+        Check("Clean-start: now NOT pristine, so it never runs again",
+            !await IEMS.Infrastructure.Data.ProductionDataInitializer.IsPristineDemoSeedAsync(ctx));
+
+        // Running it again must be a safe no-op (and must never delete real data).
+        await IEMS.Infrastructure.Data.ProductionDataInitializer.EnsureCleanStartAsync(ctx);
+        Check("Clean-start: second run is a safe no-op", await ctx.Students.CountAsync() == 0);
+    }
+    finally
+    {
+        Microsoft.Data.Sqlite.SqliteConnection.ClearAllPools();
+        foreach (var ext in new[] { "", "-wal", "-shm" })
+            try { File.Delete(tmpDb + ext); } catch { }
+    }
+});
+
 // ----- Summary -----
 Console.WriteLine();
 Console.WriteLine("============================================================");
