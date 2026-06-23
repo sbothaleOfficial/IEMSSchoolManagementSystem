@@ -101,6 +101,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -141,8 +142,30 @@
                         </Grid>
                     </Border>
 
+                    <!-- Google Drive (cloud) backup -->
+                    <Border Grid.Row="2" Background="#E8F0FE" CornerRadius="8" Padding="20" Margin="0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="☁️ Google Drive Backup" FontWeight="Bold" FontSize="15" Foreground="#1A73E8"/>
+                                <TextBlock x:Name="GoogleDriveStatusText"
+                                           Text="Save backups into your Google Drive folder so they upload to the cloud automatically. Requires Google Drive for Desktop (drive.google.com/download)."
+                                           TextWrapping="Wrap" Foreground="#5F6368" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <Button Grid.Column="1" x:Name="SetupGoogleDriveButton"
+                                    Content="☁️ Set up Google Drive backup"
+                                    Style="{StaticResource ActionButtonStyle}"
+                                    Background="#1A73E8" Foreground="White"
+                                    VerticalAlignment="Center" Margin="15,0,0,0"
+                                    Click="SetupGoogleDriveButton_Click"/>
+                        </Grid>
+                    </Border>
+
                     <!-- Backup Options -->
-                    <GroupBox Grid.Row="2" Header="Backup Options" Margin="0,10">
+                    <GroupBox Grid.Row="3" Header="Backup Options" Margin="0,10">
                         <StackPanel Margin="10">
                             <CheckBox x:Name="CompressBackupCheckBox"
                                     Content="Compress backup file (smaller size)"
@@ -159,7 +182,7 @@
                     </GroupBox>
 
                     <!-- Status Panel -->
-                    <Border Grid.Row="3" Background="#F8F9FA" CornerRadius="8" Padding="15" Margin="0,10">
+                    <Border Grid.Row="4" Background="#F8F9FA" CornerRadius="8" Padding="15" Margin="0,10">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <TextBlock x:Name="BackupStatusText"
                                      Text="Ready to create backup..."

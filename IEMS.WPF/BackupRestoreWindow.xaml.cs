@@ -15,6 +15,7 @@ namespace IEMS.WPF
     public partial class BackupRestoreWindow : Window
     {
         private readonly IBackupService _backupService;
+        private readonly IServiceProvider _services;
         private List<BackupInfoViewModel> _backupHistory;
         private string _selectedBackupPath = string.Empty;
 
@@ -23,6 +24,7 @@ namespace IEMS.WPF
             InitializeComponent();
             // Resolve from the window's own DI scope (passed in by MainWindow) rather than the
             // root provider, so scoped services aren't captured for the app's whole lifetime.
+            _services = services;
             _backupService = services.GetRequiredService<IBackupService>();
             Loaded += Window_Loaded;
         }
@@ -32,6 +34,21 @@ namespace IEMS.WPF
             await LoadBackupHistory();
             await UpdateDatabaseInfo();
             await LoadScheduleSettings();
+            await RefreshGoogleDriveStatus();
+        }
+
+        /// <summary>If a cloud/Drive backup folder is already configured, show it on the card.</summary>
+        private async Task RefreshGoogleDriveStatus()
+        {
+            try
+            {
+                var settings = _services.GetRequiredService<IEMS.Application.Interfaces.ISystemSettingsService>();
+                var configured = await settings.GetSettingValueAsync("Backup.BackupPath");
+                if (!string.IsNullOrWhiteSpace(configured))
+                    GoogleDriveStatusText.Text =
+                        $"✅ Backups go to: {configured}\nGoogle Drive for Desktop uploads them automatically while it is running.";
+            }
+            catch { /* non-fatal: leave the default hint text */ }
         }
 
         private async Task UpdateDatabaseInfo()
@@ -511,6 +528,90 @@ namespace IEMS.WPF
             finally
             {
                 RestoreButton.IsEnabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Guided "Back up to Google Drive": find the Google Drive for Desktop folder (or let the
+        /// user pick one), point all backups at an "IEMS Backups" folder there, turn on a daily
+        /// schedule, and create a first backup. Google Drive for Desktop then uploads them for free.
+        /// </summary>
+        private async void SetupGoogleDriveButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var driveFolder = IEMS.WPF.Helpers.GoogleDriveLocator.FindMyDriveFolder();
+                if (driveFolder == null)
+                {
+                    var choice = MessageBox.Show(
+                        "Google Drive for Desktop was not detected on this PC.\n\n" +
+                        "Install it from drive.google.com/download and sign in, then run this again — " +
+                        "or click OK to pick a synced folder manually (e.g. an existing Google Drive or OneDrive folder).",
+                        "Google Drive not found", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                    if (choice != MessageBoxResult.OK) return;
+
+                    var picker = new Microsoft.Win32.OpenFolderDialog
+                    {
+                        Title = "Choose your Google Drive (or other synced) folder"
+                    };
+                    if (picker.ShowDialog() != true) return;
+                    driveFolder = picker.FolderName;
+                }
+
+                var backupFolder = Path.Combine(driveFolder, "IEMS Backups");
+                Directory.CreateDirectory(backupFolder);
+
+                // 1) Point manual-default and scheduled backups at the Drive folder.
+                var settings = _services.GetRequiredService<IEMS.Application.Interfaces.ISystemSettingsService>();
+                await settings.UpdateSettingAsync("Backup.BackupPath", backupFolder);
+
+                // 2) Turn on a daily automatic backup so it keeps uploading unattended.
+                var schedule = new BackupSchedule
+                {
+                    EnableDaily = true,
+                    DailyTime = new TimeSpan(18, 0, 0), // 6:00 PM
+                    EnableWeekly = false,
+                    EnableMonthly = false,
+                    EnableIncremental = false,
+                    WeeklyDay = DayOfWeek.Friday,
+                    MonthlyDay = 1,
+                    IncrementalIntervalHours = 6
+                };
+                await _backupService.SetupAutomaticBackupAsync(schedule);
+
+                // 3) Create a first backup right now to confirm the folder is writable and seed the cloud.
+                SetupGoogleDriveButton.IsEnabled = false;
+                BackupStatusText.Text = $"Creating the first Google Drive backup in {backupFolder}...";
+                var result = await _backupService.CreateBackupAsync(BackupType.Manual, backupFolder);
+                SetupGoogleDriveButton.IsEnabled = true;
+
+                if (result.Success)
+                {
+                    GoogleDriveStatusText.Text =
+                        $"✅ Backups go to: {backupFolder}\n" +
+                        "Daily auto-backup is ON (6:00 PM). Google Drive for Desktop uploads them automatically.";
+                    BackupStatusText.Text = $"✅ First Google Drive backup created:\n{result.BackupPath}";
+
+                    // Reflect the daily schedule in the Automatic Backup tab.
+                    EnableDailyBackupCheckBox.IsChecked = true;
+                    UpdateNextBackupInfo();
+                    await LoadBackupHistory();
+
+                    MessageBox.Show(
+                        $"Google Drive backup is set up.\n\nBackups are saved to:\n{backupFolder}\n\n" +
+                        "Keep Google Drive for Desktop running and signed in — it uploads these to your Drive automatically.",
+                        "Google Drive backup ready", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    GoogleDriveStatusText.Text = $"❌ Could not write a backup to {backupFolder}: {result.Message}";
+                    BackupStatusText.Text = $"❌ {result.Message}";
+                }
+            }
+            catch (Exception ex)
+            {
+                SetupGoogleDriveButton.IsEnabled = true;
+                ShowError($"Could not set up Google Drive backup: {ex.Message}");
             }
         }
 
