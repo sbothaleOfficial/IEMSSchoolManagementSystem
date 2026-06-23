@@ -156,6 +156,15 @@ public partial class StudentsManagementWindow : Window
         }
     }
 
+    private void BtnStudentIdCard_Click(object sender, RoutedEventArgs e)
+    {
+        var selected = dgStudents.SelectedItems.OfType<StudentDto>().ToList();
+        AsyncHelper.SafeFireAndForget(
+            () => GenerateIdCardsForAsync(selected,
+                "Select one or more students (Ctrl/Shift-click) to print ID cards.", suggestedName: null),
+            "ID Card Error");
+    }
+
     private void BtnDeleteStudent_Click(object sender, RoutedEventArgs e)
     {
         AsyncHelper.SafeFireAndForget(async () =>
