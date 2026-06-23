@@ -57,6 +57,8 @@ services.AddScoped<ISystemSettingRepository, SystemSettingRepository>();
 services.AddScoped<IStudentPromotionRepository, StudentPromotionRepository>();
 services.AddScoped<IStudentDocumentRepository, StudentDocumentRepository>();
 services.AddScoped<StudentDocumentService>();
+services.AddScoped<ISchoolDocumentRepository, SchoolDocumentRepository>();
+services.AddScoped<SchoolDocumentService>();
 services.AddScoped<FeeCalculationService>();
 services.AddScoped<AmountToWordsService>();
 services.AddScoped<PasswordHashingService>();
@@ -763,6 +765,30 @@ await Section("19. Teacher & Staff ID-card fields (photo + blood group)", async 
     var s2 = await staff.GetStaffEntityByIdAsync(staffId);
     Check("Staff: editing details keeps the photo", s2?.Photo != null && s2.Photo.SequenceEqual(photo));
     Check("Staff: editing details keeps the blood group", s2?.BloodGroup == "O-", s2?.BloodGroup ?? "null");
+});
+
+// ----- 20. School documents (store / list / open / delete) -----
+await Section("20. School documents (store / list / open / delete)", async () =>
+{
+    using var scope = provider.CreateScope();
+    var docs = scope.ServiceProvider.GetRequiredService<SchoolDocumentService>();
+
+    var before = (await docs.GetDocumentsAsync()).Count;
+    var payload = System.Text.Encoding.UTF8.GetBytes("%PDF-1.4 fake affiliation certificate bytes");
+
+    var added = await docs.AddDocumentAsync("Affiliation / Recognition", "affiliation.pdf", "application/pdf", payload, "harness-user");
+    Check("School docs: add returns metadata", added.Id > 0 && added.DocumentType == "Affiliation / Recognition" && added.FileSize == payload.Length);
+
+    var list = await docs.GetDocumentsAsync();
+    Check("School docs: appears in the list", list.Count == before + 1 && list.Any(d => d.Id == added.Id));
+    Check("School docs: list metadata is correct", list.First(d => d.Id == added.Id).FileName == "affiliation.pdf");
+
+    var file = await docs.GetFileAsync(added.Id);
+    Check("School docs: stored bytes round-trip exactly",
+        file != null && file.Data.SequenceEqual(payload) && file.ContentType == "application/pdf", $"{file?.Data.Length}");
+
+    await docs.DeleteDocumentAsync(added.Id);
+    Check("School docs: delete removes it", (await docs.GetDocumentsAsync()).Count == before);
 });
 
 // ----- Summary -----

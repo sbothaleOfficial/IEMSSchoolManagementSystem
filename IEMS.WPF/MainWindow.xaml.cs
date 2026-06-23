@@ -132,6 +132,11 @@ public partial class MainWindow : Window
     private void BtnAuditTrail_Click(object sender, RoutedEventArgs e) =>
         OpenModule(sp => new AuditLogWindow(sp.GetRequiredService<AuditLogService>()), "Audit Trail");
 
+    private void BtnSchoolDocuments_Click(object sender, RoutedEventArgs e) =>
+        OpenModule(sp => new SchoolDocumentsWindow(
+            sp.GetRequiredService<SchoolDocumentService>(),
+            LoginWindow.CurrentUser?.Username ?? "admin"), "School Documents");
+
     private void BtnAcademicYearManagement_Click(object sender, RoutedEventArgs e) =>
         OpenModule(sp => new AcademicYearManagementWindow(sp.GetRequiredService<AcademicYearService>()), "Academic Year Management");
 

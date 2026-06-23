@@ -83,6 +83,7 @@ public partial class App : System.Windows.Application
                     services.AddScoped<IStudentPromotionRepository, StudentPromotionRepository>();
                     services.AddScoped<IAuditLogRepository, AuditLogRepository>();
                     services.AddScoped<IStudentDocumentRepository, StudentDocumentRepository>();
+                    services.AddScoped<ISchoolDocumentRepository, SchoolDocumentRepository>();
 
                     // Configuration
                     var bulkPromotionConfig = new BulkPromotionConfiguration
@@ -128,6 +129,7 @@ public partial class App : System.Windows.Application
                     services.AddScoped<ISystemSettingsService, SystemSettingsService>();
                     services.AddScoped<AuditLogService>();
                     services.AddScoped<StudentDocumentService>();
+                    services.AddScoped<SchoolDocumentService>();
                     services.AddScoped<UserService>();
                     services.AddHostedService<AutomaticBackupService>();
 

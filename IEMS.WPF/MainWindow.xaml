@@ -373,6 +373,36 @@
                                     Click="BtnAuditTrail_Click"/>
                         </StackPanel>
                     </Border>
+
+                    <!-- School Documents Card -->
+                    <Border Grid.Row="4" Grid.Column="1" Style="{StaticResource CardStyle}">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Background="{StaticResource PrimaryBrush}" Width="60" Height="60" CornerRadius="30" Margin="0,0,15,0">
+                                    <TextBlock Text="📁" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="School Documents" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <TextBlock Text="Upload, open and share the school's documents (phone QR supported)" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Button x:Name="btnSchoolDocuments" Content="Manage School Documents"
+                                    Height="40" Margin="0,20,0,0"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    FontSize="14" FontWeight="SemiBold"
+                                    Click="BtnSchoolDocuments_Click"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </Grid>
         </ScrollViewer>

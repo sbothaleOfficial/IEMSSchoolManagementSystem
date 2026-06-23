@@ -25,6 +25,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<StudentPromotionHistory> StudentPromotionHistory { get; set; }
     public DbSet<AuditLog> AuditLogs { get; set; }
     public DbSet<StudentDocument> StudentDocuments { get; set; }
+    public DbSet<SchoolDocument> SchoolDocuments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,6 +44,16 @@ public class ApplicationDbContext : DbContext
                   .WithMany()
                   .HasForeignKey(e => e.StudentId)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<SchoolDocument>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.DocumentType).IsRequired().HasMaxLength(60);
+            entity.Property(e => e.FileName).IsRequired().HasMaxLength(260);
+            entity.Property(e => e.ContentType).HasMaxLength(120);
+            entity.Property(e => e.UploadedBy).HasMaxLength(100);
+            entity.HasIndex(e => e.UploadedAt);
         });
 
         modelBuilder.Entity<AuditLog>(entity =>
