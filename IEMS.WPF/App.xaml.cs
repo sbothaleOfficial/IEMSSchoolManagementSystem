@@ -153,7 +153,16 @@ public partial class App : System.Windows.Application
                 // launch, clear that demo data so the school starts on a clean slate — but only if it
                 // is still the exact untouched seed (never deletes real data). Settings, users and
                 // academic years are kept.
+                bool firstLaunch = await ProductionDataInitializer.IsPristineDemoSeedAsync(context);
                 await ProductionDataInitializer.EnsureCleanStartAsync(context);
+
+                // On that same first launch, set the current academic year to the one matching the
+                // calendar today (the seed's "current" year is just historical sample data). This
+                // makes a fresh install start on the correct year so it propagates to fee payments,
+                // finance, promotions, etc. We only do this on first launch so we never override a
+                // year the school has deliberately chosen later.
+                if (firstLaunch)
+                    await ProductionDataInitializer.EnsureCurrentAcademicYearAsync(context);
 
                 // Ensure default admin user exists
                 var userService = scope.ServiceProvider.GetRequiredService<UserService>();

@@ -913,6 +913,58 @@ await Section("22. Two-factor authentication (TOTP authenticator)", async () =>
     Check("2FA: verify fails once disabled", !await tf.VerifyAsync(u.Id, TotpService.GetCode(enrollSecret)));
 });
 
+// ----- 23. Academic year roll-over to the current calendar year (first-launch) -----
+await Section("23. Academic year roll-over (EnsureCurrentAcademicYearAsync)", async () =>
+{
+    // Throwaway DB so this never affects the shared seed used by other sections.
+    var tmpDb = Path.Combine(Path.GetTempPath(), $"iems_ay_{Guid.NewGuid():N}.db");
+    var opts = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlite($"Data Source={tmpDb}").Options;
+    try
+    {
+        using var ctx = new ApplicationDbContext(opts);
+        await ctx.Database.MigrateAsync(); // seeds 4 years, current = 2024-25
+
+        async Task<string?> CurrentAfter(DateTime asOf)
+        {
+            await IEMS.Infrastructure.Data.ProductionDataInitializer.EnsureCurrentAcademicYearAsync(ctx, asOf);
+            var c = await ctx.AcademicYears.SingleOrDefaultAsync(a => a.IsCurrent);
+            return c?.Year;
+        }
+
+        // June 2026 → the 2026-27 year (Indian June–May calendar), created and made current.
+        Check("AY roll-over: June 2026 → 2026-27", await CurrentAfter(new DateTime(2026, 6, 24)) == "2026-27");
+        Check("AY roll-over: exactly one current after switch", await ctx.AcademicYears.CountAsync(a => a.IsCurrent) == 1);
+        Check("AY roll-over: previous current (2024-25) was unset",
+            !(await ctx.AcademicYears.SingleAsync(a => a.Year == "2024-25")).IsCurrent);
+        Check("AY roll-over: 2026-27 created with the June–May span",
+            await ctx.AcademicYears.AnyAsync(a => a.Year == "2026-27"
+                && a.StartDate == new DateTime(2026, 6, 1) && a.EndDate == new DateTime(2027, 5, 31)));
+
+        // What every consumer (fee payment, finance, promotions) actually reads:
+        var repo = new IEMS.Infrastructure.Repositories.AcademicYearRepository(ctx);
+        Check("AY roll-over: repository.GetCurrent = 2026-27 (propagation source)",
+            (await repo.GetCurrentAcademicYearAsync())?.Year == "2026-27");
+
+        // Idempotent: a later call in the same year is a no-op and adds no duplicate.
+        int before = await ctx.AcademicYears.CountAsync();
+        Check("AY roll-over: idempotent value", await CurrentAfter(new DateTime(2026, 9, 1)) == "2026-27");
+        Check("AY roll-over: idempotent (no duplicate row)", await ctx.AcademicYears.CountAsync() == before);
+
+        // Month boundaries: 31-May is still the previous label, 01-Jun flips to the new one.
+        Check("AY roll-over: 31-May-2026 → 2025-26 (existing year reused)", await CurrentAfter(new DateTime(2026, 5, 31)) == "2025-26");
+        Check("AY roll-over: 01-Jun-2026 → 2026-27", await CurrentAfter(new DateTime(2026, 6, 1)) == "2026-27");
+
+        // Year-of-century is zero-padded ("2005-06", not "2005-6").
+        Check("AY roll-over: label zero-pads (2005 → 2005-06)", await CurrentAfter(new DateTime(2005, 7, 1)) == "2005-06");
+    }
+    finally
+    {
+        Microsoft.Data.Sqlite.SqliteConnection.ClearAllPools();
+        foreach (var ext in new[] { "", "-wal", "-shm" })
+            try { File.Delete(tmpDb + ext); } catch { }
+    }
+});
+
 // ----- Summary -----
 Console.WriteLine();
 Console.WriteLine("============================================================");

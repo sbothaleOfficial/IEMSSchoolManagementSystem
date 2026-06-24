@@ -187,18 +187,21 @@ namespace IEMS.WPF
                 {
                     var nextYear = year + 1;
                     txtYear.Text = $"{nextYear}-{(nextYear + 1).ToString().Substring(2)}";
-                    dpStartDate.SelectedDate = latestYear.EndDate.AddDays(1);
-                    dpEndDate.SelectedDate = dpStartDate.SelectedDate.Value.AddMonths(10);
+                    var start = latestYear.EndDate.AddDays(1);
+                    dpStartDate.SelectedDate = start;
+                    // End on the day before the one-year anniversary (e.g. 01-Jun-2026 → 31-May-2027)
+                    // so the suggested span matches the school's academic year.
+                    dpEndDate.SelectedDate = start.AddYears(1).AddDays(-1);
                 }
             }
             else
             {
-                // Suggest current academic year
+                // No years yet: suggest the Indian academic year (June–May) containing today.
                 var now = DateTime.Now;
-                var currentYear = now.Month >= 4 ? now.Year : now.Year - 1;
-                txtYear.Text = $"{currentYear}-{(currentYear + 1).ToString().Substring(2)}";
-                dpStartDate.SelectedDate = new DateTime(currentYear, 4, 1);
-                dpEndDate.SelectedDate = new DateTime(currentYear + 1, 3, 31);
+                var startYear = now.Month >= 6 ? now.Year : now.Year - 1;
+                txtYear.Text = $"{startYear}-{(startYear + 1).ToString().Substring(2)}";
+                dpStartDate.SelectedDate = new DateTime(startYear, 6, 1);
+                dpEndDate.SelectedDate = new DateTime(startYear + 1, 5, 31);
             }
 
             txtYear.Focus();

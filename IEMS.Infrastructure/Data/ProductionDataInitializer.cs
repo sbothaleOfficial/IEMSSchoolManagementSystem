@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using IEMS.Core.Entities;
 
 namespace IEMS.Infrastructure.Data
 {
@@ -37,6 +39,56 @@ namespace IEMS.Infrastructure.Data
             };
             foreach (var sql in deletes)
                 await db.Database.ExecuteSqlRawAsync(sql);
+        }
+
+        /// <summary>
+        /// Ensures the academic year containing <paramref name="asOf"/> (default: today) exists and
+        /// is the one and only current year. The Indian school calendar runs June–May, so the year
+        /// that starts in June Y is labelled "Y-(Y+1)" (e.g. June 2026 → "2026-27").
+        ///
+        /// The seed data ships historical sample years (with an old one marked current), which is
+        /// fine for tests/demo but wrong for a real school. Running this on first launch makes a
+        /// fresh install start on the correct, up-to-date academic year automatically — and because
+        /// it is date-driven it never goes stale. It is idempotent: if the right year already exists
+        /// and is current, it does nothing.
+        /// </summary>
+        public static async Task EnsureCurrentAcademicYearAsync(ApplicationDbContext db, DateTime? asOf = null)
+        {
+            var today = asOf ?? DateTime.Now;
+            int startYear = today.Month >= 6 ? today.Year : today.Year - 1;
+            string label = $"{startYear}-{(startYear + 1) % 100:D2}";
+
+            var target = await db.AcademicYears.FirstOrDefaultAsync(a => a.Year == label);
+            if (target == null)
+            {
+                target = new AcademicYear
+                {
+                    Year = label,
+                    StartDate = new DateTime(startYear, 6, 1),
+                    EndDate = new DateTime(startYear + 1, 5, 31),
+                    IsCurrent = false,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+                db.AcademicYears.Add(target);
+                await db.SaveChangesAsync();
+            }
+
+            if (!target.IsCurrent)
+            {
+                // Keep the single-current invariant: clear any other current year first.
+                foreach (var y in await db.AcademicYears.ToListAsync())
+                {
+                    if (y.IsCurrent)
+                    {
+                        y.IsCurrent = false;
+                        y.UpdatedAt = DateTime.UtcNow;
+                    }
+                }
+                target.IsCurrent = true;
+                target.UpdatedAt = DateTime.UtcNow;
+                await db.SaveChangesAsync();
+            }
         }
 
         /// <summary>
