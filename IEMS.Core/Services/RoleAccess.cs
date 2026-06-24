@@ -54,10 +54,11 @@ namespace IEMS.Core.Services
                     AppModule.Finance, AppModule.Transport, AppModule.SchoolDocuments
                 },
                 // Clerk: day-to-day front-office work (admissions, fee collection via Students,
-                // certificates, ID cards, documents, student transport). No staff salaries, no admin.
+                // certificates, ID cards, documents, student transport). Also granted Backup & Restore
+                // per the school's choice. No staff salaries, no other admin tools.
                 ["Clerk"] = new HashSet<AppModule>
                 {
-                    AppModule.Students, AppModule.Transport, AppModule.SchoolDocuments
+                    AppModule.Students, AppModule.Transport, AppModule.SchoolDocuments, AppModule.Backup
                 },
                 // Teacher: students and shared documents only.
                 ["Teacher"] = new HashSet<AppModule>

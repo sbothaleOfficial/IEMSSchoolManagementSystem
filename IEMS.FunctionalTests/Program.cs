@@ -979,18 +979,21 @@ await Section("24. Role-based access (RoleAccess)", () =>
     Check("RBAC: Clerk CANNOT Finance", !RoleAccess.CanAccess("Clerk", AppModule.Finance));
     Check("RBAC: Clerk CANNOT Staff", !RoleAccess.CanAccess("Clerk", AppModule.Staff));
     Check("RBAC: Clerk CANNOT UserManagement", !RoleAccess.CanAccess("Clerk", AppModule.UserManagement));
-    Check("RBAC: Clerk CANNOT Backup", !RoleAccess.CanAccess("Clerk", AppModule.Backup));
+    Check("RBAC: Clerk CAN Backup", RoleAccess.CanAccess("Clerk", AppModule.Backup));
     Check("RBAC: Clerk CANNOT SystemSettings", !RoleAccess.CanAccess("Clerk", AppModule.SystemSettings));
     Check("RBAC: Clerk CANNOT AuditTrail", !RoleAccess.CanAccess("Clerk", AppModule.AuditTrail));
     Check("RBAC: Clerk CANNOT AcademicYear", !RoleAccess.CanAccess("Clerk", AppModule.AcademicYear));
 
-    // Only Admin gets the system-administration tools.
+    // User Management and System Settings stay Admin-only for every other role.
     foreach (var r in new[] { "Principal", "Accountant", "Clerk", "Teacher" })
     {
         Check($"RBAC: {r} CANNOT UserManagement", !RoleAccess.CanAccess(r, AppModule.UserManagement));
-        Check($"RBAC: {r} CANNOT Backup", !RoleAccess.CanAccess(r, AppModule.Backup));
         Check($"RBAC: {r} CANNOT SystemSettings", !RoleAccess.CanAccess(r, AppModule.SystemSettings));
     }
+    // Backup stays Admin-only EXCEPT the Clerk (school's choice).
+    Check("RBAC: Principal CANNOT Backup", !RoleAccess.CanAccess("Principal", AppModule.Backup));
+    Check("RBAC: Accountant CANNOT Backup", !RoleAccess.CanAccess("Accountant", AppModule.Backup));
+    Check("RBAC: Teacher CANNOT Backup", !RoleAccess.CanAccess("Teacher", AppModule.Backup));
 
     // Accountant = Finance/Transport/Documents; Teacher = Students/Documents.
     Check("RBAC: Accountant can Finance", RoleAccess.CanAccess("Accountant", AppModule.Finance));
