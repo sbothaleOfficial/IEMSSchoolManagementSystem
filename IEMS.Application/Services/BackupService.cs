@@ -754,8 +754,17 @@ namespace IEMS.Application.Services
 
                         if (File.Exists(_metadataPath))
                         {
-                            var json = File.ReadAllText(_metadataPath);
-                            metadata = JsonSerializer.Deserialize<BackupMetadata>(json) ?? new BackupMetadata();
+                            try
+                            {
+                                var json = File.ReadAllText(_metadataPath);
+                                metadata = JsonSerializer.Deserialize<BackupMetadata>(json) ?? new BackupMetadata();
+                            }
+                            catch
+                            {
+                                // A corrupt or out-of-date metadata file must never block a backup —
+                                // backups protect the school's data. Start a fresh history instead.
+                                metadata = new BackupMetadata();
+                            }
                         }
 
                         metadata.Backups.Add(backupInfo);
@@ -906,8 +915,17 @@ namespace IEMS.Application.Services
 
                         if (File.Exists(_metadataPath))
                         {
-                            var json = File.ReadAllText(_metadataPath);
-                            metadata = JsonSerializer.Deserialize<BackupMetadata>(json) ?? new BackupMetadata();
+                            try
+                            {
+                                var json = File.ReadAllText(_metadataPath);
+                                metadata = JsonSerializer.Deserialize<BackupMetadata>(json) ?? new BackupMetadata();
+                            }
+                            catch
+                            {
+                                // A corrupt or out-of-date metadata file must never block a backup —
+                                // backups protect the school's data. Start a fresh history instead.
+                                metadata = new BackupMetadata();
+                            }
                         }
 
                         // Remove deleted backups from metadata

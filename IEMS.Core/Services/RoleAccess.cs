@@ -20,6 +20,18 @@ namespace IEMS.Core.Services
     }
 
     /// <summary>
+    /// Finer-grained, management-level actions that live INSIDE a module a role can otherwise open.
+    /// e.g. a Clerk may open Students (to admit pupils and collect fees) but must not redefine the
+    /// fee structure, restructure classes, or run the year-end bulk promotion.
+    /// </summary>
+    public enum AppFeature
+    {
+        ManageClasses,
+        ManageFeeStructure,
+        BulkPromotion
+    }
+
+    /// <summary>
     /// Central role → module permission map for the whole app. One source of truth so the dashboard
     /// (which cards are shown) and the module guards (which windows may be opened) can never drift
     /// apart. Admin always has full access; every other role is allow-listed. An unknown or empty
@@ -53,6 +65,27 @@ namespace IEMS.Core.Services
                     AppModule.Students, AppModule.SchoolDocuments
                 }
             };
+
+        // Management-level features inside a module. Only Admin and Principal may use them; a Clerk,
+        // Teacher or Accountant who can open the module still won't see these advanced tabs.
+        private static readonly Dictionary<string, HashSet<AppFeature>> FeatureMap =
+            new(StringComparer.OrdinalIgnoreCase)
+            {
+                ["Principal"] = new HashSet<AppFeature>
+                {
+                    AppFeature.ManageClasses, AppFeature.ManageFeeStructure, AppFeature.BulkPromotion
+                }
+            };
+
+        /// <summary>True if the given role may use the given management-level feature.</summary>
+        public static bool CanUse(string? role, AppFeature feature)
+        {
+            if (string.IsNullOrWhiteSpace(role))
+                return false;
+            if (string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase))
+                return true;
+            return FeatureMap.TryGetValue(role.Trim(), out var allowed) && allowed.Contains(feature);
+        }
 
         /// <summary>True if the given role may access the given module.</summary>
         public static bool CanAccess(string? role, AppModule module)

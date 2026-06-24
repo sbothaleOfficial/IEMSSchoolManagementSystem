@@ -279,7 +279,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Classes" FontSize="14">
+            <TabItem x:Name="tabClasses" Header="Classes" FontSize="14">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -357,7 +357,7 @@
                     </TabItem>
 
                     <!-- Fee Structure Sub-tab -->
-                    <TabItem Header="Fee Structure" FontSize="12">
+                    <TabItem x:Name="tabFeeStructure" Header="Fee Structure" FontSize="12">
                         <Grid Margin="20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -1273,7 +1273,7 @@
             </TabItem>
 
             <!-- Bulk Promotion Tab -->
-            <TabItem Header="Bulk Promotion" FontSize="14">
+            <TabItem x:Name="tabBulkPromotion" Header="Bulk Promotion" FontSize="14">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

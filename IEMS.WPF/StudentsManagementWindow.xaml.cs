@@ -11,6 +11,7 @@ using IEMS.Application.DTOs;
 using IEMS.WPF.Controls;
 using IEMS.WPF.Helpers;
 using IEMS.Core.Interfaces;
+using IEMS.Core.Services;
 using ClosedXML.Excel;
 
 namespace IEMS.WPF;
@@ -41,6 +42,7 @@ public partial class StudentsManagementWindow : Window
         _bulkPromotionService = bulkPromotionService;
         _academicYearService = academicYearService;
         _documentService = documentService;
+        ApplyRolePermissions();
         AsyncHelper.SafeFireAndForget(LoadStudentsAsync);
         AsyncHelper.SafeFireAndForget(LoadClassesAsync);
         AsyncHelper.SafeFireAndForget(LoadFeePaymentsAsync);
@@ -48,6 +50,22 @@ public partial class StudentsManagementWindow : Window
         AsyncHelper.SafeFireAndForget(LoadBonafideStudentsAsync);
         AsyncHelper.SafeFireAndForget(LoadDashboardDataAsync);
         AsyncHelper.SafeFireAndForget(LoadPromotionDataAsync);
+    }
+
+    /// <summary>
+    /// Hides the management-level tabs (Classes, Fee Structure, Bulk Promotion) for roles that may
+    /// open Students but aren't allowed to run those actions — e.g. a Clerk admits pupils and
+    /// collects fees, but doesn't restructure classes/fees or run the year-end promotion.
+    /// </summary>
+    private void ApplyRolePermissions()
+    {
+        var role = LoginWindow.CurrentUser?.Role;
+        if (!RoleAccess.CanUse(role, AppFeature.ManageClasses))
+            tabClasses.Visibility = Visibility.Collapsed;
+        if (!RoleAccess.CanUse(role, AppFeature.ManageFeeStructure))
+            tabFeeStructure.Visibility = Visibility.Collapsed;
+        if (!RoleAccess.CanUse(role, AppFeature.BulkPromotion))
+            tabBulkPromotion.Visibility = Visibility.Collapsed;
     }
 
     private async Task LoadStudentsAsync()

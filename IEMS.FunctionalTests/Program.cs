@@ -998,6 +998,16 @@ await Section("24. Role-based access (RoleAccess)", () =>
     Check("RBAC: Teacher can Students", RoleAccess.CanAccess("Teacher", AppModule.Students));
     Check("RBAC: Teacher CANNOT Finance", !RoleAccess.CanAccess("Teacher", AppModule.Finance));
 
+    // Management-level features inside Students: only Admin + Principal; never Clerk/Teacher/Accountant.
+    foreach (var feat in new[] { AppFeature.ManageClasses, AppFeature.ManageFeeStructure, AppFeature.BulkPromotion })
+    {
+        Check($"RBAC: Admin can {feat}", RoleAccess.CanUse("Admin", feat));
+        Check($"RBAC: Principal can {feat}", RoleAccess.CanUse("Principal", feat));
+        Check($"RBAC: Clerk CANNOT {feat}", !RoleAccess.CanUse("Clerk", feat));
+        Check($"RBAC: Teacher CANNOT {feat}", !RoleAccess.CanUse("Teacher", feat));
+        Check($"RBAC: null role CANNOT {feat}", !RoleAccess.CanUse(null, feat));
+    }
+
     // Fail closed: unknown / empty / null role gets nothing; matching is case-insensitive.
     Check("RBAC: unknown role denied", !RoleAccess.CanAccess("Hacker", AppModule.Students));
     Check("RBAC: empty role denied", !RoleAccess.CanAccess("", AppModule.Students));
