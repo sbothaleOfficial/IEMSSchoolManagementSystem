@@ -34,7 +34,10 @@ namespace IEMS.Infrastructure.Repositories
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
+            // AsNoTracking so a display list always reflects the latest database state, even if
+            // another scope (e.g. the two-factor setup window) changed a row on its own context.
             return await _context.Users
+                .AsNoTracking()
                 .OrderBy(u => u.FullName)
                 .ToListAsync();
         }
@@ -42,6 +45,7 @@ namespace IEMS.Infrastructure.Repositories
         public async Task<IEnumerable<User>> GetActiveUsersAsync()
         {
             return await _context.Users
+                .AsNoTracking()
                 .Where(u => u.IsActive)
                 .OrderBy(u => u.FullName)
                 .ToListAsync();

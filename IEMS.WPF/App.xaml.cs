@@ -131,6 +131,7 @@ public partial class App : System.Windows.Application
                     services.AddScoped<StudentDocumentService>();
                     services.AddScoped<SchoolDocumentService>();
                     services.AddScoped<UserService>();
+                    services.AddScoped<TwoFactorService>();
                     services.AddHostedService<AutomaticBackupService>();
 
                     services.AddTransient<MainWindow>();

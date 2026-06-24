@@ -15,6 +15,9 @@ namespace IEMS.WPF
     {
         public static User? CurrentUser { get; internal set; }
         private const string RememberMeFilePath = "remember_me.json";
+        // Set by AuthenticateUser to override the generic failure message for a specific reason
+        // (e.g. a cancelled two-factor challenge). Consumed once by BtnLogin_Click.
+        private string? _authErrorOverride;
 
         public LoginWindow()
         {
@@ -132,7 +135,10 @@ namespace IEMS.WPF
                 }
                 else
                 {
-                    ShowError("Invalid username or password. Please try again.");
+                    // A specific reason (e.g. a cancelled two-factor challenge) takes precedence
+                    // over the generic message so we don't wrongly imply the password was bad.
+                    ShowError(_authErrorOverride ?? "Invalid username or password. Please try again.");
+                    _authErrorOverride = null;
                     txtPassword.Clear();
                     txtUsername.Focus();
                 }
@@ -172,6 +178,24 @@ namespace IEMS.WPF
                     if (user != null)
                     {
                         CurrentUser = user;
+
+                        // Second factor: if the account has two-factor authentication enabled, the
+                        // password alone is not enough — require a valid authenticator/backup code
+                        // before the session is allowed to continue.
+                        if (user.TwoFactorEnabled)
+                        {
+                            ShowLoading(false);
+                            var prompt = new TwoFactorPromptWindow(user.Id, user.FullName) { Owner = this };
+                            var verified = prompt.ShowDialog();
+                            if (verified != true)
+                            {
+                                // Cancelled or failed the challenge — deny the login.
+                                CurrentUser = null;
+                                _authErrorOverride = "Two-factor verification was not completed. Please sign in again.";
+                                return false;
+                            }
+                            ShowLoading(true);
+                        }
 
                         // Check if user must change password
                         if (user.MustChangePassword)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using IEMS.Application.Services;
 using IEMS.Core.Entities;
 
@@ -37,7 +38,8 @@ namespace IEMS.WPF
                     IsActive = u.IsActive,
                     LastLogin = u.LastLogin,
                     CreatedDate = u.CreatedDate,
-                    CreatedBy = u.CreatedBy
+                    CreatedBy = u.CreatedBy,
+                    TwoFactorEnabled = u.TwoFactorEnabled
                 }).ToList();
 
                 ApplyFilters();
@@ -267,6 +269,54 @@ namespace IEMS.WPF
             }
         }
 
+        private async void BtnTwoFactor_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgUsers.SelectedItem is not UserDisplayModel user)
+                {
+                    MessageBox.Show("Please select a user.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                bool isSelf = user.Id == (LoginWindow.CurrentUser?.Id ?? -1);
+
+                // 2FA is registered against the user's own phone, so only the account owner can turn
+                // it ON. An admin can only turn an existing one OFF (recovery), handled inside the window.
+                if (!user.TwoFactorEnabled && !isSelf)
+                {
+                    MessageBox.Show(
+                        $"Two-factor authentication is set up by each user on their own account, using their own phone.\n\nSign in as '{user.Username}' to enable it.",
+                        "Two-Factor Authentication", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                // Read the latest 2FA state from a fresh scope so the window opens in the right mode
+                // even if it was just changed (this window's DbContext may hold a cached copy).
+                IEMS.Core.Entities.User? fullUser;
+                using (var scope = App.ServiceProvider.CreateScope())
+                {
+                    var users = scope.ServiceProvider.GetRequiredService<UserService>();
+                    fullUser = await users.GetByIdAsync(user.Id);
+                }
+                if (fullUser == null) return;
+
+                var window = new TwoFactorWindow(
+                    fullUser.Id, fullUser.Username, fullUser.FullName, isSelf,
+                    fullUser.TwoFactorEnabled, fullUser.TwoFactorBackupCodes) { Owner = this };
+
+                if (window.ShowDialog() == true)
+                {
+                    await LoadUsers();
+                    lblStatus.Text = $"Two-factor settings updated for '{user.Username}'";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error managing two-factor authentication: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private async void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
             await LoadUsers();
@@ -290,7 +340,9 @@ namespace IEMS.WPF
         public DateTime? LastLogin { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; } = string.Empty;
+        public bool TwoFactorEnabled { get; set; }
 
+        public string TwoFactorDisplay => TwoFactorEnabled ? "🔐 On" : "Off";
         public string StatusDisplay => IsActive ? "Active" : "Disabled";
         public string LastLoginDisplay => LastLogin?.ToString("MM/dd/yyyy HH:mm") ?? "Never";
         public string ToggleButtonText => IsActive ? "🚫 Disable" : "✅ Enable";

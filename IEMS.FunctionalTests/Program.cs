@@ -92,6 +92,7 @@ services.AddScoped<AcademicYearService>();
 services.AddScoped<IBackupService, BackupService>();
 services.AddScoped<ISystemSettingsService, SystemSettingsService>();
 services.AddScoped<UserService>();
+services.AddScoped<TwoFactorService>();
 
 var provider = services.BuildServiceProvider();
 
@@ -833,6 +834,83 @@ await Section("21. Production clean-start (first-run demo data clear)", async ()
         foreach (var ext in new[] { "", "-wal", "-shm" })
             try { File.Delete(tmpDb + ext); } catch { }
     }
+});
+
+// ----- 22. Two-factor authentication (TOTP) -----
+await Section("22. Two-factor authentication (TOTP authenticator)", async () =>
+{
+    // (a) RFC 6238 Appendix B official test vectors (HMAC-SHA1). Secret is ASCII
+    // "12345678901234567890"; expected 6-digit codes truncated from the published 8-digit values.
+    var rfcSecret = TotpService.Base32Encode(System.Text.Encoding.ASCII.GetBytes("12345678901234567890"));
+    var vectors = new (long unixTime, string expected6)[]
+    {
+        (59L,          "287082"),
+        (1111111109L,  "081804"),
+        (1111111111L,  "050471"),
+        (1234567890L,  "005924"),
+        (2000000000L,  "279037"),
+    };
+    foreach (var v in vectors)
+    {
+        var code = TotpService.GetCode(rfcSecret, DateTimeOffset.FromUnixTimeSeconds(v.unixTime));
+        Check($"TOTP RFC6238 vector @ T={v.unixTime}", code == v.expected6, $"got {code}, expected {v.expected6}");
+    }
+
+    // (b) Base32 round-trips arbitrary bytes.
+    var raw = new byte[20];
+    new Random(12345).NextBytes(raw);
+    var rt = TotpService.Base32Decode(TotpService.Base32Encode(raw));
+    Check("Base32 encode/decode round-trips", rt.Length == raw.Length && rt.AsSpan().SequenceEqual(raw));
+
+    // (c) Validation window tolerates +/-1 step of clock skew but not more.
+    var secret = TotpService.GenerateSecret();
+    var now = DateTimeOffset.UtcNow;
+    Check("TOTP: current code accepted", TotpService.ValidateCode(secret, TotpService.GetCode(secret, now), 1, now));
+    Check("TOTP: previous-step code accepted (skew)",
+        TotpService.ValidateCode(secret, TotpService.GetCode(secret, now.AddSeconds(-30)), 1, now));
+    Check("TOTP: 4-steps-old code rejected",
+        !TotpService.ValidateCode(secret, TotpService.GetCode(secret, now.AddSeconds(-120)), 1, now));
+
+    // (d) Full service flow against the real database.
+    using var scope = provider.CreateScope();
+    var users = scope.ServiceProvider.GetRequiredService<UserService>();
+    var tf = scope.ServiceProvider.GetRequiredService<TwoFactorService>();
+
+    var u = await users.CreateUserAsync("totptester", "Totp@1234", "TOTP Tester", "Clerk", "totp@test.com", "harness");
+    var enrollSecret = TotpService.GenerateSecret();
+    var backupCodes = await tf.EnableAsync(u.Id, enrollSecret, "harness");
+
+    Check("2FA: enable returns 10 backup codes", backupCodes.Count == 10);
+    var reloaded = await users.GetByIdAsync(u.Id);
+    Check("2FA: enabled flag persisted", reloaded!.TwoFactorEnabled && reloaded.TwoFactorSecret == enrollSecret);
+
+    var liveCode = TotpService.GetCode(enrollSecret);
+    Check("2FA: valid authenticator code accepted", await tf.VerifyAsync(u.Id, liveCode));
+
+    var wrong = (liveCode[0] == '0' ? "1" : "0") + liveCode.Substring(1);
+    Check("2FA: wrong authenticator code rejected", !await tf.VerifyAsync(u.Id, wrong));
+
+    // Backup codes are single-use and format/case-insensitive.
+    Check("2FA: backup code accepted", await tf.VerifyAsync(u.Id, backupCodes[0]));
+    Check("2FA: same backup code rejected on reuse", !await tf.VerifyAsync(u.Id, backupCodes[0]));
+    Check("2FA: backup code accepted lower-case/spacing", await tf.VerifyAsync(u.Id, backupCodes[1].ToLower()));
+
+    reloaded = await users.GetByIdAsync(u.Id);
+    Check("2FA: two backup codes now consumed (8 remain)",
+        tf.CountRemainingBackupCodes(reloaded!.TwoFactorBackupCodes) == 8);
+
+    // Regenerate invalidates old backup codes.
+    var newCodes = await tf.RegenerateBackupCodesAsync(u.Id, "harness");
+    Check("2FA: regenerate yields a fresh 10", newCodes.Count == 10);
+    Check("2FA: an old (unused) backup code no longer works", !await tf.VerifyAsync(u.Id, backupCodes[2]));
+    Check("2FA: a new backup code works", await tf.VerifyAsync(u.Id, newCodes[0]));
+
+    // Disable clears everything.
+    await tf.DisableAsync(u.Id, "harness");
+    reloaded = await users.GetByIdAsync(u.Id);
+    Check("2FA: disable clears secret + codes + flag",
+        !reloaded!.TwoFactorEnabled && reloaded.TwoFactorSecret == null && reloaded.TwoFactorBackupCodes == null);
+    Check("2FA: verify fails once disabled", !await tf.VerifyAsync(u.Id, TotpService.GetCode(enrollSecret)));
 });
 
 // ----- Summary -----

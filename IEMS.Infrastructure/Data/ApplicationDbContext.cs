@@ -333,6 +333,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedDate).IsRequired();
             entity.Property(e => e.CreatedBy).IsRequired().HasMaxLength(50);
             entity.Property(e => e.ModifiedBy).HasMaxLength(50);
+            entity.Property(e => e.TwoFactorSecret).HasMaxLength(64);
+            entity.Property(e => e.TwoFactorBackupCodes).HasMaxLength(2000);
             entity.HasIndex(e => e.Username).IsUnique();
         });
 

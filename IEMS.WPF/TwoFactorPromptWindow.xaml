@@ -1,0 +1,59 @@
+<Window x:Class="IEMS.WPF.TwoFactorPromptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Two-Factor Verification" Width="460"
+        SizeToContent="Height" MinHeight="320" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SurfaceBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="20">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="🔐" FontSize="32" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Two-Factor Verification" FontSize="22" FontWeight="Bold"
+                               Foreground="{StaticResource TextOnPrimaryBrush}"/>
+                    <TextBlock x:Name="txtSubtitle" Text="Enter the 6-digit code from your authenticator app"
+                               FontSize="12" Foreground="{StaticResource PrimaryLightBrush}" Margin="0,2,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" Margin="30">
+            <TextBlock x:Name="txtPrompt" Text="Verification code" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtCode" Height="42" FontSize="22" FontWeight="SemiBold"
+                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                     MaxLength="6" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="txtToggle" Text="Use a backup code instead"
+                       FontSize="12" FontWeight="SemiBold"
+                       Foreground="{StaticResource PrimaryBrush}"
+                       TextDecorations="Underline" Cursor="Hand"
+                       HorizontalAlignment="Left"
+                       MouseLeftButtonDown="TxtToggle_Click"/>
+
+            <TextBlock x:Name="txtError" Text="" Foreground="Red" TextWrapping="Wrap"
+                       Visibility="Collapsed" Margin="0,12,0,0"/>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <Border Grid.Row="2" Background="White" BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,1,0,0" Padding="20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnVerify" Content="✓ Verify" Click="BtnVerify_Click"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Width="130" Height="40" Margin="0,0,10,0"/>
+                <Button x:Name="btnCancel" Content="✕ Cancel" Click="BtnCancel_Click"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Width="120" Height="40"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

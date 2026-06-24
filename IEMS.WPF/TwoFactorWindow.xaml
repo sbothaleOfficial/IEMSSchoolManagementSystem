@@ -1,0 +1,133 @@
+<Window x:Class="IEMS.WPF.TwoFactorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Two-Factor Authentication" Width="540"
+        SizeToContent="Height" MinHeight="400" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SurfaceBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="20">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="🔐" FontSize="32" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="txtHeader" Text="Set Up Two-Factor Authentication"
+                               FontSize="22" FontWeight="Bold"
+                               Foreground="{StaticResource TextOnPrimaryBrush}"/>
+                    <TextBlock x:Name="txtHeaderSub" Text="Add an extra layer of security to this account"
+                               FontSize="12" Foreground="{StaticResource PrimaryLightBrush}" Margin="0,2,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Body: three panels toggled by visibility -->
+        <Grid Grid.Row="1" Margin="30">
+
+            <!-- ===== SETUP PANEL ===== -->
+            <StackPanel x:Name="SetupPanel">
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                    <Run Text="1." FontWeight="Bold"/>
+                    <Run Text=" Install an authenticator app on your phone — Google Authenticator, Microsoft Authenticator or Authy."/>
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                    <Run Text="2." FontWeight="Bold"/>
+                    <Run Text=" Open the app, choose 'Scan a QR code', and scan this:"/>
+                </TextBlock>
+
+                <Border HorizontalAlignment="Center" Background="White" Padding="10" CornerRadius="8"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Margin="0,0,0,10">
+                    <Image x:Name="imgQr" Width="200" Height="200"
+                           RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                </Border>
+
+                <TextBlock Text="Can't scan? Enter this key manually:" FontSize="12"
+                           Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                <TextBox x:Name="txtManualKey" IsReadOnly="True" FontFamily="Consolas" FontSize="14"
+                         HorizontalContentAlignment="Center" Padding="6" Margin="0,0,0,15"
+                         Background="#F8F9FA"/>
+
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                    <Run Text="3." FontWeight="Bold"/>
+                    <Run Text=" Enter the 6-digit code shown in the app to confirm:"/>
+                </TextBlock>
+                <TextBox x:Name="txtVerifyCode" Height="42" FontSize="22" FontWeight="SemiBold"
+                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                         MaxLength="6" Margin="0,0,0,10"/>
+                <TextBlock x:Name="txtSetupError" Text="" Foreground="Red" TextWrapping="Wrap"
+                           Visibility="Collapsed"/>
+            </StackPanel>
+
+            <!-- ===== BACKUP CODES PANEL ===== -->
+            <StackPanel x:Name="BackupPanel" Visibility="Collapsed">
+                <Border Background="#E8F5E9" CornerRadius="8" Padding="12" Margin="0,0,0,15">
+                    <TextBlock TextWrapping="Wrap" Foreground="#1B5E20">
+                        <Run Text="✓ Two-factor authentication is now ON." FontWeight="Bold"/>
+                        <LineBreak/>
+                        <Run Text="From now on, sign-in will ask for a code from your authenticator app."/>
+                    </TextBlock>
+                </Border>
+
+                <TextBlock TextWrapping="Wrap" FontWeight="SemiBold" Margin="0,0,0,5"
+                           Text="Save these backup codes"/>
+                <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"
+                           Margin="0,0,0,10"
+                           Text="If you ever lose access to your phone, each code below lets you sign in once. Keep them somewhere safe and private."/>
+
+                <Border Background="#F8F9FA" CornerRadius="8" BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1" Padding="12">
+                    <TextBox x:Name="txtBackupCodes" IsReadOnly="True" Background="Transparent"
+                             BorderThickness="0" FontFamily="Consolas" FontSize="15"
+                             TextAlignment="Center" TextWrapping="Wrap"/>
+                </Border>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
+                    <Button x:Name="btnCopyCodes" Content="📋 Copy" Click="BtnCopyCodes_Click"
+                            Style="{StaticResource SecondaryButtonStyle}" Width="120" Height="35" Margin="0,0,10,0"/>
+                    <Button x:Name="btnSaveCodes" Content="💾 Save to file" Click="BtnSaveCodes_Click"
+                            Style="{StaticResource SecondaryButtonStyle}" Width="140" Height="35"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- ===== MANAGE PANEL ===== -->
+            <StackPanel x:Name="ManagePanel" Visibility="Collapsed">
+                <Border Background="#E8F5E9" CornerRadius="8" Padding="12" Margin="0,0,0,15">
+                    <TextBlock x:Name="txtManageStatus" TextWrapping="Wrap" Foreground="#1B5E20"
+                               FontWeight="SemiBold"
+                               Text="✓ Two-factor authentication is ENABLED for this account."/>
+                </Border>
+
+                <TextBlock x:Name="txtBackupRemaining" TextWrapping="Wrap" FontSize="13"
+                           Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,15"/>
+
+                <Button x:Name="btnRegenerate" Content="🔄 Regenerate backup codes" Click="BtnRegenerate_Click"
+                        Style="{StaticResource SecondaryButtonStyle}" Height="40" Margin="0,0,0,10"
+                        HorizontalAlignment="Stretch"/>
+                <Button x:Name="btnDisable" Content="🚫 Turn off two-factor authentication" Click="BtnDisable_Click"
+                        Style="{StaticResource DangerButtonStyle}" Height="40"
+                        HorizontalAlignment="Stretch"/>
+                <TextBlock x:Name="txtManageNote" Text="" TextWrapping="Wrap" FontSize="11"
+                           Foreground="{StaticResource TextSecondaryBrush}" Margin="0,12,0,0"
+                           Visibility="Collapsed"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Footer buttons -->
+        <Border Grid.Row="2" Background="White" BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,1,0,0" Padding="20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnPrimary" Content="✓ Verify &amp; Enable" Click="BtnPrimary_Click"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Width="170" Height="40" Margin="0,0,10,0"/>
+                <Button x:Name="btnClose" Content="✕ Cancel" Click="BtnClose_Click"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Width="120" Height="40"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

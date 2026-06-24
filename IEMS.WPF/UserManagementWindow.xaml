@@ -47,6 +47,9 @@
                 <Button x:Name="btnResetPassword" Content="Reset Password" Click="BtnResetPassword_Click"
                         Style="{StaticResource PrimaryButtonStyle}"
                         Width="130" Height="35" Margin="0,0,10,0"/>
+                <Button x:Name="btnTwoFactor" Content="🔐 Two-Factor" Click="BtnTwoFactor_Click"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Width="140" Height="35" Margin="0,0,10,0"/>
                 <Button x:Name="btnToggleStatus" Content="Toggle Status" Click="BtnToggleStatus_Click"
                         Style="{StaticResource SecondaryButtonStyle}"
                         Width="130" Height="35" Margin="0,0,10,0"/>
@@ -115,6 +118,7 @@
                         <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="120"/>
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="250"/>
                         <DataGridTextColumn Header="Status" Binding="{Binding StatusDisplay}" Width="100"/>
+                        <DataGridTextColumn Header="2FA" Binding="{Binding TwoFactorDisplay}" Width="80"/>
                         <DataGridTextColumn Header="Last Login" Binding="{Binding LastLoginDisplay}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
