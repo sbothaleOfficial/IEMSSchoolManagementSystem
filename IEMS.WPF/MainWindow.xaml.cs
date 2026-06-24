@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using IEMS.Application.Services;
 using IEMS.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,8 +50,24 @@ public partial class MainWindow : Window
             (cardSchoolDocuments, AppModule.SchoolDocuments),
         };
 
+        // Show the allowed cards and re-pack them into sequential grid cells (top-to-bottom,
+        // left-to-right) so hidden cards never leave gaps in a restricted role's dashboard.
+        // For an Admin (all cards visible) this reproduces the original layout exactly.
+        int slot = 0;
         foreach (var (card, module) in cards)
-            card.Visibility = RoleAccess.CanAccess(role, module) ? Visibility.Visible : Visibility.Collapsed;
+        {
+            if (RoleAccess.CanAccess(role, module))
+            {
+                card.Visibility = Visibility.Visible;
+                Grid.SetRow(card, slot / 2);
+                Grid.SetColumn(card, slot % 2);
+                slot++;
+            }
+            else
+            {
+                card.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 
     /// <summary>
