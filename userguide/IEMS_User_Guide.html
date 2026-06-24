@@ -80,8 +80,13 @@
     <tr><td>3.4 &nbsp; School Documents</td><td>13</td></tr>
     <tr><td>3.5 &nbsp; Backup &amp; Restore (with Google Drive)</td><td>14</td></tr>
     <tr><td>3.6 &nbsp; System Settings</td><td>15</td></tr>
-    <tr><td>3.7 &nbsp; Audit Trail &amp; Users</td><td>15</td></tr>
-    <tr><td><b>Part 4 — Keeping your data safe</b></td><td>16</td></tr>
+    <tr><td>3.7 &nbsp; Audit Trail</td><td>15</td></tr>
+    <tr><td><b>Part 4 — Users, roles &amp; security</b></td><td></td></tr>
+    <tr><td>4.1 &nbsp; User accounts &amp; what each role can do</td><td>16</td></tr>
+    <tr><td>4.2 &nbsp; Adding and managing users</td><td>16</td></tr>
+    <tr><td>4.3 &nbsp; Two-factor authentication (extra security)</td><td>17</td></tr>
+    <tr><td>4.4 &nbsp; Changing or resetting your password</td><td>17</td></tr>
+    <tr><td><b>Part 5 — Keeping your data safe</b></td><td>18</td></tr>
   </table>
   <div class="note"><b>How to read this guide:</b> each screen has a picture, and the blue numbers
     <b>①②③</b> in the picture description tell you what each button or box does. Boxes marked
@@ -124,6 +129,9 @@
     <li><b>Audit Trail</b> — see who changed what and when (Admin only).</li>
     <li><b>School Documents</b> — store the school's own papers (affiliation, circulars…).</li>
   </ol>
+  <div class="note"><b>You may see fewer cards.</b> The dashboard shows only the sections your role is allowed
+    to use (see <b>Part 4</b>). An Administrator sees all of them; a Clerk, for example, sees only Students,
+    Transport and School Documents.</div>
   <div class="tip"><b>Tip:</b> the top bar always shows your school name and details, and a <b>Logout</b>
     button on the right. To leave any module and come back here, click <b>← Back</b>.</div>
 </div>
@@ -330,9 +338,63 @@
     add and switch school years/sessions.</p>
 </div>
 
-<!-- ============ PART 4 ============ -->
+<!-- ============ PART 4 — USERS, ROLES & SECURITY ============ -->
 <div class="page pagebreak">
-  <h2>Part 4 — Keeping your data safe</h2>
+  <h2>Part 4 — Users, roles &amp; security</h2>
+
+  <h3>4.1 User accounts &amp; what each role can do</h3>
+  <p>Each person who uses IEMS has their own username and password. Every account is given a <b>role</b>
+     that decides which parts of the app they can open. The dashboard automatically shows only the cards a
+     person's role is allowed to use — everything else is hidden.</p>
+  <img class="shot" src="img/19_users.png">
+  <p class="cap">User Management — add staff log-ins, set each person's role, reset passwords and turn on two-factor security.</p>
+  <table class="kv">
+    <tr><td>Admin</td><td>Full access to everything, including User Management, Backup &amp; Restore, System Settings and the Audit Trail.</td></tr>
+    <tr><td>Principal</td><td>Everything except the system-administration tools (Users, Backups, System Settings).</td></tr>
+    <tr><td>Accountant</td><td>Finance, Transport and School Documents.</td></tr>
+    <tr><td>Clerk</td><td>Students (admissions, fee collection, certificates, ID cards, classes), Transport and School Documents. Does not see staff salaries, Finance or any admin tools.</td></tr>
+    <tr><td>Teacher</td><td>Students and School Documents.</td></tr>
+  </table>
+  <div class="note"><b>Why this matters:</b> a Clerk signing in will not even see Finance, staff salaries,
+     Backups or Settings — those cards simply don't appear. Sensitive areas stay limited to the people who need them.</div>
+
+  <h3>4.2 Adding and managing users</h3>
+  <p>Open <b>User Management</b> from the dashboard (Admin only).</p>
+  <div class="step"><b>Add a user:</b> click <b>+ Add User</b>, fill in the full name, a username, an email and a
+     starting password, choose the <b>Role</b>, then <b>Save</b>.</div>
+  <div class="step"><b>Reset a password:</b> select the person, click <b>Reset Password</b> and type a new one.
+     They are asked to set their own private password the next time they log in.</div>
+  <div class="step"><b>Turn an account off:</b> select the person and click <b>Toggle Status</b> to disable
+     (or re-enable) the account without deleting it.</div>
+  <div class="tip"><b>Tip:</b> give every staff member their own account instead of sharing one — the
+     <b>Audit Trail</b> then shows exactly who made each change.</div>
+</div>
+
+<div class="page pagebreak">
+  <h3>4.3 Two-factor authentication (extra login security)</h3>
+  <p>Two-factor authentication (2FA) adds a second check at login: after the password the app asks for a
+     6-digit code from a free authenticator app on your phone (Google Authenticator, Microsoft Authenticator
+     or Authy). Even if someone learns your password, they cannot get in without your phone. It is optional
+     and set up per person.</p>
+  <img class="shot" src="img/20_2fa.png">
+  <p class="cap">Setting up two-factor — scan the QR code once with your phone's authenticator app, then confirm the 6-digit code.</p>
+  <div class="step"><b>Turn it on:</b> User Management → select your own account → <b>🔐 Two-Factor</b> →
+     scan the QR code with the app → type the 6-digit code it shows → <b>Verify &amp; Enable</b>.</div>
+  <div class="step"><b>Save your backup codes:</b> the app then shows 10 one-time <b>backup codes</b>. Print or
+     write them down and keep them private — each one lets you sign in once if you ever lose your phone.</div>
+  <div class="note"><b>Locked out?</b> An administrator can switch two-factor off for any user from the same
+     screen (select the user → Two-Factor → Turn off), so nobody is ever permanently locked out.</div>
+
+  <h3>4.4 Changing or resetting your password</h3>
+  <div class="step"><b>If you know your password:</b> on the login screen click <b>Reset Password?</b>
+     (to the right of the password box), then enter your username, your current password and a new one.</div>
+  <div class="step"><b>If you forgot it:</b> ask an administrator to reset it for you from User Management.
+     You then set a new private password on your next login. There is no online "forgot password".</div>
+</div>
+
+<!-- ============ PART 5 — KEEPING YOUR DATA SAFE ============ -->
+<div class="page pagebreak">
+  <h2>Part 5 — Keeping your data safe</h2>
   <table class="kv">
     <tr><td>Where is my data?</td><td>In a file named <b>school.db</b> next to the program. All students, fees, staff, documents and settings live there.</td></tr>
     <tr><td>Daily safety</td><td>Set up <b>Google Drive backup</b> once (Backup &amp; Restore → Set up Google Drive backup). A backup is then made daily and uploaded to the cloud automatically.</td></tr>

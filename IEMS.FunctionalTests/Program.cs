@@ -998,15 +998,18 @@ await Section("24. Role-based access (RoleAccess)", () =>
     Check("RBAC: Teacher can Students", RoleAccess.CanAccess("Teacher", AppModule.Students));
     Check("RBAC: Teacher CANNOT Finance", !RoleAccess.CanAccess("Teacher", AppModule.Finance));
 
-    // Management-level features inside Students: only Admin + Principal; never Clerk/Teacher/Accountant.
+    // Management-level features inside Students. Admin + Principal get all; Teacher/null get none.
     foreach (var feat in new[] { AppFeature.ManageClasses, AppFeature.ManageFeeStructure, AppFeature.BulkPromotion })
     {
         Check($"RBAC: Admin can {feat}", RoleAccess.CanUse("Admin", feat));
         Check($"RBAC: Principal can {feat}", RoleAccess.CanUse("Principal", feat));
-        Check($"RBAC: Clerk CANNOT {feat}", !RoleAccess.CanUse("Clerk", feat));
         Check($"RBAC: Teacher CANNOT {feat}", !RoleAccess.CanUse("Teacher", feat));
         Check($"RBAC: null role CANNOT {feat}", !RoleAccess.CanUse(null, feat));
     }
+    // Clerk may manage Classes (school's choice) but NOT the fee structure or bulk promotion.
+    Check("RBAC: Clerk CAN ManageClasses", RoleAccess.CanUse("Clerk", AppFeature.ManageClasses));
+    Check("RBAC: Clerk CANNOT ManageFeeStructure", !RoleAccess.CanUse("Clerk", AppFeature.ManageFeeStructure));
+    Check("RBAC: Clerk CANNOT BulkPromotion", !RoleAccess.CanUse("Clerk", AppFeature.BulkPromotion));
 
     // Fail closed: unknown / empty / null role gets nothing; matching is case-insensitive.
     Check("RBAC: unknown role denied", !RoleAccess.CanAccess("Hacker", AppModule.Students));

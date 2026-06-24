@@ -74,6 +74,12 @@ namespace IEMS.Core.Services
                 ["Principal"] = new HashSet<AppFeature>
                 {
                     AppFeature.ManageClasses, AppFeature.ManageFeeStructure, AppFeature.BulkPromotion
+                },
+                // Clerk may manage Classes (per the school's choice) but still not the fee structure
+                // or the year-end bulk promotion.
+                ["Clerk"] = new HashSet<AppFeature>
+                {
+                    AppFeature.ManageClasses
                 }
             };
 
