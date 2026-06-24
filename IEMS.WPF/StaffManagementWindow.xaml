@@ -283,6 +283,9 @@
 
                         <!-- Left Panel - Employee Selection and Salary Details -->
                         <Border Grid.Column="0" Background="#F8F9FA" Padding="20" Margin="0,0,20,0">
+                            <!-- Scrollable so the whole form (down to the Generate button) stays reachable
+                                 even when the window is short. -->
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                             <StackPanel>
                                 <TextBlock Text="Employee Selection" FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
 
@@ -348,6 +351,7 @@
                                         Background="#3498DB" Foreground="White" FontWeight="Bold"
                                         Click="BtnGeneratePayslip_Click"/>
                             </StackPanel>
+                            </ScrollViewer>
                         </Border>
 
                         <!-- Right Panel - Payslip Preview (A4 Size: 794x1122 pixels at 96 DPI) -->
