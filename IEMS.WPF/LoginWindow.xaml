@@ -123,10 +123,19 @@
                                          BorderThickness="0" VerticalAlignment="Center"/>
                         </Border>
 
-                        <!-- Remember Me -->
-                        <CheckBox x:Name="chkRememberMe" Content="Remember me"
-                                  FontSize="12" Margin="0,0,0,30"
-                                  Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <!-- Remember Me + Reset Password -->
+                        <Grid Margin="0,0,0,30">
+                            <CheckBox x:Name="chkRememberMe" Content="Remember me"
+                                      FontSize="12" HorizontalAlignment="Left"
+                                      Foreground="{StaticResource TextSecondaryBrush}"/>
+                            <TextBlock x:Name="txtResetPassword" Text="Reset Password?"
+                                       FontSize="12" FontWeight="SemiBold"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource PrimaryBrush}"
+                                       TextDecorations="Underline"
+                                       Cursor="Hand"
+                                       MouseLeftButtonDown="TxtResetPassword_Click"/>
+                        </Grid>
 
                         <!-- Login Button -->
                         <Button x:Name="btnLogin" Content="Sign In"

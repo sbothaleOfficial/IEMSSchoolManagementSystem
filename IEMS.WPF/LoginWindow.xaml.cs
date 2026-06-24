@@ -252,6 +252,24 @@ namespace IEMS.WPF
             btnLogin.IsEnabled = !show;
         }
 
+        private void TxtResetPassword_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Self-service password change: the user proves ownership with their current password.
+            // Pre-fill whatever username is already typed so they don't re-enter it.
+            var dialog = new ChangePasswordWindow(txtUsername.Text.Trim())
+            {
+                Owner = this
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                // Password changed — clear the old password and focus it so they can sign in fresh.
+                txtPassword.Clear();
+                txtErrorMessage.Visibility = Visibility.Collapsed;
+                txtPassword.Focus();
+            }
+        }
+
         private void TxtAdminContact_Click(object sender, MouseButtonEventArgs e)
         {
             try
