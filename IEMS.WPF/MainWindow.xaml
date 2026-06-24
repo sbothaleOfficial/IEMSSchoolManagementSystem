@@ -110,7 +110,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Students Management Card -->
-                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardStudents" Grid.Row="0" Grid.Column="0" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>
@@ -139,7 +139,7 @@
                     </Border>
 
                     <!-- Transport Management Card -->
-                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardTransport" Grid.Row="0" Grid.Column="1" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>
@@ -168,7 +168,7 @@
                     </Border>
 
                     <!-- Staff Management Card -->
-                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardStaff" Grid.Row="1" Grid.Column="0" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>
@@ -197,7 +197,7 @@
                     </Border>
 
                     <!-- Finance Management Card -->
-                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardFinance" Grid.Row="1" Grid.Column="1" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>
@@ -226,7 +226,7 @@
                     </Border>
 
                     <!-- Database Backup & Restore Card -->
-                    <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardBackup" Grid.Row="2" Grid.Column="0" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>
@@ -255,7 +255,7 @@
                     </Border>
 
                     <!-- System Settings Card (Optional for future use) -->
-                    <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardSystemSettings" Grid.Row="2" Grid.Column="1" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>
@@ -315,7 +315,7 @@
                     </Border>
 
                     <!-- Academic Year Management Card -->
-                    <Border Grid.Row="3" Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardAcademicYear" Grid.Row="3" Grid.Column="1" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>
@@ -375,7 +375,7 @@
                     </Border>
 
                     <!-- School Documents Card -->
-                    <Border Grid.Row="4" Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <Border x:Name="cardSchoolDocuments" Grid.Row="4" Grid.Column="1" Style="{StaticResource CardStyle}">
                         <Border.Effect>
                             <DropShadowEffect Color="#000000" ShadowDepth="2" BlurRadius="6" Opacity="0.1"/>
                         </Border.Effect>

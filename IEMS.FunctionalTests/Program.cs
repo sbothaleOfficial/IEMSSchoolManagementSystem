@@ -965,6 +965,48 @@ await Section("23. Academic year roll-over (EnsureCurrentAcademicYearAsync)", as
     }
 });
 
+// ----- 24. Role-based access control (RoleAccess matrix) -----
+await Section("24. Role-based access (RoleAccess)", () =>
+{
+    // Admin sees everything.
+    Check("RBAC: Admin can access all modules",
+        Enum.GetValues(typeof(AppModule)).Cast<AppModule>().All(m => RoleAccess.CanAccess("Admin", m)));
+
+    // Clerk: Students, Transport, School Documents only (the chosen office-clerk profile).
+    Check("RBAC: Clerk can Students", RoleAccess.CanAccess("Clerk", AppModule.Students));
+    Check("RBAC: Clerk can Transport", RoleAccess.CanAccess("Clerk", AppModule.Transport));
+    Check("RBAC: Clerk can SchoolDocuments", RoleAccess.CanAccess("Clerk", AppModule.SchoolDocuments));
+    Check("RBAC: Clerk CANNOT Finance", !RoleAccess.CanAccess("Clerk", AppModule.Finance));
+    Check("RBAC: Clerk CANNOT Staff", !RoleAccess.CanAccess("Clerk", AppModule.Staff));
+    Check("RBAC: Clerk CANNOT UserManagement", !RoleAccess.CanAccess("Clerk", AppModule.UserManagement));
+    Check("RBAC: Clerk CANNOT Backup", !RoleAccess.CanAccess("Clerk", AppModule.Backup));
+    Check("RBAC: Clerk CANNOT SystemSettings", !RoleAccess.CanAccess("Clerk", AppModule.SystemSettings));
+    Check("RBAC: Clerk CANNOT AuditTrail", !RoleAccess.CanAccess("Clerk", AppModule.AuditTrail));
+    Check("RBAC: Clerk CANNOT AcademicYear", !RoleAccess.CanAccess("Clerk", AppModule.AcademicYear));
+
+    // Only Admin gets the system-administration tools.
+    foreach (var r in new[] { "Principal", "Accountant", "Clerk", "Teacher" })
+    {
+        Check($"RBAC: {r} CANNOT UserManagement", !RoleAccess.CanAccess(r, AppModule.UserManagement));
+        Check($"RBAC: {r} CANNOT Backup", !RoleAccess.CanAccess(r, AppModule.Backup));
+        Check($"RBAC: {r} CANNOT SystemSettings", !RoleAccess.CanAccess(r, AppModule.SystemSettings));
+    }
+
+    // Accountant = Finance/Transport/Documents; Teacher = Students/Documents.
+    Check("RBAC: Accountant can Finance", RoleAccess.CanAccess("Accountant", AppModule.Finance));
+    Check("RBAC: Accountant CANNOT Students", !RoleAccess.CanAccess("Accountant", AppModule.Students));
+    Check("RBAC: Teacher can Students", RoleAccess.CanAccess("Teacher", AppModule.Students));
+    Check("RBAC: Teacher CANNOT Finance", !RoleAccess.CanAccess("Teacher", AppModule.Finance));
+
+    // Fail closed: unknown / empty / null role gets nothing; matching is case-insensitive.
+    Check("RBAC: unknown role denied", !RoleAccess.CanAccess("Hacker", AppModule.Students));
+    Check("RBAC: empty role denied", !RoleAccess.CanAccess("", AppModule.Students));
+    Check("RBAC: null role denied", !RoleAccess.CanAccess(null, AppModule.Students));
+    Check("RBAC: role match is case-insensitive", RoleAccess.CanAccess("clerk", AppModule.Students) && RoleAccess.CanAccess("ADMIN", AppModule.Backup));
+
+    return Task.CompletedTask;
+});
+
 // ----- Summary -----
 Console.WriteLine();
 Console.WriteLine("============================================================");

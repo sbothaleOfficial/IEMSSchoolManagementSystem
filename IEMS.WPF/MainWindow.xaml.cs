@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using IEMS.Application.Services;
+using IEMS.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IEMS.WPF;
@@ -21,24 +22,53 @@ public partial class MainWindow : Window
         if (LoginWindow.CurrentUser != null)
         {
             txtWelcomeUser.Text = $"Welcome, {LoginWindow.CurrentUser.FullName}";
-
-            // Show User Management and the Audit Trail only for Admin role (case-insensitive)
-            if (!string.Equals(LoginWindow.CurrentUser.Role, "Admin", StringComparison.OrdinalIgnoreCase))
-            {
-                cardUserManagement.Visibility = Visibility.Collapsed;
-                cardAuditTrail.Visibility = Visibility.Collapsed;
-            }
+            ApplyRoleVisibility(LoginWindow.CurrentUser.Role);
         }
 
         lblStatus.Text = "Dashboard loaded successfully";
     }
 
     /// <summary>
+    /// Shows only the dashboard cards the signed-in role is allowed to use. Driven by the single
+    /// <see cref="RoleAccess"/> permission map, so the cards shown always match what OpenModule
+    /// will actually allow.
+    /// </summary>
+    private void ApplyRoleVisibility(string? role)
+    {
+        var cards = new (FrameworkElement card, AppModule module)[]
+        {
+            (cardStudents,        AppModule.Students),
+            (cardTransport,       AppModule.Transport),
+            (cardStaff,           AppModule.Staff),
+            (cardFinance,         AppModule.Finance),
+            (cardBackup,          AppModule.Backup),
+            (cardSystemSettings,  AppModule.SystemSettings),
+            (cardUserManagement,  AppModule.UserManagement),
+            (cardAcademicYear,    AppModule.AcademicYear),
+            (cardAuditTrail,      AppModule.AuditTrail),
+            (cardSchoolDocuments, AppModule.SchoolDocuments),
+        };
+
+        foreach (var (card, module) in cards)
+            card.Visibility = RoleAccess.CanAccess(role, module) ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    /// <summary>
     /// Opens a module window inside a fresh DI scope, shows it modally, then disposes the
     /// scope (and its DbContext) once the window closes.
     /// </summary>
-    private void OpenModule(Func<IServiceProvider, Window> createWindow, string moduleName)
+    private void OpenModule(AppModule module, Func<IServiceProvider, Window> createWindow, string moduleName)
     {
+        // Defence in depth: even though the card is hidden for roles that can't use this module,
+        // re-check on open so the action can never run for an unauthorised role.
+        if (!RoleAccess.CanAccess(LoginWindow.CurrentUser?.Role, module))
+        {
+            MessageBox.Show($"You don't have permission to open {moduleName}.",
+                "Access denied", MessageBoxButton.OK, MessageBoxImage.Warning);
+            lblStatus.Text = $"Access denied: {moduleName}";
+            return;
+        }
+
         try
         {
             using var scope = _scopeFactory.CreateScope();
@@ -81,7 +111,7 @@ public partial class MainWindow : Window
     private void BtnStudentsModule_Click(object sender, RoutedEventArgs e) => OpenStudents("Students Management");
     private void BtnFeesModule_Click(object sender, RoutedEventArgs e) => OpenStudents("Student Fees Management");
 
-    private void OpenStudents(string name) => OpenModule(sp => new StudentsManagementWindow(
+    private void OpenStudents(string name) => OpenModule(AppModule.Students, sp => new StudentsManagementWindow(
         sp.GetRequiredService<StudentService>(),
         sp.GetRequiredService<ClassService>(),
         sp.GetRequiredService<TeacherService>(),
@@ -95,7 +125,7 @@ public partial class MainWindow : Window
     private void BtnBusesModule_Click(object sender, RoutedEventArgs e) => OpenTransport("Transport Management");
     private void BtnRoutesModule_Click(object sender, RoutedEventArgs e) => OpenTransport("Transport Management");
 
-    private void OpenTransport(string name) => OpenModule(sp => new TransportManagementWindow(
+    private void OpenTransport(string name) => OpenModule(AppModule.Transport, sp => new TransportManagementWindow(
         sp.GetRequiredService<VehicleService>(),
         sp.GetRequiredService<TransportExpenseService>()), name);
 
@@ -103,12 +133,12 @@ public partial class MainWindow : Window
     private void BtnTeachersModule_Click(object sender, RoutedEventArgs e) => OpenStaff("Staff Management");
     private void BtnSupportStaffModule_Click(object sender, RoutedEventArgs e) => OpenStaff("Staff Management");
 
-    private void OpenStaff(string name) => OpenModule(sp => new StaffManagementWindow(
+    private void OpenStaff(string name) => OpenModule(AppModule.Staff, sp => new StaffManagementWindow(
         sp.GetRequiredService<TeacherService>(),
         sp.GetRequiredService<ClassService>(),
         sp.GetRequiredService<StaffService>()), name);
 
-    private void BtnFinanceManagement_Click(object sender, RoutedEventArgs e) => OpenModule(sp => new FinanceManagementWindow(
+    private void BtnFinanceManagement_Click(object sender, RoutedEventArgs e) => OpenModule(AppModule.Finance, sp => new FinanceManagementWindow(
         sp.GetRequiredService<FeePaymentService>(),
         sp.GetRequiredService<ClassService>(),
         sp.GetRequiredService<StudentService>(),
@@ -121,31 +151,31 @@ public partial class MainWindow : Window
         sp.GetRequiredService<AcademicYearService>()), "Finance Management");
 
     private void BtnBackupRestore_Click(object sender, RoutedEventArgs e) =>
-        OpenModule(sp => new BackupRestoreWindow(sp), "Backup & Restore");
+        OpenModule(AppModule.Backup, sp => new BackupRestoreWindow(sp), "Backup & Restore");
 
     private void BtnSystemSettings_Click(object sender, RoutedEventArgs e) =>
-        OpenModule(sp => new SystemSettingsWindow(sp), "System Settings");
+        OpenModule(AppModule.SystemSettings, sp => new SystemSettingsWindow(sp), "System Settings");
 
     private void BtnUserManagement_Click(object sender, RoutedEventArgs e) =>
-        OpenModule(sp => new UserManagementWindow(sp.GetRequiredService<UserService>()), "User Management");
+        OpenModule(AppModule.UserManagement, sp => new UserManagementWindow(sp.GetRequiredService<UserService>()), "User Management");
 
     private void BtnAuditTrail_Click(object sender, RoutedEventArgs e) =>
-        OpenModule(sp => new AuditLogWindow(sp.GetRequiredService<AuditLogService>()), "Audit Trail");
+        OpenModule(AppModule.AuditTrail, sp => new AuditLogWindow(sp.GetRequiredService<AuditLogService>()), "Audit Trail");
 
     private void BtnSchoolDocuments_Click(object sender, RoutedEventArgs e) =>
-        OpenModule(sp => new SchoolDocumentsWindow(
+        OpenModule(AppModule.SchoolDocuments, sp => new SchoolDocumentsWindow(
             sp.GetRequiredService<SchoolDocumentService>(),
             LoginWindow.CurrentUser?.Username ?? "admin"), "School Documents");
 
     private void BtnAcademicYearManagement_Click(object sender, RoutedEventArgs e) =>
-        OpenModule(sp => new AcademicYearManagementWindow(sp.GetRequiredService<AcademicYearService>()), "Academic Year Management");
+        OpenModule(AppModule.AcademicYear, sp => new AcademicYearManagementWindow(sp.GetRequiredService<AcademicYearService>()), "Academic Year Management");
 
-    private void BtnClassesModule_Click(object sender, RoutedEventArgs e) => OpenModule(sp => new ClassesManagementWindow(
+    private void BtnClassesModule_Click(object sender, RoutedEventArgs e) => OpenModule(AppModule.Students, sp => new ClassesManagementWindow(
         sp.GetRequiredService<ClassService>(),
         sp.GetRequiredService<TeacherService>(),
         sp.GetRequiredService<StudentService>()), "Classes Management");
 
-    private void BtnExpensesModule_Click(object sender, RoutedEventArgs e) => OpenModule(sp => new ExpenseManagementWindow(
+    private void BtnExpensesModule_Click(object sender, RoutedEventArgs e) => OpenModule(AppModule.Finance, sp => new ExpenseManagementWindow(
         sp.GetRequiredService<ElectricityBillService>(),
         sp.GetRequiredService<OtherExpenseService>(),
         sp.GetRequiredService<TransportExpenseService>(),
